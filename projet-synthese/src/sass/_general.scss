@@ -1,0 +1,20 @@
+@import "variable";
+
+/*********************************/ /* General */
+/*********************************/
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  font-size: 62.5%;
+}
+
+body {
+  color: $color-text-principale;
+  font-size: 1.7rem;
+  line-height: 1.5;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+}
