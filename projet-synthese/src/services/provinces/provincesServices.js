@@ -1,14 +1,14 @@
 import { ref } from "vue";
 
-export default function getAllEnterprises() {
+export default function getAllProvinces() {
   const liste = ref([]);
 
-  const allEnterprises = () => {
-    fetch("https://aec-projet-integrateur-api.fly.dev/enterprises/")
+  const allProvinces = () => {
+    fetch("https://aec-projet-integrateur-api.fly.dev/provinces/")
       .then(response => response.json())
       .then(data => {
         liste.value = data;
-        console.log('Liste des enterprises:', liste.value);
+        console.log('Liste des provinces:', liste.value);
       })
       .catch(error => {
         console.error("Une erreur s'est produite lors de la récupération des données:", error);
@@ -18,6 +18,6 @@ export default function getAllEnterprises() {
 
   return {
     liste,
-    allEnterprises,
+    allProvinces,
   };
 }
