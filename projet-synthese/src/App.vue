@@ -1,10 +1,10 @@
 <template>
   <!-- <p class="flex justify-center items-center text-3xl h-screen">Bonjour super team</p> -->
-  <Entreprise></Entreprise>
+  <div class="container mx-auto">
+    <router-view></router-view>
+  </div>
 </template>
 
-<script setup>
-import Entreprise from "./views/Entreprises.vue";
-</script>
+<script setup></script>
 
 <style scoped></style>
