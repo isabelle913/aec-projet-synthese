@@ -13,6 +13,10 @@
   </div>
 </template>
 <script setup>
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
 const props = defineProps({
   entreprise: {
     type: Object,
@@ -21,9 +25,7 @@ const props = defineProps({
 });
 
 function onDetails(idString) {
-  const id = Number(idString);
-  console.log("onDetails", id, typeof id);
-  // TODO utiliser routing
+  router.push({ name: "enterprise", params: { id: idString } });
 }
 </script>
 <style scoped>
