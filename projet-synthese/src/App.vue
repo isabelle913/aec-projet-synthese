@@ -1,11 +1,11 @@
 <template>
   <div class="grid grid-cols-12 gap-5 my-8 container">
-    <div class="col-span-12 md:col-span-2 max-md:p-10 my-4 bg-slate-400">
+    <div class="col-span-12 md:col-span-2 max-md:p-10 my-4 pb-96 bg-slate-200">
       <Navigation />
     </div>
     <div class="col-span-12 md:col-span-10 max-md:p-10 my-4 bg-red-300">
       <div
-        class="col-span-12 md:col-span-8 max-md:p-10 p-16 my-10 bg-slate-300 menuAction"
+        class="col-span-12 md:col-span-8 max-md:p-10 py-5 mb-10 bg-slate-300"
       >
         <MenuAction />
       </div>
