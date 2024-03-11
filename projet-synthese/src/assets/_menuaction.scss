@@ -1,0 +1,30 @@
+@import "variable";
+.btn_offre {
+  color: $color-background_btn_offres;
+  border-color: $color-background_btn_offres;
+  &:hover {
+    background-color: $color-background_btn_offres;
+    color: $color_btn_hover;
+  }
+}
+.btn_demande {
+  color: $color-background_btn_demande;
+  border-color: $color-background_btn_demande;
+  &:hover {
+    background-color: $color-background_btn_demande;
+  }
+}
+.btn_entreprise {
+  color: $color-background_btn_entreprise;
+  border-color: $color-background_btn_entreprise;
+  &:hover {
+    background-color: $color-background_btn_entreprise;
+  }
+}
+.btn_candidat {
+  color: $color-background_btn_candidat;
+  border-color: $color-background_btn_candidat;
+  &:hover {
+    background-color: $color-background_btn_candidat;
+  }
+}
