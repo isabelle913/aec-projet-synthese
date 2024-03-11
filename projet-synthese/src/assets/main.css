@@ -34,9 +34,7 @@ header h1 {
   font-size: 3.5rem !important;
 }
 
-h3,
-h2,
-h1 {
+h3, h2, h1 {
   font-family: "Inter", sans-serif;
   margin: 0;
 }
@@ -91,13 +89,13 @@ nav {
   font-size: 12px;
   text-align: center;
   margin-top: 2rem;
-  background-color: #0f8492;
 }
 
 .navbar__container {
   display: flex;
   flex-direction: column;
   gap: 3rem;
+  padding-left: 1rem;
   height: 4rem;
   width: 100%;
   margin: 0 auto;
@@ -107,63 +105,124 @@ nav {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  font-size: 1.6rem;
   gap: 1.5rem;
 }
 
-nav a.router-link-exact-active {
-  background-color: green;
+.nav_btn_tableau {
+  color: #0c9da3;
+}
+.nav_btn_tableau:hover {
   color: #fff;
 }
+.nav_btn_tableau div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 
-nav a.router-link-active {
-  background-color: blue;
+.nav_btn_demandeStage {
+  padding-right: 1rem;
+  border-right: 3.5px solid;
+  color: #d2a350;
+}
+.nav_btn_demandeStage:hover {
   color: #fff;
 }
-
-nav a {
-  text-decoration: none;
-  color: blue;
-  padding: 0 1rem;
+.nav_btn_demandeStage div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
-nav aa:first-of-type {
-  border: 0;
+
+.nav_btn_offres {
+  color: #ba2025;
+}
+.nav_btn_offres:hover {
+  color: #fff;
+}
+.nav_btn_offres div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav_btn_candidats {
+  color: #9b5ba2;
+}
+.nav_btn_candidats:hover {
+  color: #fff;
+}
+.nav_btn_candidats div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav_btn_entreprises {
+  color: #86a8e6;
+}
+.nav_btn_entreprises:hover {
+  color: #fff;
+}
+.nav_btn_entreprises div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 /* $color-text-principale: #c5c5c5; //Couleur dans le paragraphe ou contenu. */
-.navMenu {
-  font-size: 1.3rem;
+/* $color-text-principale: #c5c5c5; //Couleur dans le paragraphe ou contenu. */
+.navMenuAction {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* $color-text-principale: #c5c5c5; //Couleur dans le paragraphe ou contenu. */
-.btn_offre {
+.navMenuAction__item {
+  font-size: 0.9rem;
+  gap: 5rem;
+}
+
+.navMenuAction__utilisateur {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+.navMenuAction__utilisateur img {
+  border-radius: 50%;
+  width: 20%;
+}
+
+.navMenuAction_btn_offre {
   color: #ba2025;
   border-color: #ba2025;
 }
-.btn_offre:hover {
+.navMenuAction_btn_offre:hover {
   background-color: #ba2025;
-  color: #333e8e;
+  color: #fff;
 }
 
-.btn_demande {
+.navMenuAction_btn_demande {
   color: #d2a350;
   border-color: #d2a350;
 }
-.btn_demande:hover {
+.navMenuAction_btn_demande:hover {
   background-color: #d2a350;
 }
 
-.btn_entreprise {
+.navMenuAction_btn_entreprise {
   color: #86a8e6;
   border-color: #86a8e6;
 }
-.btn_entreprise:hover {
+.navMenuAction_btn_entreprise:hover {
   background-color: #86a8e6;
 }
 
-.btn_candidat {
+.navMenuAction_btn_candidat {
   color: #9b5ba2;
   border-color: #9b5ba2;
 }
-.btn_candidat:hover {
+.navMenuAction_btn_candidat:hover {
   background-color: #9b5ba2;
 }

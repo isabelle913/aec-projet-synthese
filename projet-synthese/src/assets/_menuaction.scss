@@ -1,5 +1,24 @@
 @import "variable";
-.btn_offre {
+.navMenuAction {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.navMenuAction__item {
+  font-size: 0.9rem;
+  gap: 5rem;
+}
+.navMenuAction__utilisateur {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  img {
+    border-radius: 50%;
+    width: 20%;
+  }
+}
+
+.navMenuAction_btn_offre {
   color: $color-background_btn_offres;
   border-color: $color-background_btn_offres;
   &:hover {
@@ -7,21 +26,21 @@
     color: $color_btn_hover;
   }
 }
-.btn_demande {
+.navMenuAction_btn_demande {
   color: $color-background_btn_demande;
   border-color: $color-background_btn_demande;
   &:hover {
     background-color: $color-background_btn_demande;
   }
 }
-.btn_entreprise {
+.navMenuAction_btn_entreprise {
   color: $color-background_btn_entreprise;
   border-color: $color-background_btn_entreprise;
   &:hover {
     background-color: $color-background_btn_entreprise;
   }
 }
-.btn_candidat {
+.navMenuAction_btn_candidat {
   color: $color-background_btn_candidat;
   border-color: $color-background_btn_candidat;
   &:hover {
