@@ -226,3 +226,46 @@ nav {
 .navMenuAction_btn_candidat:hover {
   background-color: #9b5ba2;
 }
+
+/* $color-text-principale: #c5c5c5; //Couleur dans le paragraphe ou contenu. */
+.DemandeStage__Titre {
+  border-left: 1rem solid #986d22;
+  padding-left: 1.5rem;
+  margin-bottom: 4rem;
+}
+.DemandeStage__Titre p,
+.DemandeStage__Titre h1 {
+  color: #707070;
+}
+.DemandeStage__Titre h1 {
+  font-weight: bold;
+}
+
+.DemandeStage__btn {
+  display: flex;
+  justify-content: flex-end;
+  gap: 3rem;
+  font-size: 4rem;
+  margin-bottom: 3rem;
+}
+
+.DemandeStage__section {
+  color: #363636;
+}
+.DemandeStage__section h2 {
+  color: #0c9da3;
+  margin-bottom: 2rem;
+}
+.DemandeStage__section h3 {
+  color: #0c9da3;
+}
+
+.DemandeStage__section__Entete {
+  margin-bottom: 5rem;
+}
+
+.DemandeStage__section__info__item {
+  border-left: 1rem solid #986d22;
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
