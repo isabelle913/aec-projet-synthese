@@ -6,17 +6,61 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView
+      name: 'accueil',
+      component: tableauBord
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
-    }
+      path: "/enterprises",
+      name: "enterprises",
+      component: Entreprises,
+    },
+    {
+      path: "/enterprise/:id", 
+      name: "enterprise",
+      component: EnterprisesDetails,
+      children: [
+        {
+          path: ":action", 
+          name: "enterprise",
+          component: EnterprisesDetails,
+        },
+      ],
+    },
+    {
+      path: "/demandestage",
+      name: "demandestage",
+      component: DemandeStage,
+    },
+    {
+      path: "/offrestage",
+      name: "offrestage",
+      component: OffreStage,
+    },
+    {
+      path: "/candidats",
+      name: "candidats",
+      component: Candidats,
+    },
+    {
+      path: "/ajouteroffrestage",
+      name: "ajouteroffrestage",
+      component: AjouterOffreStage,
+    },
+    {
+      path: "/ajouterdemandestage",
+      name: "ajouterdemandestage",
+      component: AjouterDemandeStage,
+    },
+    {
+      path: "/ajouterentreprise",
+      name: "ajouterentreprise",
+      component: AjouterEntreprise,
+    },
+    {
+      path: "/ajoutercandidat",
+      name: "ajoutercandidat",
+      component: AjouterCandidat,
+    },
   ]
 })
 
