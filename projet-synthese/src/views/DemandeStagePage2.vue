@@ -50,8 +50,6 @@
       </div>
     </div>
 
-    <h3>Information sur le stage recherché</h3>
-
     <div class="grid grid-cols-12 gap-5 my-8 DemandeStage__section__info">
       <div class="col-span-12 md:col-span-6 max-md:p-10 bg-orange-300">
         <div class="DemandeStage__section__info__item">
@@ -144,6 +142,107 @@
       </div>
     </div>
 
+    <h3>Informations sur le stage recherché</h3>
+    <div class="grid grid-cols-12 gap-5 my-8 mb-20 DemandeStage__section__info">
+      <div class="col-span-12 md:col-span-6 max-md:p-10 bg-orange-300">
+        <div class="DemandeStage__section__info__item">
+          <div class="mb-16 mr-2">
+            <label class="text-bg font-bold" for="type_stage"
+              >Type de stage</label
+            >
+            <select
+              class="shadow border rounded w-full py-7 px-3 mt-5 leading-tight focus:outline-none focus:shadow-outline"
+              name="type_stage"
+              required
+            >
+              <option value="">Veuillez effectuer un choix</option>
+              <option value="aucun">Aucun</option>
+              <option value=""></option>
+            </select>
+          </div>
+        </div>
+        <div class="DemandeStage__section__info__item">
+          <div class="mb-16 mr-2">
+            <label class="text-bg font-bold" for="secteurActivite"
+              >Nombre d'heures pas semaine</label
+            >
+            <select
+              class="shadow border rounded w-full py-7 px-3 mt-5 leading-tight focus:outline-none focus:shadow-outline"
+              name="secteurActivite"
+              required
+            >
+              <option value="">Veuillez effectuer un choix</option>
+              <option value="aucun">Aucun</option>
+              <option value=""></option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-span-12 md:col-span-6 max-md:p-10 bg-lime-300">
+        <div class="DemandeStage__section__info__item">
+          <div class="mb-16 mr-2">
+            <label class="text-bg font-bold" for="ets_scolaire"
+              >Date de début</label
+            >
+            <input
+              class="shadow appearance-none border rounded w-full py-7 px-3 mt-5 leading-tight focus:outline-none focus:shadow-outline input"
+              type="date"
+              value="2022-05-25"
+              v-model="date_debut"
+              required
+            />
+          </div>
+        </div>
+        <div class="DemandeStage__section__info__item">
+          <div class="mb-16 mr-2">
+            <label class="text-bg font-bold" for="date_fin">Date de fin</label>
+            <input
+              class="shadow appearance-none border rounded w-full py-7 px-3 mt-5 leading-tight focus:outline-none focus:shadow-outline input"
+              value="2022-05-25"
+              type="date"
+              v-model="date_fin"
+              required
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="DemandeStage__section__info__item">
+      <div class="mb-16 flex flex-col">
+        <label class="text-bg font-bold" for="discretion_entreprise"
+          >Rémunération</label
+        >
+        <div>
+          <input
+            class="shadow border rounded mt-10 mr-4 w-8 h-8"
+            type="checkbox"
+            v-model="discretion_entreprise"
+            required
+          />
+          <span>À la discrétion de l'entreprise</span>
+        </div>
+        <div>
+          <input
+            class="shadow border rounded mt-5 mr-4 w-8 h-8"
+            type="checkbox"
+            v-model="stage_remunere"
+            required
+          />
+          <span>Stage rémunéré</span>
+        </div>
+        <div>
+          <input
+            class="shadow border rounded mt-5 mr-4 w-8 h-8"
+            type="checkbox"
+            v-model="stage_non_remunere"
+            required
+          />
+          <span>Stage non rémunéré</span>
+        </div>
+      </div>
+    </div>
+
     <h3>Informations suplémentaires</h3>
     <div class="mt-8">
       <textarea
@@ -160,16 +259,32 @@
         v-model="presentation"
       ></textarea>
 
-      <button
-        class="text-white font-bold py-4 px-4 mt-24 rounded focus:outline-none focus:shadow-outline btn"
-        @click="telecharger"
-      >
+      <div class="flex justify-between mt-20">
         <div>
-          <ion-icon name="cloud-download-sharp"></ion-icon>Télécharger le C.V.
+          <label
+            class="hidden mb-10 text-sm font-medium text-gray-900 dark:text-white"
+            for="file_input"
+            >Parcourir</label
+          >
+          <input
+            class="block w-full text-md text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file-input"
+            id="file_input"
+            type="file"
+            accept=""
+          />
         </div>
-      </button>
+
+        <button
+          class="text-white font-bold py-4 px-4 rounded focus:outline-none focus:shadow-outline btn"
+          @click="telecharger"
+        >
+          <ion-icon name="cloud-download-sharp"></ion-icon>
+          <span>Télécharger le C.V.</span>
+        </button>
+      </div>
     </div>
   </section>
+
   <div class="DemandeStage__btn">
     <button
       class="text-slate-400 border-solid text-2xl border-slate-400 border-2 py-4 px-4 mt-24 rounded-lg focus:outline-none focus:shadow-outline"
