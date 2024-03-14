@@ -1,6 +1,6 @@
 import { ref } from "vue";
 
-export default function getAllInternshipOffers() {
+export default function InternshipOffersService() {
   const liste = ref([]);
 
   const allInternshipOffers = () => {
