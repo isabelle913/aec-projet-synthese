@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "vue-cli-plugin-component": "~1.12.2"
+  }
+}

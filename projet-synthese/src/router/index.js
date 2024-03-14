@@ -1,5 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import TableauBord from '../TableauBord.vue'
+import DemandeStage from '../DemandeStage.vue'
+import OffreStage from '../OffreStage.vue'
+import Candidats from '../Candidats.vue'
+import AjouterOffreStage from '../AjouterOffreStage.vue'
+import AjouterDemandeStage from '../AjouterDemandeStage.vue'
+import AjouterEntreprise from '../AjouterEntreprise.vue'
+import AjouterCandidat from '../AjouterCandidat.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,7 +15,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'accueil',
-      component: tableauBord
+      component: TableauBord
     },
     {
       path: "/enterprises",
