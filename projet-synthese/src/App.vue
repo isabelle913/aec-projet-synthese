@@ -14,7 +14,8 @@
 
 import { ref, onMounted, watchEffect } from 'vue';
 
-import getAllEnterprises from './services/enterprises/enterprisesServices';
+import EnterpriseService from './services/enterprises/enterprisesServices';
+
 import getAllProvinces from './services/provinces/provincesServices';
 import getAllInternshipRequests from './services/internshipRequests/internshipRequestsServices';
 import getAllInternshipOffers from './services/internshipOffers/internshipOffersServices';
@@ -22,7 +23,8 @@ import getAllCandidates from './services/candidates/candidatesServices';
 import getAllActivitySectors from './services/activitySectors/activitySectorsServices';
 import getAllInternshipTypes from './services/internshipTypes/internshipTypesServices';
 
-const {/*liste,*/ allEnterprises} = getAllEnterprises();
+const {/*liste,*/ allEnterprises} = EnterpriseService();
+
 const {/*liste,*/ allProvinces} = getAllProvinces();
 const {/*liste,*/ allInternshipRequests} = getAllInternshipRequests();
 const {/*liste,*/ allInternshipOffers} = getAllInternshipOffers();
