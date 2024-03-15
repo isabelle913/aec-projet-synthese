@@ -5,3 +5,38 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Roboto+Slab&family=Rubik:wght@400;500;600;700&display=swap");
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Roboto+Slab&family=Rubik:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*************************/
+/* PAGE AUTHENTIFICATION */
+/*************************/
+
+
+  .authentification{
+    &-img{
+        width: 50%;
+        img{
+          max-width: 100%;
+        }
+    }
+    &-container{
+        width: 50%;
+        margin: auto 3rem;
+        p{
+            width: 37%;
+        }
+        &_form{
+            display:flex;
+            width: 50%;
+            flex-direction: column;
+        }
+    }
+
+  }
+  
+  /*****************************/
+  /* FIN PAGE AUTHENTIFICATION */
+  /*****************************/
