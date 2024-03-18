@@ -2,6 +2,7 @@ import { ref } from "vue";
 
 export default function ActivityServices() {
   const liste = ref([]);
+  const objet = ref({});
   const success = ref(false);
 
   const allActivitySectors = async () => {
@@ -16,6 +17,20 @@ export default function ActivityServices() {
     }
 
     return liste.value;
+  };
+
+  const getActivitySectorById = (_id) => {
+    return fetch(`https://aec-projet-integrateur-api.fly.dev/activity-sectors/${_id}`)
+      .then(response => response.json())
+      .then(data => {
+        objet.value = data;
+        console.log('Secteurs d\'activité trouvée :', objet.value);
+        return objet.value;
+      })
+      .catch(error => {
+        console.log("Une erreur s'est produite lors de la récupération des données:", error);
+        throw error;
+      });
   };
 
   const addActivitySector = async (newActivitySector) => {
@@ -43,8 +58,10 @@ export default function ActivityServices() {
 
   return {
     liste,
+    objet,
     success,
     allActivitySectors,
+    getActivitySectorById,
     addActivitySector,
   };
 }

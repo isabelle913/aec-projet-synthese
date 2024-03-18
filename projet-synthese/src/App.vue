@@ -2,8 +2,9 @@
   <div class="container mx-auto">
     <!-- Header -->
     <!-- menu -->
-    <!-- <RouterView /> -->
-    <p class="flex justify-center items-center text-3xl h-screen">Bonjour super team</p>
+    <RouterView />
+    <!--<p class="flex justify-center items-center text-3xl h-screen">Bonjour super team</p>-->
+    <!--<BidonForm_2 />-->
     <!-- Footer -->
   </div>
 </template>
@@ -11,6 +12,8 @@
 <script setup>
 
 /*Section test pour les services.*/
+
+import BidonForm_2 from "@/views/BidonForm_2.vue";
 
 import { ref, onMounted, watchEffect } from 'vue';
 
@@ -31,13 +34,13 @@ const {/*liste,*/ allActivitySectors} = ActivityServices();
 const {/*liste,*/ allInternshipTypes} = InternshipTypesServices();
 
 onMounted(() => {
-  allEnterprises();
+  /*allEnterprises();
   allProvinces();
   allInternshipRequests();
   allInternshipOffers();
   allCandidates();
   allActivitySectors();
-  allInternshipTypes();
+  allInternshipTypes();*/
 });
 
 </script>
