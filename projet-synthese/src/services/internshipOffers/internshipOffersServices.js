@@ -34,7 +34,7 @@ export default function InternshipOffersService() {
 
   const addInternshipOffer = async (newInternshipOffer) => {
     try {
-      const response = await fetch("https://aec-projet-integrateur-api.fly.dev/enterprises/", {
+      const response = await fetch("https://aec-projet-integrateur-api.fly.dev/internship-offers/", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -56,6 +56,28 @@ export default function InternshipOffersService() {
     }
   };
 
+  const editInternshipOffer = async (_id) =>{
+    try {
+      const response = await fetch("https://aec-projet-integrateur-api.fly.dev/internship-offers/",{
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(),
+      });
+
+      if(response.ok){
+        success.value = true;
+        console.log('Requête PATCH réussie !')
+      } else{
+        console.error('Échec de la requête PATCH.');
+        success.value = false;
+      }
+    }catch(error){
+
+    }
+  }
+
   return {
     liste,
     objet,
@@ -63,5 +85,6 @@ export default function InternshipOffersService() {
     allInternshipOffers,
     getInternshipOffereById,
     addInternshipOffer,
+    editInternshipOffer,
   };
 }

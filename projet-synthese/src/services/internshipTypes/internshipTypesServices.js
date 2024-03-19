@@ -56,6 +56,28 @@ export default function InternshipTypesServices() {
     }
   };
 
+  const editInternshipType = async (_id) =>{
+    try {
+      const response = await fetch("https://aec-projet-integrateur-api.fly.dev/internship-types/",{
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(),
+      });
+
+      if(response.ok){
+        success.value = true;
+        console.log('Requête PATCH réussie !')
+      } else{
+        console.error('Échec de la requête PATCH.');
+        success.value = false;
+      }
+    }catch(error){
+
+    }
+  };
+
   return {
     liste,
     objet,
@@ -63,5 +85,6 @@ export default function InternshipTypesServices() {
     allInternshipTypes,
     getInternshipTypeById,
     addInternshipType,
+    editInternshipType,
   };
 }
