@@ -2,6 +2,8 @@ import { ref } from "vue";
 
 export default function CandidatesService() {
   const liste = ref([]);
+  const objet = ref({});
+  const success = ref(false);
 
   const allCandidates = async () => {
     try {
@@ -17,7 +19,19 @@ export default function CandidatesService() {
     return liste.value;
   };
 
-  const success = ref(false);
+  const getCandidateById = (_id) => {
+    return fetch(`https://aec-projet-integrateur-api.fly.dev/candidates/${_id}`)
+      .then(response => response.json())
+      .then(data => {
+        objet.value = data;
+        console.log('Candidat trouvée :', objet.value);
+        return objet.value;
+      })
+      .catch(error => {
+        console.log("Une erreur s'est produite lors de la récupération des données:", error);
+        throw error;
+      });
+  };
 
   const addCandidates = async (newCandidates) => {
     try {
@@ -45,8 +59,10 @@ export default function CandidatesService() {
 
   return {
     liste,
+    objet,
     success,
     allCandidates,
+    getCandidateById,
     addCandidates,
   };
 }

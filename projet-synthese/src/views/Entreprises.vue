@@ -9,20 +9,31 @@
 </template>
 
 <script setup>
+import { ref, onMounted, watchEffect } from "vue";
+
 import { useRouter } from "vue-router";
-import { useEnterpriseServices } from '../services/enterprises/enterprisesServices2.js'
+import { useEnterpriseServices } from "../services/enterprises/enterprisesServices2.js";
 import BtnBase from "../components/BtnBase.vue";
 import CardEntreprise from "../components/CardEntreprise.vue";
 
-import { mockEntreprise } from "../mocks/Entreprise.js"; // TODO changer source
+import EnterpriseService from "../services/enterprises/enterprisesServices";
 
 const router = useRouter();
-const { getEnterprises } = useEnterpriseServices()
+const { getEnterprises } = useEnterpriseServices();
 
+const { liste, allEnterprises } = EnterpriseService();
+const entreprises = ref([]);
 
+onMounted(() => {
+  allEnterprises();
+});
 
-const entreprises = mockEntreprise;
-// console.log(entreprises);
+watchEffect(() => {
+  if (Array.isArray(liste.value)) {
+    entreprises.value = [...liste.value];
+    console.log(entreprises.value);
+  }
+});
 
 function onEnterpriseDetails() {
   router.push({ name: "enterprise", params: { id: "0" } });
@@ -32,9 +43,8 @@ function load() {
   // console.log("Ici on va loader les entreprises");
 
   // TODO get allEntreprises
-const kleenex = getEnterprises()
-console.log('ICI', kleenex)
-
+  const kleenex = getEnterprises();
+  console.log("ICI", kleenex);
 }
 load();
 
@@ -44,6 +54,7 @@ load();
    On pourrait utiliser des class 
 */
 </script>
+
 <style scoped>
 h2 {
   font-size: 3rem;
