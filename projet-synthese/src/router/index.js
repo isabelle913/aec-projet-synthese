@@ -1,13 +1,19 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+// import HomeView from "../views/HomeView.vue";
 import Entreprises from "@/views/Entreprises.vue";
 import EnterprisesDetails from "@/views/EnterprisesDetails.vue";
+import TableauBord from "@/views/TableauBord.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: "/",
+      path: "/tableau-bord",
+      name: "tableau-bord",
+      component: TableauBord,
+    },
+    {
+      path: "/enterprises",
       name: "enterprises",
       component: Entreprises,
     },
