@@ -1,0 +1,50 @@
+@import "variable";
+.DemandeStage__Titre {
+  border-left: 1rem solid $color-BorderLeft_demande;
+  padding-left: 1.5rem;
+  margin-bottom: 4rem;
+  p,
+  h1 {
+    color: $color-text-titre;
+  }
+  h1 {
+    font-weight: bold;
+  }
+}
+.DemandeStage__btn {
+  display: flex;
+  justify-content: flex-end;
+  gap: 3rem;
+  font-size: 4rem;
+  margin-bottom: 3rem;
+}
+.DemandeStage__section {
+  color: $color-text-principale;
+  h2 {
+    color: $color-background_btn_tableau;
+    margin-bottom: 2rem;
+  }
+  h3 {
+    color: $color-background_btn_tableau;
+  }
+}
+.DemandeStage__section__Entete {
+  margin-bottom: 5rem;
+}
+.DemandeStage__section__info__item {
+  border-left: 1rem solid $color-BorderLeft_demande;
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.file-input::before {
+  content: "Parcourir";
+  display: inline-block;
+  background-color: $color-background_btn_tableau;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
