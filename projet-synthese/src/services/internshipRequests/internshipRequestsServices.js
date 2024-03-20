@@ -1,32 +1,32 @@
 import { ref } from "vue";
 
 export default function InternshipRequestsServices() {
-  const liste = ref([]);
+  const listeRequest = ref([]);
   const objet = ref({});
   const success = ref(false);
 
   const allInternshipRequests = () => {
     fetch("https://aec-projet-integrateur-api.fly.dev/internship-requests/")
-      .then(response => response.json())
-      .then(data => {
-        liste.value = data;
-        console.log('Liste des demandes de stages:', liste.value);
+      .then((response) => response.json())
+      .then((data) => {
+        listeRequest.value = data;
+        console.log("Liste des demandes de stages:", listeRequest.value);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Une erreur s'est produite lors de la récupération des données:", error);
       });
-      return liste.value;
+    return listeRequest.value;
   };
 
   const getInternshipRequestById = (_id) => {
     return fetch(`https://aec-projet-integrateur-api.fly.dev/internship-requests/${_id}`)
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         objet.value = data;
-        console.log('Entreprise trouvée :', objet.value);
+        console.log("Entreprise trouvée :", objet.value);
         return objet.value;
       })
-      .catch(error => {
+      .catch((error) => {
         console.log("Une erreur s'est produite lors de la récupération des données:", error);
         throw error;
       });
@@ -35,29 +35,29 @@ export default function InternshipRequestsServices() {
   const addInternshipRequest = async (newInternshipRequest) => {
     try {
       const response = await fetch("https://aec-projet-integrateur-api.fly.dev/internship-requests/", {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(newInternshipRequest),
       });
 
       if (response.ok) {
         success.value = true;
-        console.log('Requête POST réussie !');
+        console.log("Requête POST réussie !");
         // Vous pouvez ajouter ici d'autres actions après le succès de la requête.
       } else {
-        console.error('Échec de la requête POST.');
+        console.error("Échec de la requête POST.");
         success.value = false;
       }
     } catch (error) {
-      console.error('Erreur lors de la requête POST:', error);
+      console.error("Erreur lors de la requête POST:", error);
       success.value = false;
     }
   };
 
   return {
-    liste,
+    listeRequest,
     objet,
     success,
     allInternshipRequests,
