@@ -77,6 +77,8 @@ import BtnBase from "../components/BtnBase.vue";
 import InputEnterprise from "@/components/InputEnterprise.vue";
 
 import EnterpriseService from "../services/enterprises/enterprisesServices";
+import ProvinceService from '../services/provinces/provincesServices';
+import ActivityServices from '../services/activitySectors/activitySectorsServices';
 
 const route = useRoute();
 
@@ -91,14 +93,36 @@ const enterprise = ref({});
 
 const { objet, getEntrepriseById } = EnterpriseService();
 
+const { activityListe, allActivitySectors} = ActivityServices();
+const activitiesSectorForSelect = ref([]);
+
+const {provincesListe, allProvinces } = ProvinceService();
+const provincesForSelect = ref([]);
+
 onMounted(() => {
   getEntrepriseById(_id);
+  allActivitySectors();
+  allProvinces();
 });
 
 watchEffect(() => {
   if (Object.keys(objet.value).length !== 0) {
     enterprise.value = objet.value; // Assigner directement la valeur
     console.log(enterprise.value);
+  }
+});
+
+watchEffect(() => {
+  if (Array.isArray(activityListe.value)) {
+    activitiesSectorForSelect.value = [...activityListe.value];
+    console.log(activitiesSectorForSelect.value);
+  }
+});
+
+watchEffect(() => {
+  if (Array.isArray(provincesListe.value)) {
+    provincesForSelect.value = [...provincesListe.value];
+    console.log(provincesForSelect.value);
   }
 });
 
@@ -116,81 +140,13 @@ const isError = reactive({
   image: false,
 });
 
-// TODO éventuellement remplir avec le get
-const activitiesSectorForSelect = [
-  {
-    _id: "65c19fcff568a815fab14b2a",
-    value: "Finance",
-  },
-  {
-    _id: "65c2781fb3a8ad1d7ccc91f8",
-    value: "Engineering",
-  },
-];
-
-// TODO éventuellement remplir avec le get
-const provincesForSelect = [
-  {
-    _id: "65c255fb7e4d2a499b409ca0",
-    value: "QUEBEC",
-  },
-  {
-    _id: "65c2571497ac7ec38f58695e",
-    value: "ONTARIO",
-  },
-  {
-    _id: "65c275696d55606cc56d38e7",
-    value: "BRITISH COLUMBIA",
-  },
-  {
-    _id: "65c275736d55606cc56d38ea",
-    value: "ALBERTA",
-  },
-  {
-    _id: "65c2757f6d55606cc56d38ed",
-    value: "MANITOBA",
-  },
-  {
-    _id: "65c275896d55606cc56d38f0",
-    value: "SASKATCHEWAN",
-  },
-  {
-    _id: "65c275996d55606cc56d38f3",
-    value: "NEW BRUNSWICK",
-  },
-  {
-    _id: "65c275a66d55606cc56d38f6",
-    value: "NOVA SCOTIA",
-  },
-  {
-    _id: "65c275b16d55606cc56d38f9",
-    value: "PRINCE EDWARD ISLAND",
-  },
-  {
-    _id: "65c275c36d55606cc56d38fc",
-    value: "YUKON",
-  },
-  {
-    _id: "65c275cf6d55606cc56d38ff",
-    value: "NORTHWEST TERRITORIES",
-  },
-  {
-    _id: "65c275d76d55606cc56d3902",
-    value: "NUNAVUT",
-  },
-  {
-    _id: "65e4de3747cf6b3671ee948e",
-    value: "NEWFOUNDLAND AND LABRADOR",
-  },
-];
-
 function onValidate(e) {
   e.preventDefault();
 
   if (enterprise.name === "") isError.enterpriseName = true;
   else isError.enterpriseName = false;
 
-  if (!enterprise.activitySector) isError.activitySector = true; // TODO Vérifier
+  if (!enterprise.activitySector === "") isError.activitySector = true;
   else isError.activitySector = false;
 
   if (enterprise.description === "") isError.description = true;
@@ -208,7 +164,7 @@ function onValidate(e) {
   if (enterprise.email === "") isError.email = true;
   else isError.email = false;
 
-  if (!enterprise.province) isError.province = true; // TODO Vérifier
+  if (!enterprise.province === "") isError.province = true;
   else isError.province = false;
 
   if (enterprise.website === "") isError.website = true;
@@ -226,6 +182,13 @@ function onValidate(e) {
     // si passe la validation do ->
     console.log(enterprise);
     // TODO matcher avec service POST or PATCH
+    if(enterprise.id == 0){
+      const service = EnterpriseService();
+      service.addEnterprises();
+    }else{
+      const service = EnterpriseService();
+      service.editEnterprises(enterprise);
+    }
     // if id == 0 -> POST
     // else Patch
   }
@@ -270,6 +233,7 @@ function load() {
   //setProvinces()
 }
 load();
+
 </script>
 <style scoped>
 .page-padding {

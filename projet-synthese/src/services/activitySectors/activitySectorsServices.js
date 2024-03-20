@@ -1,7 +1,7 @@
 import { ref } from "vue";
 
 export default function ActivityServices() {
-  const liste = ref([]);
+  const activityListe = ref([]);
   const objet = ref({});
   const success = ref(false);
 
@@ -10,13 +10,13 @@ export default function ActivityServices() {
       const response = await fetch("https://aec-projet-integrateur-api.fly.dev/activity-sectors/");
       const data = await response.json();
 
-      liste.value = data;
-      console.log('Liste des secteurs d\'activités:', liste.value);
+      activityListe.value = data;
+      console.log('Liste des secteurs d\'activités:', activityListe.value);
     } catch (error) {
       console.error("Une erreur s'est produite lors de la récupération des données:", error);
     }
 
-    return liste.value;
+    return activityListe.value;
   };
 
   const getActivitySectorById = (_id) => {
@@ -57,7 +57,7 @@ export default function ActivityServices() {
   };
 
   return {
-    liste,
+    activityListe,
     objet,
     success,
     allActivitySectors,

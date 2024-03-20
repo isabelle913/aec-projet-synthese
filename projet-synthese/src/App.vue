@@ -4,7 +4,7 @@
     <!-- menu -->
     <RouterView />
     <!--<p class="flex justify-center items-center text-3xl h-screen">Bonjour super team</p>-->
-    <!--<BidonForm_2 />-->
+    <!--<BidonForm />-->
     <!-- Footer -->
   </div>
 </template>
@@ -13,7 +13,7 @@
 
 /*Section test pour les services.*/
 
-import BidonForm_2 from "@/views/BidonForm_2.vue";
+import BidonForm from "@/views/BidonForm.vue";
 
 import { ref, onMounted, watchEffect } from 'vue';
 

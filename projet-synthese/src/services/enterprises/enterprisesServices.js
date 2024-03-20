@@ -59,7 +59,7 @@ export default function EnterpriseService() {
 
   const editEnterprises = async (_id) =>{
     try {
-      const response = await fetch("https://aec-projet-integrateur-api.fly.dev/enterprises/",{
+      const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/enterprises/${_id}`,{
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
