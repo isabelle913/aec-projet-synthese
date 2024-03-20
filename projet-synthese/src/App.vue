@@ -12,8 +12,6 @@
 <script setup>
 /*Section test pour les services.*/
 
-import BidonForm_2 from "@/views/BidonForm_2.vue";
-
 import { ref, onMounted, watchEffect } from "vue";
 
 import EnterpriseService from "./services/enterprises/enterprisesServices";
@@ -33,13 +31,13 @@ const { /*liste,*/ allActivitySectors } = ActivityServices();
 const { /*liste,*/ allInternshipTypes } = InternshipTypesServices();
 
 onMounted(() => {
-  /*allEnterprises();
-  allProvinces();
-  allInternshipRequests();
-  allInternshipOffers();
-  allCandidates();
-  allActivitySectors();
-  allInternshipTypes();*/
+  // allEnterprises();
+  // allProvinces();
+  // allInternshipRequests();
+  // allInternshipOffers();
+  // allCandidates();
+  // allActivitySectors();
+  // allInternshipTypes();
 });
 </script>
 
