@@ -12,14 +12,12 @@
 import { ref, onMounted, watchEffect } from "vue";
 
 import { useRouter } from "vue-router";
-import { useEnterpriseServices } from "../services/enterprises/enterprisesServices2.js";
 import BtnBase from "../components/BtnBase.vue";
 import CardEntreprise from "../components/CardEntreprise.vue";
 
 import EnterpriseService from "../services/enterprises/enterprisesServices";
 
 const router = useRouter();
-const { getEnterprises } = useEnterpriseServices();
 
 const { liste, allEnterprises } = EnterpriseService();
 const entreprises = ref([]);
@@ -39,17 +37,8 @@ function onEnterpriseDetails() {
   router.push({ name: "enterprise", params: { id: "0" } });
 }
 
-function load() {
-  // console.log("Ici on va loader les entreprises");
-
-  // TODO get allEntreprises
-  const kleenex = getEnterprises();
-  console.log("ICI", kleenex);
-}
-load();
-
 /* TODO suggestions:
-   mettre le padding de nos pages dans une variables
+   mettre le padding de nos pages dans une variable
    idem pour typographie titre
    On pourrait utiliser des class 
 */
