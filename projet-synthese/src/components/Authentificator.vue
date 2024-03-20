@@ -36,5 +36,5 @@
 </script>
 
 <style lang="scss">
-        @import "../sass/style.scss";
+        @import "./../assets/main.scss";
 </style>

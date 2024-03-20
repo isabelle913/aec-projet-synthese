@@ -78,7 +78,7 @@ const route = useRoute();
 
 const isEditOrCreate = ref(false);
 
-const enterprise = {
+/*const enterprise = {
   _id: "",
   image: "",
   name: "",
@@ -94,31 +94,31 @@ const enterprise = {
   description: "",
   activitySector: undefined,
   website: "",
-};
+};*/
 
 // TODO effacer éventuellement
-// const enterprise = {
-//   _id: "7",
-//   image: "https://assets.ezmax.ca/Logo_VD_e_Zmax_2124845685.png",
-//   name: "eZmax", //ok
-//   address: "2500, boul. Daniel-Johnson, bureau 800 , Québec ", //ok
-//   postalCode: "H7T 2P6",
-//   city: "Laval", //ok
-//   province: {
-//     //ok
-//     idProvince: "1",
-//     value: "Québec",
-//   },
-//   phone: "1-844-403-9629", //ok
-//   email: "marketing@ezmax.ca", //ok
-//   description: "Les Solutions eZmax inc. se spécialise dans la conception d’applications d’affaires innovantes et optimisées.",
-//   activitySector: {
-//     //ok
-//     idActivitySector: "1",
-//     value: "Informatique",
-//   },
-//   website: "https://www.ezmax.ca", //ok
-// };
+const enterprise = {
+  _id: "7",
+  image: "https://assets.ezmax.ca/Logo_VD_e_Zmax_2124845685.png",
+  name: "eZmax", //ok
+  address: "2500, boul. Daniel-Johnson, bureau 800 , Québec ", //ok
+  postalCode: "H7T 2P6",
+  city: "Laval", //ok
+  province: {
+    //ok
+    idProvince: "1",
+    value: "Québec",
+  },
+  phone: "1-844-403-9629", //ok
+  email: "marketing@ezmax.ca", //ok
+  description: "Les Solutions eZmax inc. se spécialise dans la conception d’applications d’affaires innovantes et optimisées.",
+  activitySector: {
+    //ok
+    idActivitySector: "1",
+    value: "Informatique",
+  },
+  website: "https://www.ezmax.ca", //ok
+};
 
 const isError = reactive({
   enterpriseName: false,
