@@ -42,18 +42,18 @@
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.city" name="city" :is-error="isError.city" label="Ville" :is-edit="isEditOrCreate" />
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.email" name="email" :is-error="isError.email" label="Courriel" :is-edit="isEditOrCreate" />
           <div class="col-span-12 md:col-span-6 border-l-8 border-l-gray-600 px-4">
-            <div class="text-gray-600 mb-4 text-2xl">Province</div>
-            <div v-if="enterprise.province">
-              <div v-if="!isEditOrCreate" class="text-gray-400">{{ enterprise.province.value }}</div>
-              <div v-else>
-                <label class="hidden" for="province">Province:</label>
-                <select class="block w-full border border-gray-400 rounded py-3 px-3 text-gray-600 leading-tight focus:border-gray-800 hover:border-gray-800" id="province" name="province" v-model="enterprise.province">
-                  <option v-for="province in provincesForSelect" :key="province._id" :value="province">{{ province.value }}</option>
-                </select>
-                <p v-if="isError.province" class="text-red-500 text-xs italic">Veuillez choisir une province</p>
-              </div>
-            </div>
+        <div class="text-gray-600 mb-4 text-2xl">Province</div>
+        <div v-if="enterprise.province">
+          <div v-if="!isEditOrCreate" class="text-gray-400">{{ enterprise.province.value }}</div>
+          <div v-else>
+            <label class="hidden" for="province">Province:</label>
+            <select class="block w-full border border-gray-400 rounded py-3 px-3 text-gray-600 leading-tight focus:border-gray-800 hover:border-gray-800" id="province" name="province" v-model="enterprise.province">
+              <option v-for="province in provincesForSelect" :key="province._id" :value="province">{{ province.value }}</option>
+            </select>
+            <p v-if="isError.province" class="text-red-500 text-xs italic">Veuillez choisir une province</p>
           </div>
+        </div>
+      </div>
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.website" name="website" :is-error="isError.website" label="Site Web" :is-edit="isEditOrCreate" />
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.postalCode" name="postalCode" :is-error="isError.postalCode" label="Code postal" :is-edit="isEditOrCreate" />
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.image" name="image" :is-error="isError.image" label="URL du logo" :is-edit="isEditOrCreate" />
