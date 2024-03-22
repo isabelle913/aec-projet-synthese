@@ -2,7 +2,7 @@
   <div class="bg-white p-12">
     <div class="mb-12">
       <div class="text-xl font-semibold">
-        Dernières <span class="font-semibold" :style="theTitleStyle">{{ title }}</span> de stage
+        Dernières <span class="font-semibold" :style="theTitleStyle">{{ theTitle }}</span> de stage
       </div>
       <div class="text-red-500 text-sm">En attente de validation</div>
     </div>
@@ -26,19 +26,20 @@ const props = defineProps({
     type: Array,
     required: true,
   },
-  color: {
-    type: String,
-    required: true,
-  },
-  title: {
-    type: String,
-    required: true,
+  typeDemande: {
+    type: Boolean,
+    default: false,
   },
 });
 
 console.log("props", props);
 
+const theTitle = computed(() => {
+  return props.typeDemande ? "demandes" : "offres";
+});
+
 const theTitleStyle = computed(() => {
+  // color="#F9CB40"
   return {
     color: props.color,
   };
