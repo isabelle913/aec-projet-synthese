@@ -1,7 +1,7 @@
 <template>
   <div class="bg-slate-100 page-padding flex flex-col gap-y-12">
     <ApercuRapide />
-    <ListeBase v-if="internshipRequests.length > 0" title="demandes" :liste-items="internshipRequests" color="#F9CB40" />
+    <ListeBase v-if="internshipRequests.length > 0" type-demande :liste-items="internshipRequests" />
     allo
   </div>
 </template>
