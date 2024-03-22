@@ -1,7 +1,7 @@
 import { ref } from "vue";
 
 export default function EnterpriseService() {
-  const liste = ref([]);
+  const enterpriseListe = ref([]);
   const objet = ref({});
   const success = ref(false);
 
@@ -9,9 +9,9 @@ export default function EnterpriseService() {
     return fetch("https://aec-projet-integrateur-api.fly.dev/enterprises/")
       .then(response => response.json())
       .then(data => {
-        liste.value = data;
-        console.log('Liste des entreprises:', liste.value);
-        return liste.value;
+        enterpriseListe.value = data;
+        console.log('Liste des entreprises:', enterpriseListe.value);
+        return enterpriseListe.value;
       })
       .catch(error => {
         console.error("Une erreur s'est produite lors de la récupération des données:", error);
@@ -34,6 +34,7 @@ export default function EnterpriseService() {
   };
 
   const addEnterprises = async () => {
+    //console.log("Données de l'entreprise à envoyer :", JSON.stringify());
     try {
       const response = await fetch("https://aec-projet-integrateur-api.fly.dev/enterprises/", {
         method: 'POST',
@@ -43,10 +44,11 @@ export default function EnterpriseService() {
         body: JSON.stringify(),
       });
 
+      console.log(body);
+
       if (response.ok) {
         success.value = true;
         console.log('Requête POST réussie !');
-        // Vous pouvez ajouter ici d'autres actions après le succès de la requête.
       } else {
         console.error('Échec de la requête POST.');
         success.value = false;
@@ -71,7 +73,7 @@ export default function EnterpriseService() {
         success.value = true;
         console.log('Requête PATCH réussie !')
       } else{
-        console.error('Échec de la requête PATCH.');
+        console.error('Échec de la requête PATCH:', error);
         success.value = false;
       }
     }catch(error){
@@ -80,7 +82,7 @@ export default function EnterpriseService() {
   };
 
   return {
-    liste,
+    enterpriseListe,
     objet,
     success,
     allEnterprises,

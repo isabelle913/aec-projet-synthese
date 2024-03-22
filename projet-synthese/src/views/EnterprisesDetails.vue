@@ -43,8 +43,8 @@
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.email" name="email" :is-error="isError.email" label="Courriel" :is-edit="isEditOrCreate" />
           <div class="col-span-12 md:col-span-6 border-l-8 border-l-gray-600 px-4">
         <div class="text-gray-600 mb-4 text-2xl">Province</div>
-        <div v-if="enterprise.province">
-          <div v-if="!isEditOrCreate" class="text-gray-400">{{ enterprise.province.value }}</div>
+        <div v-if="enterprise.province || !enterprise.province ">
+          <div v-if="!isEditOrCreate" class="text-gray-400">{{ enterprise.province }}</div>
           <div v-else>
             <label class="hidden" for="province">Province:</label>
             <select class="block w-full border border-gray-400 rounded py-3 px-3 text-gray-600 leading-tight focus:border-gray-800 hover:border-gray-800" id="province" name="province" v-model="enterprise.province">
@@ -82,15 +82,52 @@ import ActivityServices from '../services/activitySectors/activitySectorsService
 
 const route = useRoute();
 
+const defaultEnterprise = {
+  name: "",
+  address: "",
+  postalCode: "",
+  city: "",
+  phone: "",
+  email: "",
+  description: "",
+  province: { _id: "", value: "" },
+  activitySector: { _id: "", value: "" },
+  website: "",
+  image: ""
+};
+
 const _id = route.params.id;
 const isUpdate = route.params.action === "update" ? true : false;
 
 console.log("id", _id);
 console.log("route.params", route.params);
 
-const isEditOrCreate = ref(false);
-const enterprise = ref({});
+//const isEditOrCreate = ref(false);
+let isEditOrCreate = ref(true);
+//let isEditOrCreate = false;
 
+const enterprise = ref({...defaultEnterprise});
+
+function load() {
+  // Si l'ID de l'entreprise est 0 (nouvelle entreprise)
+  if (route.params.id === "0") {
+    isEditOrCreate.value = true;
+    // Utiliser les valeurs par défaut
+    enterprise.value = {
+      name: "Nom par défaut",
+      address: "Adresse par défaut",
+      postalCode: "Code postal par défaut",
+      city: "Ville par défaut",
+      phone: "Téléphone par défaut",
+      email: "Email par défaut",
+      description: "Description par défaut",
+      province: { _id: "1", value: "Province par défaut" },
+      activitySector: { _id: "1", value: "Secteur d'activité par défaut" },
+      website: "Site web par défaut",
+      image: "URL du logo par défaut"
+    };
+  }
+}
 const { objet, getEntrepriseById } = EnterpriseService();
 
 const { activityListe, allActivitySectors} = ActivityServices();
@@ -100,14 +137,22 @@ const {provincesListe, allProvinces } = ProvinceService();
 const provincesForSelect = ref([]);
 
 onMounted(() => {
-  getEntrepriseById(_id);
-  allActivitySectors();
-  allProvinces();
+  load();
+  if(route.params.id === "0"){
+    allActivitySectors();
+    allProvinces();  
+  }else{
+    allActivitySectors();
+    allProvinces();
+    getEntrepriseById(_id); 
+  }
 });
+
+console.log(isEditOrCreate.value);
 
 watchEffect(() => {
   if (Object.keys(objet.value).length !== 0) {
-    enterprise.value = objet.value; // Assigner directement la valeur
+    enterprise.value = objet.value;
     console.log(enterprise.value);
   }
 });
@@ -176,21 +221,32 @@ function onValidate(e) {
   if (enterprise.image === "") isError.image = true;
   else isError.image = false;
 
-  console.log(Object.values(isError));
+  if (!enterprise._id){
+    addNewEnterprise();
+  }else{
+    updateExistingEnterprise();
+  }
+}
 
-  if (Object.values(isError).every((result) => !result)) {
-    // si passe la validation do ->
-    console.log(enterprise);
-    // TODO matcher avec service POST or PATCH
-    if(enterprise.id == 0){
-      const service = EnterpriseService();
-      service.addEnterprises();
-    }else{
-      const service = EnterpriseService();
-      service.editEnterprises(enterprise);
-    }
-    // if id == 0 -> POST
-    // else Patch
+async function addNewEnterprise() {
+  try {
+    const service = EnterpriseService();
+    const response = await service.addEnterprises();
+    // Traitez la réponse ici
+  } catch (error) {
+    console.error('Erreur lors de l\'ajout de l\'entreprise:', error);
+    // Gérez l'erreur ici
+  }
+}
+
+async function updateExistingEnterprise() {
+  try {
+    const service = EnterpriseService();
+    const response = await service.editEnterprises(enterprise);
+    // Traitez la réponse ici
+  } catch (error) {
+    console.error('Erreur lors de la mise à jour de l\'entreprise:', error);
+    // Gérez l'erreur ici
   }
 }
 
@@ -198,41 +254,6 @@ function onReset(e) {
   e.preventDefault();
   console.log("onReset");
 }
-
-function setEnterprise(enterprise) {
-  console.log("setEnterprise", enterprise);
-}
-
-function setActivitiesSectorForSelect(activitiesSector) {
-  console.log("setActivitiesSectorForSelect", activitiesSector);
-}
-
-function setProvinces(provinces) {
-  console.log("setProvinces", provinces);
-}
-
-function load() {
-  /*
-  Explication de ma logique
-    si id === 0 on ajoute une entreprise
-    si id !== 0 on consulte ou modifie
-    si le params update est présent on modifie
-  */
-
-  if (_id === "0") isEditOrCreate.value = true;
-  else {
-    // TODO getEntreprise(_id)
-    // setEnterprise(enterprise);
-    if (isUpdate) isEditOrCreate.value = true;
-    // TODO mettre message si _id n'existe pas
-  }
-  // TODO Ajouter des secteurs d'activité, car il y en a juste 2!
-  // TODO getActivitiesSector()
-  //setActivitiesSectorForSelect(activitiesSector);
-  // TODO getProvinces()
-  //setProvinces()
-}
-load();
 
 </script>
 <style scoped>

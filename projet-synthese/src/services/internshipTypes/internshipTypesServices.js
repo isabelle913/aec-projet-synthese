@@ -1,7 +1,7 @@
 import { ref } from "vue";
 
 export default function InternshipTypesServices() {
-  const liste = ref([]);
+  const internshipTypesListe = ref([]);
   const objet = ref({});
   const success = ref(false);
 
@@ -9,13 +9,13 @@ export default function InternshipTypesServices() {
     fetch("https://aec-projet-integrateur-api.fly.dev/internship-types/")
       .then(response => response.json())
       .then(data => {
-        liste.value = data;
-        console.log('Liste des types de stage:', liste.value);
+        internshipTypesListe.value = data;
+        console.log('Liste des types de stage:', internshipTypesListe.value);
       })
       .catch(error => {
         console.error("Une erreur s'est produite lors de la récupération des données:", error);
       });
-      return liste.value;
+      return internshipTypesListe.value;
   };
 
   const getInternshipTypeById = (_id) => {
@@ -79,7 +79,7 @@ export default function InternshipTypesServices() {
   };
 
   return {
-    liste,
+    internshipTypesListe,
     objet,
     success,
     allInternshipTypes,

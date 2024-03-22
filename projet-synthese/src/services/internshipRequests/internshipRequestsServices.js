@@ -1,7 +1,7 @@
 import { ref } from "vue";
 
 export default function InternshipRequestsServices() {
-  const liste = ref([]);
+  const internshipRequestsListe = ref([]);
   const objet = ref({});
   const success = ref(false);
 
@@ -9,13 +9,13 @@ export default function InternshipRequestsServices() {
     fetch("https://aec-projet-integrateur-api.fly.dev/internship-requests/")
       .then(response => response.json())
       .then(data => {
-        liste.value = data;
-        console.log('Liste des demandes de stages:', liste.value);
+        internshipRequestsListe.value = data;
+        console.log('Liste des demandes de stages:', internshipRequestsListe.value);
       })
       .catch(error => {
         console.error("Une erreur s'est produite lors de la récupération des données:", error);
       });
-      return liste.value;
+      return internshipRequestsListe.value;
   };
 
   const getInternshipRequestById = (_id) => {
@@ -80,7 +80,7 @@ export default function InternshipRequestsServices() {
 
 
   return {
-    liste,
+    internshipRequestsListe,
     objet,
     success,
     allInternshipRequests,

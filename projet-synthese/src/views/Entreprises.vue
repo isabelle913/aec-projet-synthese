@@ -19,7 +19,7 @@ import EnterpriseService from "../services/enterprises/enterprisesServices";
 
 const router = useRouter();
 
-const { liste, allEnterprises } = EnterpriseService();
+const { enterpriseListe, allEnterprises } = EnterpriseService();
 const entreprises = ref([]);
 
 onMounted(() => {
@@ -27,8 +27,8 @@ onMounted(() => {
 });
 
 watchEffect(() => {
-  if (Array.isArray(liste.value)) {
-    entreprises.value = [...liste.value];
+  if (Array.isArray(enterpriseListe.value)) {
+    entreprises.value = [...enterpriseListe.value];
     console.log(entreprises.value);
   }
 });

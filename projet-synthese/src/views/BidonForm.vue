@@ -34,7 +34,7 @@
           <option v-for="activitySector in activitySectors" :value="activitySector._id" :key="activitySector._id">{{ activitySector.value }}</option>
         </select>
   
-        <button type="submit">Envoyer</button>
+        <button type="submit" @click="showPayload">Envoyer</button>
       </form>
       <p v-if="success">Requête POST réussie !</p>
       <p v-else-if="error">Échec de la requête POST.</p>
@@ -107,7 +107,11 @@
         } catch (error) {
           console.error('Erreur lors de la soumission du formulaire:', error);
         }
-      }
+      },
+
+      async showPayload() {
+        console.log('Payload:', this.formData);
+      },
     }
   };
   </script>

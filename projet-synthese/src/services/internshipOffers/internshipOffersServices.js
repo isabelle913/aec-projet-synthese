@@ -1,7 +1,7 @@
 import { ref } from "vue";
 
 export default function InternshipOffersService() {
-  const liste = ref([]);
+  const internshipOffersListe = ref([]);
   const objet = ref({});
   const success = ref(false);
 
@@ -9,13 +9,13 @@ export default function InternshipOffersService() {
     fetch("https://aec-projet-integrateur-api.fly.dev/internship-offers/")
       .then(response => response.json())
       .then(data => {
-        liste.value = data;
-        console.log('Liste des offres de stages:', liste.value);
+        internshipOffersListe.value = data;
+        console.log('Liste des offres de stages:', internshipOffersListe.value);
       })
       .catch(error => {
         console.error("Une erreur s'est produite lors de la récupération des données:", error);
       });
-      return liste.value;
+      return internshipOffersListe.value;
   };
 
   const getInternshipOffereById = (_id) => {
@@ -79,7 +79,7 @@ export default function InternshipOffersService() {
   }
 
   return {
-    liste,
+    internshipOffersListe,
     objet,
     success,
     allInternshipOffers,
