@@ -4,7 +4,8 @@
       <!--  -->
       <div class="col-span-4 mr-4 pl-4" :style="theBorderStyle">
         <div class="flex">
-          <div class="p-2">L</div>
+          <div class="p-2 mx-2 flex flex-col justify-center bg-slate-400 rounded-lg"><span class="material-symbols-outlined text-4xl"> school </span></div>
+          <!-- <div class="p-2"><span class="material-symbols-outlined"> business_center </span></div> -->
           <div>
             <div class="text-lgfont-semibold">Intégrateur Web</div>
             <div class="text-gray-600">{{ theDisplayName }}</div>
@@ -24,9 +25,9 @@
         <div class="h-full flex justify-between">
           <BtnBase title="Accepter" color="#BCED09" small :action="onAccept" />
           <div class="flex items-center gap-5">
-            <div class="cursor-pointer" @click="onView">V</div>
-            <div class="cursor-pointer" @click="onEdit">E</div>
-            <div class="cursor-pointer" @click="onDelete">S</div>
+            <div class="cursor-pointer flex flex-col justify-center" @click="onView"><span class="material-symbols-outlined text-blue-400"> visibility </span></div>
+            <div class="cursor-pointer flex flex-col justify-center" @click="onEdit"><span class="material-symbols-outlined text-amber-600"> edit </span></div>
+            <div class="cursor-pointer flex flex-col justify-center" @click="onDelete"><span class="material-symbols-outlined text-red-600"> delete </span></div>
           </div>
         </div>
       </div>
@@ -48,9 +49,13 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  typeDemande: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-console.log("item", props.item);
+console.log("item", props.typeDemande);
 
 const theBorderStyle = computed(() => {
   const color = props.item.isActive ? props.color : "#475569";
