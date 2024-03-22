@@ -78,6 +78,24 @@ export default function InternshipRequestsServices() {
     }
   };
 
+  const deleteEnterprise = async (_id) => {
+    try {
+      const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/internship-requests/${_id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        success.value = true;
+        console.log('Requête DELETE réussie !');
+      } else {
+        console.error('Échec de la requête DELETE.');
+        success.value = false;
+      }
+    } catch (error) {
+      console.error('Erreur lors de la requête DELETE:', error);
+      success.value = false;
+    }
+  };
 
   return {
     internshipRequestsListe,
@@ -87,5 +105,6 @@ export default function InternshipRequestsServices() {
     getInternshipRequestById,
     addInternshipRequest,
     editInternshipRequest,
+    deleteEnterprise
   };
 }
