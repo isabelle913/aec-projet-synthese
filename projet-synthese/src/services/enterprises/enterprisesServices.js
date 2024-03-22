@@ -34,7 +34,6 @@ export default function EnterpriseService() {
   };
 
   const addEnterprises = async () => {
-    //console.log("Données de l'entreprise à envoyer :", JSON.stringify());
     try {
       const response = await fetch("https://aec-projet-integrateur-api.fly.dev/enterprises/", {
         method: 'POST',
