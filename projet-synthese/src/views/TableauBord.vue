@@ -24,6 +24,7 @@ const countInternshipRequests = computed(() => internshipRequests.value.length);
 const countInternshipOffers = computed(() => internshipOffers.value.length);
 
 // TODO obtenir un count des candidats
+// TODO mettre loader
 
 onMounted(() => {
   allInternshipRequests();
@@ -33,13 +34,13 @@ onMounted(() => {
 watchEffect(() => {
   if (Array.isArray(listeRequest.value)) {
     internshipRequests.value = [...listeRequest.value];
-    console.log("Request", internshipRequests.value);
+    // console.log("Request", internshipRequests.value);
   }
 });
 watchEffect(() => {
   if (Array.isArray(listeOffers.value)) {
     internshipOffers.value = [...listeOffers.value];
-    console.log("Offers", internshipOffers.value);
+    // console.log("Offers", internshipOffers.value);
   }
 });
 </script>

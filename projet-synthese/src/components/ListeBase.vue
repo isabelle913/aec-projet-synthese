@@ -9,18 +9,21 @@
 
     <div class="grid grid-cols-12">
       <div class="col-span-12 sm:col-span-8 lg:col-span-4 text-gray-600 leading-8 border-b-4 border-b-gray-600 sm:mr-4">Profil</div>
-      <div class="lg:col-span-3 text-gray-600 leading-8 border-b-4 border-b-gray-600 mr-4 hidden lg:block">Établissement</div>
+      <div v-if="isDemande" class="lg:col-span-3 text-gray-600 leading-8 border-b-4 border-b-gray-600 mr-4 hidden lg:block">Établissement</div>
+      <div v-else class="lg:col-span-3 text-gray-600 leading-8 border-b-4 border-b-gray-600 mr-4 hidden lg:block">Ville</div>
       <div class="lg:col-span-2 text-gray-600 leading-8 border-b-4 border-b-gray-600 mr-4 hidden lg:block">Date</div>
       <div class="col-span-12 sm:col-span-4 lg:col-span-3 text-gray-600 leading-8 border-b-4 border-b-gray-600">Actions</div>
     </div>
 
-    <ListeItem v-for="item in listeItems" :key="item._id" :item="item" :is-demande="isDemande" />
+    <ListeItemRequest v-if="isDemande" v-for="item in listeItems" :key="item._id" :item="item" />
+    <ListeItemOffer v-if="!isDemande" v-for="item in listeItems" :key="item._id" :item="item" />
   </div>
 </template>
 
 <script setup>
 import { computed } from "vue";
-import ListeItem from "./ListeItem.vue";
+import ListeItemRequest from "./ListeItemRequest.vue";
+import ListeItemOffer from "./ListeItemOffer.vue";
 
 const props = defineProps({
   listeItems: {
@@ -28,7 +31,7 @@ const props = defineProps({
     required: true,
   },
   isDemande: {
-    // gang ce props est pour déterminer si c'est une demande ou une offre, influence couleurs et icônes
+    // gang ce props est pour déterminer si c'est une demande ou une offre
     type: Boolean,
     default: false,
   },
