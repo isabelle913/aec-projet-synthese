@@ -2,22 +2,36 @@ import { ref } from "vue";
 
 export default function EnterpriseService() {
   const liste = ref([]);
+  const objet = ref({});
+  const success = ref(false);
 
   const allEnterprises = () => {
-    fetch("https://aec-projet-integrateur-api.fly.dev/enterprises/")
+    return fetch("https://aec-projet-integrateur-api.fly.dev/enterprises/")
       .then(response => response.json())
       .then(data => {
         liste.value = data;
         console.log('Liste des entreprises:', liste.value);
+        return liste.value;
       })
       .catch(error => {
         console.error("Une erreur s'est produite lors de la récupération des données:", error);
+        throw error;
       });
-
-      return liste.value;
   };
 
-  const success = ref(false);
+  const getEntrepriseById = (_id) => {
+    return fetch(`https://aec-projet-integrateur-api.fly.dev/enterprises/${_id}`)
+      .then(response => response.json())
+      .then(data => {
+        objet.value = data;
+        console.log('Entreprise trouvée :', objet.value);
+        return objet.value;
+      })
+      .catch(error => {
+        console.log("Une erreur s'est produite lors de la récupération des données:", error);
+        throw error;
+      });
+  };
 
   const addEnterprises = async (newEnterprises) => {
     try {
@@ -45,8 +59,10 @@ export default function EnterpriseService() {
 
   return {
     liste,
+    objet,
     success,
     allEnterprises,
+    getEntrepriseById,
     addEnterprises,
   };
 }

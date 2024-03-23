@@ -6,7 +6,7 @@
         <div class="ml-4">
           <div class="text-gray-600">Entreprise</div>
           <div class="text-gray-600 text-6xl mb-10">{{ enterprise.name }}</div>
-          <div class="text-gray-600 bg-white py-2 px-4 inline text-2xl">{{ enterprise.activitySector.value }}</div>
+          <div v-if="enterprise.activitySector" class="text-gray-600 bg-white py-2 px-4 inline text-2xl">{{ enterprise.activitySector.value }}</div>
         </div>
       </div>
       <div v-else class="mb-20">
@@ -42,16 +42,18 @@
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.city" name="city" :is-error="isError.city" label="Ville" :is-edit="isEditOrCreate" />
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.email" name="email" :is-error="isError.email" label="Courriel" :is-edit="isEditOrCreate" />
           <div class="col-span-12 md:col-span-6 border-l-8 border-l-gray-600 px-4">
-            <div class="text-gray-600 mb-4 text-2xl">Province</div>
-            <div v-if="!isEditOrCreate" class="text-gray-400">{{ enterprise.province.value }}</div>
-            <div v-else>
-              <label class="hidden" for="province">Province:</label>
-              <select class="block w-full border border-gray-400 rounded py-3 px-3 text-gray-600 leading-tight focus:border-gray-800 hover:border-gray-800" id="province" name="province" v-model="enterprise.province">
-                <option v-for="province in provincesForSelect" :key="province._id" :value="province">{{ province.value }}</option>
-              </select>
-              <p v-if="isError.province" class="text-red-500 text-xs italic">Veuillez choisir une province</p>
-            </div>
+        <div class="text-gray-600 mb-4 text-2xl">Province</div>
+        <div v-if="enterprise.province">
+          <div v-if="!isEditOrCreate" class="text-gray-400">{{ enterprise.province.value }}</div>
+          <div v-else>
+            <label class="hidden" for="province">Province:</label>
+            <select class="block w-full border border-gray-400 rounded py-3 px-3 text-gray-600 leading-tight focus:border-gray-800 hover:border-gray-800" id="province" name="province" v-model="enterprise.province">
+              <option v-for="province in provincesForSelect" :key="province._id" :value="province">{{ province.value }}</option>
+            </select>
+            <p v-if="isError.province" class="text-red-500 text-xs italic">Veuillez choisir une province</p>
           </div>
+        </div>
+      </div>
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.website" name="website" :is-error="isError.website" label="Site Web" :is-edit="isEditOrCreate" />
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.postalCode" name="postalCode" :is-error="isError.postalCode" label="Code postal" :is-edit="isEditOrCreate" />
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.image" name="image" :is-error="isError.image" label="URL du logo" :is-edit="isEditOrCreate" />
@@ -68,57 +70,37 @@
   </section>
 </template>
 <script setup>
-import { reactive, ref } from "vue";
+import { reactive, ref, onMounted, watchEffect } from "vue";
 import { useRoute } from "vue-router";
 
 import BtnBase from "../components/BtnBase.vue";
 import InputEnterprise from "@/components/InputEnterprise.vue";
 
+import EnterpriseService from "../services/enterprises/enterprisesServices";
+
 const route = useRoute();
 
+const _id = route.params.id;
+const isUpdate = route.params.action === "update" ? true : false;
+
+console.log("id", _id);
+console.log("route.params", route.params);
+
 const isEditOrCreate = ref(false);
+const enterprise = ref({});
 
-/*const enterprise = {
-  _id: "",
-  image: "",
-  name: "",
-  address: "",
-  postalCode: "",
-  city: "",
-  province: {
-    _id: "65c255fb7e4d2a499b409ca0",
-    value: "QUEBEC",
-  },
-  phone: "",
-  email: "",
-  description: "",
-  activitySector: undefined,
-  website: "",
-};*/
+const { objet, getEntrepriseById } = EnterpriseService();
 
-// TODO effacer éventuellement
-const enterprise = {
-  _id: "7",
-  image: "https://assets.ezmax.ca/Logo_VD_e_Zmax_2124845685.png",
-  name: "eZmax", //ok
-  address: "2500, boul. Daniel-Johnson, bureau 800 , Québec ", //ok
-  postalCode: "H7T 2P6",
-  city: "Laval", //ok
-  province: {
-    //ok
-    idProvince: "1",
-    value: "Québec",
-  },
-  phone: "1-844-403-9629", //ok
-  email: "marketing@ezmax.ca", //ok
-  description: "Les Solutions eZmax inc. se spécialise dans la conception d’applications d’affaires innovantes et optimisées.",
-  activitySector: {
-    //ok
-    idActivitySector: "1",
-    value: "Informatique",
-  },
-  website: "https://www.ezmax.ca", //ok
-};
+onMounted(() => {
+  getEntrepriseById(_id);
+});
+
+watchEffect(() => {
+  if (Object.keys(objet.value).length !== 0) {
+    enterprise.value = objet.value; // Assigner directement la valeur
+    console.log(enterprise.value);
+  }
+});
 
 const isError = reactive({
   enterpriseName: false,
@@ -273,11 +255,6 @@ function load() {
     si id !== 0 on consulte ou modifie
     si le params update est présent on modifie
   */
-  const _id = route.params.id;
-  const isUpdate = route.params.action === "update" ? true : false;
-
-  console.log("id", _id);
-  console.log("route.params", route.params);
 
   if (_id === "0") isEditOrCreate.value = true;
   else {
