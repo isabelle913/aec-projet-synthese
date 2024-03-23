@@ -3,6 +3,7 @@
     <form>
       <!-- Entête -->
       <div v-if="!isEditOrCreate" class="presentation-title-border mb-20">
+        <!-- TODO corriger le border qui ne se rend pas aussi bas que le secteur d'activité -->
         <div class="ml-4">
           <div class="text-gray-600">Entreprise</div>
           <div class="text-gray-600 text-6xl mb-10">{{ enterprise.name }}</div>
@@ -42,25 +43,27 @@
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.city" name="city" :is-error="isError.city" label="Ville" :is-edit="isEditOrCreate" />
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.email" name="email" :is-error="isError.email" label="Courriel" :is-edit="isEditOrCreate" />
           <div class="col-span-12 md:col-span-6 border-l-8 border-l-gray-600 px-4">
-        <div class="text-gray-600 mb-4 text-2xl">Province</div>
-        <div v-if="enterprise.province">
-          <div v-if="!isEditOrCreate" class="text-gray-400">{{ enterprise.province.value }}</div>
-          <div v-else>
-            <label class="hidden" for="province">Province:</label>
-            <select class="block w-full border border-gray-400 rounded py-3 px-3 text-gray-600 leading-tight focus:border-gray-800 hover:border-gray-800" id="province" name="province" v-model="enterprise.province">
-              <option v-for="province in provincesForSelect" :key="province._id" :value="province">{{ province.value }}</option>
-            </select>
-            <p v-if="isError.province" class="text-red-500 text-xs italic">Veuillez choisir une province</p>
+            <div class="text-gray-600 mb-4 text-2xl">Province</div>
+            <div v-if="enterprise.province">
+              <div v-if="!isEditOrCreate" class="text-gray-400">{{ enterprise.province.value }}</div>
+              <div v-else>
+                <label class="hidden" for="province">Province:</label>
+                <select class="block w-full border border-gray-400 rounded py-3 px-3 text-gray-600 leading-tight focus:border-gray-800 hover:border-gray-800" id="province" name="province" v-model="enterprise.province">
+                  <option v-for="province in provincesForSelect" :key="province._id" :value="province">{{ province.value }}</option>
+                </select>
+                <p v-if="isError.province" class="text-red-500 text-xs italic">Veuillez choisir une province</p>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+          <!-- TODO possiblement enlever -->
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.website" name="website" :is-error="isError.website" label="Site Web" :is-edit="isEditOrCreate" />
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.postalCode" name="postalCode" :is-error="isError.postalCode" label="Code postal" :is-edit="isEditOrCreate" />
+          <!-- TODO possiblement enlever -->
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.image" name="image" :is-error="isError.image" label="URL du logo" :is-edit="isEditOrCreate" />
         </div>
       </div>
 
-      <div class="flex justify-end gap-x-5">
+      <div class="flex justify-end gap-x-5 py-8">
         <!-- TODO ajouter icone au bouton  -->
         <BtnBase title="Annuler" color="#f9cb40" outline :action="onReset" />
         <BtnBase title="Sauvegarder" color="#f9cb40" :action="onValidate" />
@@ -79,6 +82,7 @@ import InputEnterprise from "@/components/InputEnterprise.vue";
 import EnterpriseService from "../services/enterprises/enterprisesServices";
 
 const route = useRoute();
+const { objet, getEntrepriseById } = EnterpriseService();
 
 const _id = route.params.id;
 const isUpdate = route.params.action === "update" ? true : false;
@@ -89,18 +93,13 @@ console.log("route.params", route.params);
 const isEditOrCreate = ref(false);
 const enterprise = ref({});
 
-const { objet, getEntrepriseById } = EnterpriseService();
+/*
+Note 
 
-onMounted(() => {
-  getEntrepriseById(_id);
-});
+y a t'il website et urlLogo?
 
-watchEffect(() => {
-  if (Object.keys(objet.value).length !== 0) {
-    enterprise.value = objet.value; // Assigner directement la valeur
-    console.log(enterprise.value);
-  }
-});
+
+*/
 
 const isError = reactive({
   enterpriseName: false,
@@ -224,7 +223,7 @@ function onValidate(e) {
 
   if (Object.values(isError).every((result) => !result)) {
     // si passe la validation do ->
-    console.log(enterprise);
+    console.log("POST", enterprise);
     // TODO matcher avec service POST or PATCH
     // if id == 0 -> POST
     // else Patch
@@ -247,6 +246,17 @@ function setActivitiesSectorForSelect(activitiesSector) {
 function setProvinces(provinces) {
   console.log("setProvinces", provinces);
 }
+
+onMounted(() => {
+  getEntrepriseById(_id);
+});
+
+watchEffect(() => {
+  if (Object.keys(objet.value).length !== 0) {
+    enterprise.value = objet.value; // Assigner directement la valeur
+    console.log("enterprise", enterprise.value);
+  }
+});
 
 function load() {
   /*

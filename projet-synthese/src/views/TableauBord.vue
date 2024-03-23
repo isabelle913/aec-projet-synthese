@@ -18,7 +18,7 @@ const { listeRequest, allInternshipRequests } = InternshipRequestsServices();
 const { listeOffers, allInternshipOffers } = InternshipOffersService();
 
 const internshipRequests = ref([]);
-const internshipOffers = ref([]); // TODO corriger les propriétés reçus
+const internshipOffers = ref([]);
 
 const countInternshipRequests = computed(() => internshipRequests.value.length);
 const countInternshipOffers = computed(() => internshipOffers.value.length);
@@ -30,7 +30,7 @@ onMounted(() => {
   allInternshipRequests();
   allInternshipOffers();
 });
-
+// TODO limiter à 5
 watchEffect(() => {
   if (Array.isArray(listeRequest.value)) {
     internshipRequests.value = [...listeRequest.value];
