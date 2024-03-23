@@ -35,7 +35,7 @@ const theStyle = computed(() => {
     return { backgroundColor: props.color, padding };
   }
 });
-console.log("props.small", props.small);
+
 // TODO ajouter le hover plus foncé
 </script>
 <style></style>
