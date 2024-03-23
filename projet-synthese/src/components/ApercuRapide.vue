@@ -1,8 +1,103 @@
 <template>
-  <div class="flex">
-    <div class="bg-yellow-200">Demandes de stage</div>
-    <div class="bg-red-200">Offres de stage</div>
-    <div class="bg-purple-200">Candidats</div>
+  <div class="flex gap-5 text-white">
+    <!-- Demandes -->
+    <div class="flex-1">
+      <div class="flex">
+        <!-- Partie pale -->
+        <div class="basis-10/12 rounded-l-lg bg-demandes p-6">
+          <div class="flex gap-6 items-center">
+            <div>
+              <span class="material-symbols-outlined text-6xl"> app_registration </span>
+            </div>
+            <div>
+              <div class="text-2xl">Demandes de stage</div>
+              <div class="text-4xl">{{ countInternshipRequests }}</div>
+            </div>
+          </div>
+        </div>
+        <!-- partie foncé -->
+        <div class="basis-2/12 rounded-r-lg bg-demandes__darker"></div>
+      </div>
+    </div>
+
+    <!-- Offres -->
+    <div class="flex-1">
+      <div class="flex">
+        <!-- Partie pale -->
+        <div class="basis-10/12 rounded-l-lg bg-offres p-6">
+          <div class="flex gap-6 items-center">
+            <div>
+              <span class="material-symbols-outlined text-6xl">rocket_launch</span>
+            </div>
+            <div>
+              <div class="text-2xl">Offres de stage</div>
+              <div class="text-4xl">{{ countInternshipOffers }}</div>
+            </div>
+          </div>
+        </div>
+        <!-- partie foncé -->
+        <div class="basis-2/12 rounded-r-lg bg-offres__darker"></div>
+      </div>
+    </div>
+
+    <!-- Candidats -->
+    <div class="flex-1">
+      <div class="flex">
+        <!-- Partie pale -->
+        <div class="basis-10/12 rounded-l-lg bg-candidats p-6">
+          <div class="flex gap-6 items-center">
+            <div>
+              <span class="material-symbols-outlined text-6xl"> person </span>
+            </div>
+            <div>
+              <div class="text-2xl">Candidats</div>
+              <div class="text-4xl">{{ countCandidats }}</div>
+            </div>
+          </div>
+        </div>
+        <!-- partie foncé -->
+        <div class="basis-2/12 rounded-r-lg bg-candidats__darker"></div>
+      </div>
+    </div>
   </div>
 </template>
-<script setup></script>
+<script setup>
+const props = defineProps({
+  countInternshipRequests: {
+    type: Number,
+    default: 0,
+  },
+  countInternshipOffers: {
+    type: Number,
+    default: 0,
+  },
+  countCandidats: {
+    type: Number,
+    default: 0,
+  },
+});
+</script>
+
+<style scoped>
+/* TODO changer couleur pour les variables */
+.bg-demandes {
+  background-color: #f9cb40;
+}
+.bg-demandes__darker {
+  background-color: #896b10;
+}
+
+.bg-offres {
+  background-color: #bc4b51;
+}
+.bg-offres__darker {
+  background-color: #7e1c21;
+}
+
+.bg-candidats {
+  background-color: blue;
+}
+.bg-candidats__darker {
+  background-color: rgb(15, 15, 153);
+}
+</style>
