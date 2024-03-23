@@ -1,75 +1,52 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import TableauBord from '../TableauBord.vue'
-import DemandeStage from '../DemandeStage.vue'
-import OffreStage from '../OffreStage.vue'
-import Candidats from '../Candidats.vue'
-import AjouterOffreStage from '../AjouterOffreStage.vue'
-import AjouterDemandeStage from '../AjouterDemandeStage.vue'
-import AjouterEntreprise from '../AjouterEntreprise.vue'
-import AjouterCandidat from '../AjouterCandidat.vue'
-
+import { createRouter, createWebHistory } from "vue-router";
+import Authentificator from "../components/Authentificator.vue";
+import Entreprises from "../views/Entreprises.vue";
+import EnterprisesDetails from "../views/EnterprisesDetails.vue";
+import DemandeStagePage1 from "../views/DemandeStagePage1.vue";
+import DemandeStagePage2 from "../views/DemandeStagePage2.vue";
+import AjoutDemandeStage from "../views/AjoutDemandeStage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'accueil',
-      component: TableauBord
+      name: 'Authentificator',
+      component: Authentificator
     },
     {
-      path: "/enterprises",
+      path: '/DemandeStagePage1',
+      name: 'demandestagepage1',
+      component: DemandeStagePage1
+    },
+    {
+      path: '/DemandeStagePage2',
+      name: 'demandestagepage2',
+      component: DemandeStagePage2
+    },
+    {
+      path: '/AjoutDemandeStage',
+      name: 'ajoutdemandestage',
+      component: AjoutDemandeStage
+    },
+    {
+      path: "/Entreprises",
       name: "enterprises",
       component: Entreprises,
     },
     {
-      path: "/enterprise/:id", 
-      name: "enterprise",
+      path: "/Entreprise/:id",
+      name: "enterpriseDetails",
       component: EnterprisesDetails,
       children: [
         {
-          path: ":action", 
-          name: "enterprise",
+          path: "update", // Example: /enterprise/:id/update
+          name: "enterpriseUpdate",
           component: EnterprisesDetails,
         },
       ],
     },
-    {
-      path: "/demandestage",
-      name: "demandestage",
-      component: DemandeStage,
-    },
-    {
-      path: "/offrestage",
-      name: "offrestage",
-      component: OffreStage,
-    },
-    {
-      path: "/candidats",
-      name: "candidats",
-      component: Candidats,
-    },
-    {
-      path: "/ajouteroffrestage",
-      name: "ajouteroffrestage",
-      component: AjouterOffreStage,
-    },
-    {
-      path: "/ajouterdemandestage",
-      name: "ajouterdemandestage",
-      component: AjouterDemandeStage,
-    },
-    {
-      path: "/ajouterentreprise",
-      name: "ajouterentreprise",
-      component: AjouterEntreprise,
-    },
-    {
-      path: "/ajoutercandidat",
-      name: "ajoutercandidat",
-      component: AjouterCandidat,
-    },
-  ]
-})
+  ],
+});
 
 export default router;

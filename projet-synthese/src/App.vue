@@ -1,9 +1,14 @@
 <template>
-  <div class="container mx-auto">
+  <div id="app" class="container mx-auto">
     <!-- Header -->
+    <div class="flex justify-between items-center">
+      <LogoEstage />
+      <MenuAction/>      
+    </div>
     <!-- menu -->
+    <Navigation/>
+    
     <!-- <RouterView /> -->
-    <p class="flex justify-center items-center text-3xl h-screen">Bonjour super team</p>
     <!-- Footer -->
   </div>
 </template>
@@ -13,7 +18,9 @@
 /*Section test pour les services.*/
 
 import { ref, onMounted, watchEffect } from 'vue';
-
+import Navigation from './components/Navigation.vue';
+import MenuAction from './components/MenuAction.vue';
+import LogoEstage from './components/LogoEstage.vue';
 import EnterpriseService from './services/enterprises/enterprisesServices';
 import ProvinceService from './services/provinces/provincesServices';
 import InternshipRequestsServices from './services/internshipRequests/internshipRequestsServices';
