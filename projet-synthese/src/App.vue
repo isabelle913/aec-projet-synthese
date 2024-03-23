@@ -2,15 +2,19 @@
   <div class="container mx-auto">
     <!-- Header -->
     <!-- menu -->
+
     <RouterView />
+
     <!--<p class="flex justify-center items-center text-3xl h-screen">Bonjour super team</p>-->
-    <!--<BidonForm_2 />-->
-    <!-- Footer -->
+
+    <!-- Footer         <BidonForm />   -->
   </div>
 </template>
 
 <script setup>
 /*Section test pour les services.*/
+
+import BidonForm from "@/views/BidonForm.vue";
 
 import { ref, onMounted, watchEffect } from "vue";
 

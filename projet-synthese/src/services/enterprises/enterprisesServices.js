@@ -1,7 +1,7 @@
 import { ref } from "vue";
 
 export default function EnterpriseService() {
-  const liste = ref([]);
+  const enterpriseListe = ref([]);
   const objet = ref({});
   const success = ref(false);
 
@@ -9,9 +9,9 @@ export default function EnterpriseService() {
     return fetch("https://aec-projet-integrateur-api.fly.dev/enterprises/")
       .then(response => response.json())
       .then(data => {
-        liste.value = data;
-        console.log('Liste des entreprises:', liste.value);
-        return liste.value;
+        enterpriseListe.value = data;
+        console.log('Liste des entreprises:', enterpriseListe.value);
+        return enterpriseListe.value;
       })
       .catch(error => {
         console.error("Une erreur s'est produite lors de la récupération des données:", error);
@@ -33,20 +33,21 @@ export default function EnterpriseService() {
       });
   };
 
-  const addEnterprises = async (newEnterprises) => {
+  const addEnterprises = async () => {
     try {
       const response = await fetch("https://aec-projet-integrateur-api.fly.dev/enterprises/", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(newEnterprises),
+        body: JSON.stringify(),
       });
+
+      console.log(body);
 
       if (response.ok) {
         success.value = true;
         console.log('Requête POST réussie !');
-        // Vous pouvez ajouter ici d'autres actions après le succès de la requête.
       } else {
         console.error('Échec de la requête POST.');
         success.value = false;
@@ -57,12 +58,55 @@ export default function EnterpriseService() {
     }
   };
 
+  const editEnterprises = async (_id) =>{
+    try {
+      const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/enterprises/${_id}`,{
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(),
+      });
+
+      if(response.ok){
+        success.value = true;
+        console.log('Requête PATCH réussie !')
+      } else{
+        console.error('Échec de la requête PATCH:', error);
+        success.value = false;
+      }
+    }catch(error){
+
+    }
+  };
+
+  const deleteEnterprise = async (_id) => {
+    try {
+      const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/enterprises/${_id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        success.value = true;
+        console.log('Requête DELETE réussie !');
+      } else {
+        console.error('Échec de la requête DELETE.');
+        success.value = false;
+      }
+    } catch (error) {
+      console.error('Erreur lors de la requête DELETE:', error);
+      success.value = false;
+    }
+  };
+
   return {
-    liste,
+    enterpriseListe,
     objet,
     success,
     allEnterprises,
     getEntrepriseById,
     addEnterprises,
+    editEnterprises,
+    deleteEnterprise,
   };
 }
