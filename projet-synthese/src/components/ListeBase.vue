@@ -1,22 +1,23 @@
 <template>
   <div class="bg-white p-12">
     <div class="mb-12">
-      <div class="text-xl font-semibold">
-        Dernières <span class="font-semibold" :style="theTitleStyle">{{ theTitle }}</span> de stage
+      <div class="text-2xl font-semibold">
+        Dernières <span class="font-semibold" :class="isDemande ? 'text-demandes' : 'text-offres'">{{ theTitle }}</span> de stage
       </div>
       <div class="text-red-500 text-sm">En attente de validation</div>
     </div>
 
     <div class="grid grid-cols-12">
-      <div class="col-span-4 text-gray-600 leading-8 border-b-4 border-b-gray-600 mr-4">Profil</div>
-      <div class="col-span-3 text-gray-600 leading-8 border-b-4 border-b-gray-600 mr-4">Établissement</div>
-      <div class="col-span-2 text-gray-600 leading-8 border-b-4 border-b-gray-600 mr-4">Date</div>
-      <div class="col-span-3 text-gray-600 leading-8 border-b-4 border-b-gray-600">Actions</div>
+      <div class="col-span-12 sm:col-span-8 lg:col-span-4 text-gray-600 leading-8 border-b-4 border-b-gray-600 sm:mr-4">Profil</div>
+      <div class="lg:col-span-3 text-gray-600 leading-8 border-b-4 border-b-gray-600 mr-4 hidden lg:block">Établissement</div>
+      <div class="lg:col-span-2 text-gray-600 leading-8 border-b-4 border-b-gray-600 mr-4 hidden lg:block">Date</div>
+      <div class="col-span-12 sm:col-span-4 lg:col-span-3 text-gray-600 leading-8 border-b-4 border-b-gray-600">Actions</div>
     </div>
 
-    <ListeItem v-for="item in listeItems" :key="item._id" :item="item" :color="color" />
+    <ListeItem v-for="item in listeItems" :key="item._id" :item="item" :is-demande="isDemande" />
   </div>
 </template>
+
 <script setup>
 import { computed } from "vue";
 import ListeItem from "./ListeItem.vue";
@@ -26,22 +27,24 @@ const props = defineProps({
     type: Array,
     required: true,
   },
-  typeDemande: {
+  isDemande: {
+    // gang ce props est pour déterminer si c'est une demande ou une offre, influence couleurs et icônes
     type: Boolean,
     default: false,
   },
 });
 
-console.log("props", props);
-
 const theTitle = computed(() => {
-  return props.typeDemande ? "demandes" : "offres";
-});
-
-const theTitleStyle = computed(() => {
-  // color="#F9CB40"
-  return {
-    color: props.color,
-  };
+  return props.isDemande ? "demandes" : "offres";
 });
 </script>
+<style scoped>
+/* TODO changer couleur pour les variables */
+.text-demandes {
+  color: #f9cb40;
+}
+
+.text-offres {
+  color: #bc4b51;
+}
+</style>
