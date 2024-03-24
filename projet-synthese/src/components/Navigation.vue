@@ -90,12 +90,13 @@ span {
   font-size: 1.7rem;
 }
 
+
 #dashboard{
-  border-right: #16a2a8 solid;
+  border-right: #0c9da3 solid;
 }
 
 #demandesStage{
-  border-right: #cb902a solid;
+  border-right: #d2a350 solid;
 }
 
 #offreStage{
@@ -103,7 +104,7 @@ span {
 }
 
 #candidats{
-  border-right: #7e2986 solid;
+  border-right: #9b5ba2 solid;
 }
 
 #entreprises{
@@ -111,12 +112,12 @@ span {
 }
 
 #dashboard span{
-color: #16a2a8;
+color: #0c9da3;
 font-weight: bold;
 }
 
 #demandesStage span{
-color: #cb902a;
+color: #d2a350;
 }
 
 #offreStage span{
@@ -124,7 +125,7 @@ color: #ba2025;
 }
 
 #candidats span{
-color: #7e2986;
+color: #9b5ba2;
 }
 
 #entreprises span{
