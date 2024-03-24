@@ -57,6 +57,7 @@ export default function InternshipOffersService() {
   };
 
   const editInternshipOffer = async (_id) => {
+    console.log(_id);
     try {
       const response = await fetch("https://aec-projet-integrateur-api.fly.dev/internship-offers/", {
         method: "PATCH",
@@ -71,48 +72,11 @@ export default function InternshipOffersService() {
         console.log("Requête PATCH réussie !");
       } else {
         console.error("Échec de la requête PATCH.");
-        success.value = false;
-      }
-    } catch (error) {}
-  };
-
-  const deleteEnterprise = async (_id) => {
-    try {
-      const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/internship-offers/${_id}`, {
-        method: "DELETE",
-      });
-
-      if (response.ok) {
-        success.value = true;
-        console.log("Requête DELETE réussie !");
-      } else {
-        console.error("Échec de la requête DELETE.");
         success.value = false;
       }
     } catch (error) {
-      console.error("Erreur lors de la requête DELETE:", error);
-      success.value = false;
+      console.log(error);
     }
-  };
-
-  const editInternshipOffer = async (_id) => {
-    try {
-      const response = await fetch("https://aec-projet-integrateur-api.fly.dev/internship-offers/", {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(),
-      });
-
-      if (response.ok) {
-        success.value = true;
-        console.log("Requête PATCH réussie !");
-      } else {
-        console.error("Échec de la requête PATCH.");
-        success.value = false;
-      }
-    } catch (error) {}
   };
 
   const deleteEnterprise = async (_id) => {
