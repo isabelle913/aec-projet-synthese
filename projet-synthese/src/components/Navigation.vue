@@ -12,7 +12,7 @@
       <li :class="{ active: $route.path === '/DemandeStagePage1' }" id="demandesStage">
         <router-link to="/DemandeStagePage1">
           <div class="flex items-center">
-            <DemandesStage class="h-8 w-8 mr-8"/> 
+            <IconDemandesStage class="h-8 w-8 mr-8"/> 
             <span>Demandes de stage</span>
           </div>
         </router-link>
@@ -48,6 +48,7 @@
 <script>
 import IconTableauBord from './icons/IconTableauBord.vue';
 import IconOffreStage from './icons/IconOffreStage.vue';
+import IconDemandesStage from './icons/IconDemandesStage.vue';
 import IconCandidats from './icons/IconCandidats.vue';
 import IconEntreprises from './icons/IconEntreprises.vue';
 
@@ -56,6 +57,7 @@ export default {
   components: {
     IconTableauBord,
     IconOffreStage,
+    IconDemandesStage,
     IconCandidats,
     IconEntreprises
   }
