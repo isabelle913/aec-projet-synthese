@@ -14,7 +14,7 @@
 <script setup>
 /*Section test pour les services.*/
 
-import BidonForm from "@/views/BidonForm.vue";
+// import BidonForm from "@/views/BidonForm.vue";
 
 import { ref, onMounted, watchEffect } from "vue";
 
