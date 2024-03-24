@@ -14,8 +14,8 @@ import InternshipOffersService from "@/services/internshipOffers/internshipOffer
 import ApercuRapide from "@/components/ApercuRapide.vue";
 import ListeBase from "@/components/ListeBase.vue";
 
-const { listeRequest, allInternshipRequests } = InternshipRequestsServices();
-const { listeOffers, allInternshipOffers } = InternshipOffersService();
+const { internshipRequestsListe, allInternshipRequests } = InternshipRequestsServices();
+const { internshipOffersListe, allInternshipOffers } = InternshipOffersService();
 
 const internshipRequests = ref([]);
 const internshipOffers = ref([]);
@@ -32,14 +32,14 @@ onMounted(() => {
 });
 // TODO limiter à 5
 watchEffect(() => {
-  if (Array.isArray(listeRequest.value)) {
-    internshipRequests.value = [...listeRequest.value];
+  if (Array.isArray(internshipRequestsListe.value)) {
+    internshipRequests.value = [...internshipRequestsListe.value];
     // console.log("Request", internshipRequests.value);
   }
 });
 watchEffect(() => {
-  if (Array.isArray(listeOffers.value)) {
-    internshipOffers.value = [...listeOffers.value];
+  if (Array.isArray(internshipOffersListe.value)) {
+    internshipOffers.value = [...internshipOffersListe.value];
     // console.log("Offers", internshipOffers.value);
   }
 });

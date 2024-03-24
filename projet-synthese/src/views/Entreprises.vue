@@ -19,7 +19,7 @@ import EnterpriseService from "../services/enterprises/enterprisesServices";
 
 const router = useRouter();
 
-const { liste, allEnterprises } = EnterpriseService();
+const { enterpriseListe, allEnterprises } = EnterpriseService();
 const entreprises = ref([]);
 
 onMounted(() => {
@@ -27,14 +27,14 @@ onMounted(() => {
 });
 
 watchEffect(() => {
-  if (Array.isArray(liste.value)) {
-    entreprises.value = [...liste.value];
+  if (Array.isArray(enterpriseListe.value)) {
+    entreprises.value = [...enterpriseListe.value];
     console.log(entreprises.value);
   }
 });
 
 function onEnterpriseDetails() {
-  router.push({ name: "enterprise", params: { id: "0" } });
+  router.push({ name: "enterprise", params: { id: "new" } });
 }
 
 /* TODO suggestions:
@@ -42,6 +42,7 @@ function onEnterpriseDetails() {
    idem pour typographie titre
    On pourrait utiliser des class 
 */
+// TODO pour les images soit matcher des images de mon choix ou mettre une par default
 </script>
 
 <style scoped>
