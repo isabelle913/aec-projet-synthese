@@ -27,7 +27,6 @@ const howManyInternshipOffers = 5;
 const countInternshipRequests = computed(() => internshipRequests.value.length);
 const countInternshipOffers = computed(() => internshipOffers.value.length);
 
-// TODO obtenir un count des candidats
 // TODO mettre loader
 
 onMounted(() => {
