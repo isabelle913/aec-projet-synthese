@@ -1,23 +1,37 @@
 import { ref } from "vue";
 
 export default function CandidatesService() {
-  const liste = ref([]);
+  const candidatesListe = ref([]);
+  const objet = ref({});
+  const success = ref(false);
 
   const allCandidates = async () => {
     try {
       const response = await fetch("https://aec-projet-integrateur-api.fly.dev/candidates/");
       const data = await response.json();
 
-      liste.value = data;
-      console.log('Liste des candidats:', liste.value);
+      candidatesListe.value = data;
+      console.log('Liste des candidats:', candidatesListe.value);
     } catch (error) {
       console.error("Une erreur s'est produite lors de la récupération des données:", error);
     }
 
-    return liste.value;
+    return candidatesListe.value;
   };
 
-  const success = ref(false);
+  const getCandidateById = (_id) => {
+    return fetch(`https://aec-projet-integrateur-api.fly.dev/candidates/${_id}`)
+      .then(response => response.json())
+      .then(data => {
+        objet.value = data;
+        console.log('Candidat trouvée :', objet.value);
+        return objet.value;
+      })
+      .catch(error => {
+        console.log("Une erreur s'est produite lors de la récupération des données:", error);
+        throw error;
+      });
+  };
 
   const addCandidates = async (newCandidates) => {
     try {
@@ -43,10 +57,32 @@ export default function CandidatesService() {
     }
   };
 
+  const deleteEnterprise = async (_id) => {
+    try {
+      const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/candidates/${_id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        success.value = true;
+        console.log('Requête DELETE réussie !');
+      } else {
+        console.error('Échec de la requête DELETE.');
+        success.value = false;
+      }
+    } catch (error) {
+      console.error('Erreur lors de la requête DELETE:', error);
+      success.value = false;
+    }
+  };
+
   return {
-    liste,
+    candidatesListe,
+    objet,
     success,
     allCandidates,
+    getCandidateById,
     addCandidates,
+    deleteEnterprise,
   };
 }

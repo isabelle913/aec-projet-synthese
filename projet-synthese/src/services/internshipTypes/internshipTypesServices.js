@@ -1,23 +1,110 @@
 import { ref } from "vue";
 
 export default function InternshipTypesServices() {
-  const liste = ref([]);
+  const internshipTypesListe = ref([]);
+  const objet = ref({});
+  const success = ref(false);
 
   const allInternshipTypes = () => {
     fetch("https://aec-projet-integrateur-api.fly.dev/internship-types/")
       .then(response => response.json())
       .then(data => {
-        liste.value = data;
-        console.log('Liste des types de stage:', liste.value);
+        internshipTypesListe.value = data;
+        console.log('Liste des types de stage:', internshipTypesListe.value);
       })
       .catch(error => {
         console.error("Une erreur s'est produite lors de la récupération des données:", error);
       });
-      return liste.value;
+      return internshipTypesListe.value;
+  };
+
+  const getInternshipTypeById = (_id) => {
+    return fetch(`https://aec-projet-integrateur-api.fly.dev/internship-types/${_id}`)
+      .then(response => response.json())
+      .then(data => {
+        objet.value = data;
+        console.log('Entreprise trouvée :', objet.value);
+        return objet.value;
+      })
+      .catch(error => {
+        console.log("Une erreur s'est produite lors de la récupération des données:", error);
+        throw error;
+      });
+  };
+
+  const addInternshipType = async (newInternshipType) => {
+    try {
+      const response = await fetch("https://aec-projet-integrateur-api.fly.dev/internship-types/", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newInternshipType),
+      });
+
+      if (response.ok) {
+        success.value = true;
+        console.log('Requête POST réussie !');
+        // Vous pouvez ajouter ici d'autres actions après le succès de la requête.
+      } else {
+        console.error('Échec de la requête POST.');
+        success.value = false;
+      }
+    } catch (error) {
+      console.error('Erreur lors de la requête POST:', error);
+      success.value = false;
+    }
+  };
+
+  const editInternshipType = async (_id) =>{
+    try {
+      const response = await fetch("https://aec-projet-integrateur-api.fly.dev/internship-types/",{
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(),
+      });
+
+      if(response.ok){
+        success.value = true;
+        console.log('Requête PATCH réussie !')
+      } else{
+        console.error('Échec de la requête PATCH.');
+        success.value = false;
+      }
+    }catch(error){
+
+    }
+  };
+
+  const deleteEnterprise = async (_id) => {
+    try {
+      const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/internship-types/${_id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        success.value = true;
+        console.log('Requête DELETE réussie !');
+      } else {
+        console.error('Échec de la requête DELETE.');
+        success.value = false;
+      }
+    } catch (error) {
+      console.error('Erreur lors de la requête DELETE:', error);
+      success.value = false;
+    }
   };
 
   return {
-    liste,
+    internshipTypesListe,
+    objet,
+    success,
     allInternshipTypes,
+    getInternshipTypeById,
+    addInternshipType,
+    editInternshipType,
+    deleteEnterprise
   };
 }
