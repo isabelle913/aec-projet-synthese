@@ -1,7 +1,7 @@
 <template>
   <div class="bg-slate-100 page-padding flex flex-col gap-y-12">
     <ApercuRapide :count-internship-requests="countInternshipRequests" :count-internship-offers="countInternshipOffers" />
-    <ListeBase v-if="internshipRequests.length > 0" is-demande :liste-items="internshipRequests" />
+    <ListeBase v-if="internshipRequestsFiltered.length > 0" is-demande :liste-items="internshipRequestsFiltered" />
     <ListeBase v-if="internshipOffers.length > 0" :liste-items="internshipOffers" />
   </div>
 </template>
@@ -18,29 +18,49 @@ const { internshipRequestsListe, allInternshipRequests } = InternshipRequestsSer
 const { internshipOffersListe, allInternshipOffers } = InternshipOffersService();
 
 const internshipRequests = ref([]);
+const internshipRequestsFiltered = ref([]);
+const howManyInternshipRequest = 5;
 const internshipOffers = ref([]);
+const internshipOffersFiltered = ref([]);
+const howManyInternshipOffers = 5;
 
 const countInternshipRequests = computed(() => internshipRequests.value.length);
 const countInternshipOffers = computed(() => internshipOffers.value.length);
 
-// TODO obtenir un count des candidats
 // TODO mettre loader
 
 onMounted(() => {
   allInternshipRequests();
   allInternshipOffers();
 });
-// TODO limiter à 5
+
 watchEffect(() => {
   if (Array.isArray(internshipRequestsListe.value)) {
     internshipRequests.value = [...internshipRequestsListe.value];
-    // console.log("Request", internshipRequests.value);
+    // console.log("Requests", internshipRequests.value);
+
+    let count = 1;
+    internshipRequestsListe.value.map((request) => {
+      if (request.isActive && count <= howManyInternshipRequest) {
+        internshipRequestsFiltered.value.push(request);
+        count += 1;
+      }
+    });
   }
 });
+
 watchEffect(() => {
   if (Array.isArray(internshipOffersListe.value)) {
     internshipOffers.value = [...internshipOffersListe.value];
     // console.log("Offers", internshipOffers.value);
+
+    let count = 1;
+    internshipOffersListe.value.map((request) => {
+      if (request.isActive && count <= howManyInternshipOffers) {
+        internshipOffersFiltered.value.push(request);
+        count += 1;
+      }
+    });
   }
 });
 </script>

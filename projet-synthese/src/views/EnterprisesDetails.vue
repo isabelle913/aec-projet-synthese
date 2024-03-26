@@ -31,7 +31,7 @@
         <BtnBase v-if="isEditOrCreate && _id === 'new'" title="Annuler" icon="close" color="#f9cb40" outline :action="onReset" show-icon-only icon-color="red" />
         <BtnBase v-if="isEditOrCreate" :title="theBtnValidateTitle" icon="save" color="#f9cb40" :action="onValidate" show-icon-only icon-color="green" />
         <BtnBase v-if="!isEditOrCreate" title="Modifier" icon="edit" color="#f9cb40" :action="onUpdate" show-icon-only icon-color="#f9cb40" />
-        <BtnBase v-if="!isEditOrCreate" title="Supprimer" icon="delete" color="#f9cb40" :action="onDelete" show-icon-only icon-color="red" />
+        <BtnBase v-if="!isEditOrCreate" title="Supprimer" icon="delete" color="#f9cb40" :action="onOpenModalSuppression" show-icon-only icon-color="red" />
       </div>
 
       <!-- corps -->
@@ -68,10 +68,9 @@
             </div>
           </div>
 
-          <!-- TODO possiblement enlever -->
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.website" name="website" :is-error="isError.website" label="Site Web" :is-edit="isEditOrCreate" />
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.postalCode" name="postalCode" :is-error="isError.postalCode" label="Code postal" :is-edit="isEditOrCreate" />
-          <!-- TODO possiblement enlever -->
+          <!-- Image -->
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.image" name="image" :is-error="isError.image" label="URL du logo" :is-edit="isEditOrCreate" />
         </div>
       </div>
@@ -81,7 +80,7 @@
         <BtnBase v-if="isEditOrCreate && _id === 'new'" title="Annuler" icon="close" color="#f9cb40" outline :action="onReset" />
         <BtnBase v-if="isEditOrCreate" :title="theBtnValidateTitle" icon="save" color="#f9cb40" :action="onValidate" />
         <BtnBase v-if="!isEditOrCreate" title="Modifier" icon="edit" color="#f9cb40" :action="onUpdate" />
-        <BtnBase v-if="!isEditOrCreate" title="Supprimer" icon="delete" color="#f9cb40" :action="onDelete" />
+        <BtnBase v-if="!isEditOrCreate" title="Supprimer" icon="delete" color="#f9cb40" :action="onOpenModalSuppression" />
         <BtnBase title="Retour à la liste des entreprises" icon="list" color="#f9cb40" :action="onGoToListe" />
       </div>
     </form>
@@ -94,6 +93,12 @@
       <div class="text-4xl text-center">Une erreur est survenue lors de la récupération des données</div>
     </div>
   </section>
+  <teleport to="body">
+    <ModalSuppression v-model="isOpenModalSuppression" :description="enterprise.name" :action="onDelete" @close="isOpenModalSuppression = false" />
+  </teleport>
+  <teleport to="body">
+    <modalLoader v-model="isOpenModalLoading" />
+  </teleport>
 </template>
 <script setup>
 import { computed, reactive, ref, onMounted, watchEffect } from "vue";
@@ -103,6 +108,8 @@ import useUtile from "../composables/utile.js";
 
 import BtnBase from "../components/BtnBase.vue";
 import InputEnterprise from "@/components/InputEnterprise.vue";
+import ModalSuppression from "@/components/ModalSuppression.vue";
+import modalLoader from "@/components/ModalLoader.vue";
 
 import EnterpriseService from "../services/enterprises/enterprisesServices";
 import ProvinceService from "../services/provinces/provincesServices";
@@ -128,7 +135,9 @@ const isLoadedProvinces = ref(false);
 const isLoadedActivitiesSector = ref(false);
 const isLoadedEnterprise = ref(false);
 const isLoading = computed(() => !isLoadedProvinces || !isLoadedActivitiesSector || !isLoadedEnterprise); // TODO corriger
+const isOpenModalLoading = ref(false);
 
+const isOpenModalSuppression = ref(false);
 // console.log("id", _id);
 // console.log("route.params", route.params);
 
@@ -189,10 +198,10 @@ function onValidate(e) {
 
   if (Object.values(isError).every((result) => !result)) {
     console.log("POST/PATCH", enterprise.value);
-    if (_id === "0") {
+    if (_id === "new") {
       console.log("vers le POST");
       addEnterprises(enterprise.value);
-      onReset();
+      enterprise.value = {};
     } else {
       console.log("vers le PATCH");
       editEnterprises(enterprise.value);
@@ -214,11 +223,14 @@ function onGoToListe() {
   router.push({ name: "enterprises" });
 }
 
-function onDelete(e) {
+function onOpenModalSuppression(e) {
   e.preventDefault();
-  console.log("onDelete");
-  // TODO Ouvrir modal
+  isOpenModalSuppression.value = true;
+}
+
+function onDelete(e) {
   deleteEnterprise(_id);
+  isOpenModalSuppression.value = false;
 }
 
 function onGoToView(e) {
@@ -242,7 +254,7 @@ onMounted(() => {
 watchEffect(() => {
   if (Object.keys(objet.value).length !== 0) {
     enterprise.value = objet.value; // Assigner directement la valeur
-    // console.log("enterprise", enterprise.value);
+    console.log("enterprise", enterprise.value);
     isLoadedEnterprise.value = true;
     if (enterprise.value.statusCode) isQueryError.value = true;
   }
