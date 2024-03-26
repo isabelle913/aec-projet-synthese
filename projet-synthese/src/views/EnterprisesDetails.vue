@@ -71,7 +71,7 @@
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.website" name="website" :is-error="isError.website" label="Site Web" :is-edit="isEditOrCreate" />
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.postalCode" name="postalCode" :is-error="isError.postalCode" label="Code postal" :is-edit="isEditOrCreate" />
           <!-- Image -->
-          <!-- <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.image" name="image" :is-error="isError.image" label="URL du logo" :is-edit="isEditOrCreate" /> -->
+          <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.image" name="image" :is-error="isError.image" label="URL du logo" :is-edit="isEditOrCreate" />
         </div>
       </div>
 
@@ -96,6 +96,9 @@
   <teleport to="body">
     <ModalSuppression v-model="isOpenModalSuppression" :description="enterprise.name" :action="onDelete" @close="isOpenModalSuppression = false" />
   </teleport>
+  <teleport to="body">
+    <modalLoader v-model="isOpenModalLoading" />
+  </teleport>
 </template>
 <script setup>
 import { computed, reactive, ref, onMounted, watchEffect } from "vue";
@@ -106,6 +109,7 @@ import useUtile from "../composables/utile.js";
 import BtnBase from "../components/BtnBase.vue";
 import InputEnterprise from "@/components/InputEnterprise.vue";
 import ModalSuppression from "@/components/ModalSuppression.vue";
+import modalLoader from "@/components/ModalLoader.vue";
 
 import EnterpriseService from "../services/enterprises/enterprisesServices";
 import ProvinceService from "../services/provinces/provincesServices";
@@ -131,6 +135,7 @@ const isLoadedProvinces = ref(false);
 const isLoadedActivitiesSector = ref(false);
 const isLoadedEnterprise = ref(false);
 const isLoading = computed(() => !isLoadedProvinces || !isLoadedActivitiesSector || !isLoadedEnterprise); // TODO corriger
+const isOpenModalLoading = ref(false);
 
 const isOpenModalSuppression = ref(false);
 // console.log("id", _id);
