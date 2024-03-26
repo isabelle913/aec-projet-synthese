@@ -1,7 +1,7 @@
 <template>
   <section class="bg-slate-100 page-padding">
     <h2>Entreprises</h2>
-    <BtnBase title="Ajouter une entreprise" color="#F9CB40" :action="onEnterpriseDetails" />
+    <BtnBase class="my-8" title="Ajouter une entreprise" color="#F9CB40" :action="onEnterpriseDetails" />
     <div class="flex flex-wrap gap-5">
       <CardEntreprise v-for="entreprise in entreprises" :key="entreprise._id" :entreprise="entreprise" />
     </div>
@@ -9,33 +9,42 @@
 </template>
 
 <script setup>
+import { ref, onMounted, watchEffect } from "vue";
 import { useRouter } from "vue-router";
+
 import BtnBase from "../components/BtnBase.vue";
 import CardEntreprise from "../components/CardEntreprise.vue";
 
-import { mockEntreprise } from "../mocks/Entreprise.js"; // TODO changer source
+import EnterpriseService from "../services/enterprises/enterprisesServices";
 
 const router = useRouter();
 
-const entreprises = mockEntreprise;
-console.log(entreprises);
+const { enterpriseListe, allEnterprises } = EnterpriseService();
+const entreprises = ref([]);
+
+onMounted(() => {
+  allEnterprises();
+});
+
+watchEffect(() => {
+  if (Array.isArray(enterpriseListe.value)) {
+    entreprises.value = [...enterpriseListe.value];
+    console.log(entreprises.value);
+  }
+});
 
 function onEnterpriseDetails() {
-  router.push({ name: "enterprise", params: { id: "0" } });
+  router.push({ name: "enterprise", params: { id: "new" } });
 }
-
-function load() {
-  console.log("Ici on va loader les entreprises");
-  // TODO get allEntreprises
-}
-load();
 
 /* TODO suggestions:
-   mettre le padding de nos pages dans une variables
+   mettre le padding de nos pages dans une variable
    idem pour typographie titre
    On pourrait utiliser des class 
 */
+// TODO pour les images soit matcher des images de mon choix ou mettre une par default
 </script>
+
 <style scoped>
 h2 {
   font-size: 3rem;
