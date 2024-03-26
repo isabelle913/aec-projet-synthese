@@ -1,23 +1,111 @@
 import { ref } from "vue";
 
 export default function InternshipOffersService() {
-  const liste = ref([]);
+  const internshipOffersListe = ref([]);
+  const objet = ref({});
+  const success = ref(false);
 
   const allInternshipOffers = () => {
     fetch("https://aec-projet-integrateur-api.fly.dev/internship-offers/")
-      .then(response => response.json())
-      .then(data => {
-        liste.value = data;
-        console.log('Liste des offres de stages:', liste.value);
+      .then((response) => response.json())
+      .then((data) => {
+        internshipOffersListe.value = data;
+        console.log("Liste des offres de stages:", internshipOffersListe.value);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Une erreur s'est produite lors de la récupération des données:", error);
       });
-      return liste.value;
+    return internshipOffersListe.value;
+  };
+
+  const getInternshipOffereById = (_id) => {
+    return fetch(`https://aec-projet-integrateur-api.fly.dev/internship-offers/${_id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        objet.value = data;
+        console.log("Entreprise trouvée :", objet.value);
+        return objet.value;
+      })
+      .catch((error) => {
+        console.log("Une erreur s'est produite lors de la récupération des données:", error);
+        throw error;
+      });
+  };
+
+  const addInternshipOffer = async (newInternshipOffer) => {
+    try {
+      const response = await fetch("https://aec-projet-integrateur-api.fly.dev/internship-offers/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newInternshipOffer),
+      });
+
+      if (response.ok) {
+        success.value = true;
+        console.log("Requête POST réussie !");
+        // Vous pouvez ajouter ici d'autres actions après le succès de la requête.
+      } else {
+        console.error("Échec de la requête POST.");
+        success.value = false;
+      }
+    } catch (error) {
+      console.error("Erreur lors de la requête POST:", error);
+      success.value = false;
+    }
+  };
+
+  const editInternshipOffer = async (_id) => {
+    console.log(_id);
+    try {
+      const response = await fetch("https://aec-projet-integrateur-api.fly.dev/internship-offers/", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(),
+      });
+
+      if (response.ok) {
+        success.value = true;
+        console.log("Requête PATCH réussie !");
+      } else {
+        console.error("Échec de la requête PATCH.");
+        success.value = false;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteEnterprise = async (_id) => {
+    try {
+      const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/internship-offers/${_id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        success.value = true;
+        console.log("Requête DELETE réussie !");
+      } else {
+        console.error("Échec de la requête DELETE.");
+        success.value = false;
+      }
+    } catch (error) {
+      console.error("Erreur lors de la requête DELETE:", error);
+      success.value = false;
+    }
   };
 
   return {
-    liste,
+    internshipOffersListe,
+    objet,
+    success,
     allInternshipOffers,
+    getInternshipOffereById,
+    addInternshipOffer,
+    editInternshipOffer,
+    deleteEnterprise,
   };
 }
