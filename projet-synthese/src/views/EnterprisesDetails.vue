@@ -68,11 +68,10 @@
             </div>
           </div>
 
-          <!-- TODO possiblement enlever -->
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.website" name="website" :is-error="isError.website" label="Site Web" :is-edit="isEditOrCreate" />
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.postalCode" name="postalCode" :is-error="isError.postalCode" label="Code postal" :is-edit="isEditOrCreate" />
-          <!-- TODO possiblement enlever -->
-          <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.image" name="image" :is-error="isError.image" label="URL du logo" :is-edit="isEditOrCreate" />
+          <!-- Image -->
+          <!-- <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.image" name="image" :is-error="isError.image" label="URL du logo" :is-edit="isEditOrCreate" /> -->
         </div>
       </div>
 
@@ -194,10 +193,10 @@ function onValidate(e) {
 
   if (Object.values(isError).every((result) => !result)) {
     console.log("POST/PATCH", enterprise.value);
-    if (_id === "0") {
+    if (_id === "new") {
       console.log("vers le POST");
       addEnterprises(enterprise.value);
-      onReset();
+      enterprise.value = {};
     } else {
       console.log("vers le PATCH");
       editEnterprises(enterprise.value);
