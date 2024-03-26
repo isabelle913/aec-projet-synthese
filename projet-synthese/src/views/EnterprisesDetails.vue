@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-slate-100 page-padding">
+  <section v-if="!isQueryError" class="bg-slate-100 page-padding">
     <form>
       <!-- Entête -->
       <div v-if="!isEditOrCreate" class="presentation-title-border mb-20">
@@ -18,11 +18,22 @@
         <div class="grid grid-cols-12 mb-3">
           <label class="col-span-3 text-gray-600 text-2xl mr-4" for="activitySector">Secteur d'activité:</label>
           <select class="col-span-9 border border-gray-400 rounded py-3 px-3 text-gray-600 text-2xl leading-tight focus:border-gray-800 hover:border-gray-800" id="activitySector" name="activitySector" v-model="enterprise.activitySector">
-            <option v-for="activity in activitiesSectorForSelect" :key="activity._id" :value="activity">{{ activity.value }}</option>
+            <option v-for="activity in activitiesSector" :key="activity._id" :value="activity">{{ activity.value }}</option>
           </select>
           <p v-if="isError.activitySector" class="col-start-4 col-span-9 text-red-500 text-xs italic">Veuillez choisir un secteur d'activité</p>
         </div>
       </div>
+
+      <!-- boutons -->
+      <!-- TODO Valider les couleurs -->
+      <div class="flex justify-center flex-wrap md:justify-end gap-5 py-8">
+        <BtnBase v-if="isEditOrCreate && _id !== 'new'" title="Annuler" icon="close" color="#f9cb40" outline :action="onGoToView" show-icon-only icon-color="red" />
+        <BtnBase v-if="isEditOrCreate && _id === 'new'" title="Annuler" icon="close" color="#f9cb40" outline :action="onReset" show-icon-only icon-color="red" />
+        <BtnBase v-if="isEditOrCreate" :title="theBtnValidateTitle" icon="save" color="#f9cb40" :action="onValidate" show-icon-only icon-color="green" />
+        <BtnBase v-if="!isEditOrCreate" title="Modifier" icon="edit" color="#f9cb40" :action="onUpdate" show-icon-only icon-color="#f9cb40" />
+        <BtnBase v-if="!isEditOrCreate" title="Supprimer" icon="delete" color="#f9cb40" :action="onDelete" show-icon-only icon-color="red" />
+      </div>
+
       <!-- corps -->
       <div class="bg-white page-padding">
         <!-- 1er partie -->
@@ -41,66 +52,85 @@
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.phone" name="phone" :is-error="isError.phone" label="Téléphone" :is-edit="isEditOrCreate" />
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.city" name="city" :is-error="isError.city" label="Ville" :is-edit="isEditOrCreate" />
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.email" name="email" :is-error="isError.email" label="Courriel" :is-edit="isEditOrCreate" />
+
+          <!-- Provinces -->
           <div class="col-span-12 md:col-span-6 border-l-8 border-l-gray-600 px-4">
-        <div class="text-gray-600 mb-4 text-2xl">Province</div>
-        <div v-if="enterprise.province">
-          <div v-if="!isEditOrCreate" class="text-gray-400">{{ enterprise.province.value }}</div>
-          <div v-else>
-            <label class="hidden" for="province">Province:</label>
-            <select class="block w-full border border-gray-400 rounded py-3 px-3 text-gray-600 leading-tight focus:border-gray-800 hover:border-gray-800" id="province" name="province" v-model="enterprise.province">
-              <option v-for="province in provincesForSelect" :key="province._id" :value="province">{{ province.value }}</option>
-            </select>
-            <p v-if="isError.province" class="text-red-500 text-xs italic">Veuillez choisir une province</p>
+            <div class="text-gray-600 mb-4 text-2xl">Province</div>
+            <div>
+              <div v-if="!isEditOrCreate && enterprise.province" class="text-gray-400">{{ enterprise.province.value }}</div>
+              <div v-else>
+                <label class="hidden" for="province">Province:</label>
+                <select class="block w-full border border-gray-400 rounded py-3 px-3 text-gray-600 leading-tight focus:border-gray-800 hover:border-gray-800" id="province" name="province" v-model="enterprise.province">
+                  <option v-for="province in provinces" :key="province._id" :value="province">{{ province.value }}</option>
+                </select>
+                <p v-if="isError.province" class="text-red-500 text-xs italic">Veuillez choisir une province</p>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+
+          <!-- TODO possiblement enlever -->
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.website" name="website" :is-error="isError.website" label="Site Web" :is-edit="isEditOrCreate" />
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.postalCode" name="postalCode" :is-error="isError.postalCode" label="Code postal" :is-edit="isEditOrCreate" />
+          <!-- TODO possiblement enlever -->
           <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.image" name="image" :is-error="isError.image" label="URL du logo" :is-edit="isEditOrCreate" />
         </div>
       </div>
 
-      <div class="flex justify-end gap-x-5">
-        <!-- TODO ajouter icone au bouton  -->
-        <BtnBase title="Annuler" color="#f9cb40" outline :action="onReset" />
-        <BtnBase title="Sauvegarder" color="#f9cb40" :action="onValidate" />
-        <!-- TODO copier les bouton en haut -->
+      <div class="flex justify-center flex-wrap md:justify-end gap-5 py-8">
+        <BtnBase v-if="isEditOrCreate && _id !== 'new'" title="Annuler" icon="close" color="#f9cb40" outline :action="onGoToView" />
+        <BtnBase v-if="isEditOrCreate && _id === 'new'" title="Annuler" icon="close" color="#f9cb40" outline :action="onReset" />
+        <BtnBase v-if="isEditOrCreate" :title="theBtnValidateTitle" icon="save" color="#f9cb40" :action="onValidate" />
+        <BtnBase v-if="!isEditOrCreate" title="Modifier" icon="edit" color="#f9cb40" :action="onUpdate" />
+        <BtnBase v-if="!isEditOrCreate" title="Supprimer" icon="delete" color="#f9cb40" :action="onDelete" />
+        <BtnBase title="Retour à la liste des entreprises" icon="list" color="#f9cb40" :action="onGoToListe" />
       </div>
     </form>
+    <!-- TODO mettre loader -->
+    <!-- TODO effacer cette ligne -->
+    <div v-if="isLoading" class="text-6xl ted-red-600">Coucou</div>
+  </section>
+  <section v-else class="h-screen bg-slate-100 page-padding">
+    <div class="h-full flex justify-center items-center">
+      <div class="text-4xl text-center">Une erreur est survenue lors de la récupération des données</div>
+    </div>
   </section>
 </template>
 <script setup>
-import { reactive, ref, onMounted, watchEffect } from "vue";
-import { useRoute } from "vue-router";
+import { computed, reactive, ref, onMounted, watchEffect } from "vue";
+import { useRoute, useRouter } from "vue-router";
+
+import useUtile from "../composables/utile.js";
 
 import BtnBase from "../components/BtnBase.vue";
 import InputEnterprise from "@/components/InputEnterprise.vue";
 
 import EnterpriseService from "../services/enterprises/enterprisesServices";
+import ProvinceService from "../services/provinces/provincesServices";
+import ActivityServices from "../services/activitySectors/activitySectorsServices";
 
 const route = useRoute();
+const router = useRouter();
+const { validateEmail, validatePhone, validatePostalCode } = useUtile();
+const { objet, getEntrepriseById, addEnterprises, editEnterprises, deleteEnterprise } = EnterpriseService();
+const { provincesListe, allProvinces } = ProvinceService();
+const { activityListe, allActivitySectors } = ActivityServices();
 
 const _id = route.params.id;
 const isUpdate = route.params.action === "update" ? true : false;
-
-console.log("id", _id);
-console.log("route.params", route.params);
-
 const isEditOrCreate = ref(false);
+
 const enterprise = ref({});
+const activitiesSector = ref([]);
+const provinces = ref([]);
 
-const { objet, getEntrepriseById } = EnterpriseService();
+const isQueryError = ref(false);
+const isLoadedProvinces = ref(false);
+const isLoadedActivitiesSector = ref(false);
+const isLoadedEnterprise = ref(false);
+const isLoading = computed(() => !isLoadedProvinces || !isLoadedActivitiesSector || !isLoadedEnterprise); // TODO corriger
 
-onMounted(() => {
-  getEntrepriseById(_id);
-});
-
-watchEffect(() => {
-  if (Object.keys(objet.value).length !== 0) {
-    enterprise.value = objet.value; // Assigner directement la valeur
-    console.log(enterprise.value);
-  }
-});
+// console.log("id", _id);
+// console.log("route.params", route.params);
 
 const isError = reactive({
   enterpriseName: false,
@@ -113,164 +143,126 @@ const isError = reactive({
   province: false,
   website: false,
   postalCode: false,
-  image: false,
+  // image: false,
 });
 
-// TODO éventuellement remplir avec le get
-const activitiesSectorForSelect = [
-  {
-    _id: "65c19fcff568a815fab14b2a",
-    value: "Finance",
-  },
-  {
-    _id: "65c2781fb3a8ad1d7ccc91f8",
-    value: "Engineering",
-  },
-];
-
-// TODO éventuellement remplir avec le get
-const provincesForSelect = [
-  {
-    _id: "65c255fb7e4d2a499b409ca0",
-    value: "QUEBEC",
-  },
-  {
-    _id: "65c2571497ac7ec38f58695e",
-    value: "ONTARIO",
-  },
-  {
-    _id: "65c275696d55606cc56d38e7",
-    value: "BRITISH COLUMBIA",
-  },
-  {
-    _id: "65c275736d55606cc56d38ea",
-    value: "ALBERTA",
-  },
-  {
-    _id: "65c2757f6d55606cc56d38ed",
-    value: "MANITOBA",
-  },
-  {
-    _id: "65c275896d55606cc56d38f0",
-    value: "SASKATCHEWAN",
-  },
-  {
-    _id: "65c275996d55606cc56d38f3",
-    value: "NEW BRUNSWICK",
-  },
-  {
-    _id: "65c275a66d55606cc56d38f6",
-    value: "NOVA SCOTIA",
-  },
-  {
-    _id: "65c275b16d55606cc56d38f9",
-    value: "PRINCE EDWARD ISLAND",
-  },
-  {
-    _id: "65c275c36d55606cc56d38fc",
-    value: "YUKON",
-  },
-  {
-    _id: "65c275cf6d55606cc56d38ff",
-    value: "NORTHWEST TERRITORIES",
-  },
-  {
-    _id: "65c275d76d55606cc56d3902",
-    value: "NUNAVUT",
-  },
-  {
-    _id: "65e4de3747cf6b3671ee948e",
-    value: "NEWFOUNDLAND AND LABRADOR",
-  },
-];
+const theBtnValidateTitle = computed(() => {
+  if (_id === "new") return "Ajouter";
+  else return "Mettre à jour";
+});
 
 function onValidate(e) {
   e.preventDefault();
+  console.log("onValidate");
 
-  if (enterprise.name === "") isError.enterpriseName = true;
+  if (!enterprise.value.name || enterprise.value.name === "") isError.enterpriseName = true;
   else isError.enterpriseName = false;
 
-  if (!enterprise.activitySector) isError.activitySector = true; // TODO Vérifier
+  if (!enterprise.value.activitySector) isError.activitySector = true;
   else isError.activitySector = false;
 
-  if (enterprise.description === "") isError.description = true;
+  if (!enterprise.value.description || enterprise.value.description === "") isError.description = true;
   else isError.description = false;
 
-  if (enterprise.address === "") isError.address = true;
+  if (!enterprise.value.address || enterprise.value.address === "") isError.address = true;
   else isError.address = false;
 
-  if (enterprise.phone === "") isError.phone = true;
+  if (!validatePhone(enterprise.value.phone)) isError.phone = true;
   else isError.phone = false;
 
-  if (enterprise.city === "") isError.city = true;
+  if (!enterprise.value.city || enterprise.value.city === "") isError.city = true;
   else isError.city = false;
 
-  if (enterprise.email === "") isError.email = true;
+  if (!validateEmail(enterprise.value.email)) isError.email = true;
   else isError.email = false;
 
-  if (!enterprise.province) isError.province = true; // TODO Vérifier
+  if (!enterprise.value.province) isError.province = true;
   else isError.province = false;
 
-  if (enterprise.website === "") isError.website = true;
+  if (enterprise.value.website === "") isError.website = true;
   else isError.website = false;
 
-  if (enterprise.postalCode === "") isError.postalCode = true;
-  else isError.postalCode = false;
+  if (!validatePostalCode(enterprise.value.postalCode)) isError.postalCode = true;
 
-  if (enterprise.image === "") isError.image = true;
-  else isError.image = false;
-
-  console.log(Object.values(isError));
+  console.log("isError", isError);
+  console.log("enterprise.value", enterprise.value);
 
   if (Object.values(isError).every((result) => !result)) {
-    // si passe la validation do ->
-    console.log(enterprise);
-    // TODO matcher avec service POST or PATCH
-    // if id == 0 -> POST
-    // else Patch
+    console.log("POST/PATCH", enterprise.value);
+    if (_id === "0") {
+      console.log("vers le POST");
+      addEnterprises(enterprise.value);
+      onReset();
+    } else {
+      console.log("vers le PATCH");
+      editEnterprises(enterprise.value);
+    }
   }
+}
+
+function onUpdate() {
+  router.push({ path: `/enterprise/${enterprise.value._id}/update` });
 }
 
 function onReset(e) {
   e.preventDefault();
   console.log("onReset");
+  enterprise.value = {};
 }
 
-function setEnterprise(enterprise) {
-  console.log("setEnterprise", enterprise);
+function onGoToListe() {
+  router.push({ name: "enterprises" });
 }
 
-function setActivitiesSectorForSelect(activitiesSector) {
-  console.log("setActivitiesSectorForSelect", activitiesSector);
+function onDelete(e) {
+  e.preventDefault();
+  console.log("onDelete");
+  // TODO Ouvrir modal
+  deleteEnterprise(_id);
 }
 
-function setProvinces(provinces) {
-  console.log("setProvinces", provinces);
+function onGoToView(e) {
+  e.preventDefault();
+  isEditOrCreate.value = false;
+  router.push({ path: `/enterprise/${_id}` });
 }
 
-function load() {
-  /*
-  Explication de ma logique
-    si id === 0 on ajoute une entreprise
-    si id !== 0 on consulte ou modifie
-    si le params update est présent on modifie
-  */
-
-  if (_id === "0") isEditOrCreate.value = true;
-  else {
-    // TODO getEntreprise(_id)
-    // setEnterprise(enterprise);
+onMounted(() => {
+  if (_id === "new") {
+    isEditOrCreate.value = true;
+  } else {
+    getEntrepriseById(_id);
     if (isUpdate) isEditOrCreate.value = true;
-    // TODO mettre message si _id n'existe pas
   }
-  // TODO Ajouter des secteurs d'activité, car il y en a juste 2!
-  // TODO getActivitiesSector()
-  //setActivitiesSectorForSelect(activitiesSector);
-  // TODO getProvinces()
-  //setProvinces()
-}
-load();
+
+  allProvinces();
+  allActivitySectors();
+});
+
+watchEffect(() => {
+  if (Object.keys(objet.value).length !== 0) {
+    enterprise.value = objet.value; // Assigner directement la valeur
+    // console.log("enterprise", enterprise.value);
+    isLoadedEnterprise.value = true;
+    if (enterprise.value.statusCode) isQueryError.value = true;
+  }
+});
+watchEffect(() => {
+  if (Array.isArray(provincesListe.value)) {
+    provinces.value = [...provincesListe.value];
+    isLoadedProvinces.value = true;
+    // console.log("provinces", provinces.value);
+  }
+});
+watchEffect(() => {
+  if (Array.isArray(activityListe.value)) {
+    activitiesSector.value = [...activityListe.value];
+    isLoadedActivitiesSector.value = true;
+    // console.log("activitiesSector", activitiesSector.value);
+  }
+});
 </script>
+
 <style scoped>
 .page-padding {
   padding: 3rem;
@@ -283,3 +275,4 @@ load();
   color: #f9cb40;
 }
 </style>
+../composables/utile.js
