@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Authentificator from "../components/Authentificator.vue";
 import Entreprises from "../views/Entreprises.vue";
-import EnterprisesDetails from "../views/EnterprisesDetails.vue";
+import EntreprisesDetails from "../views/EntreprisesDetails.vue";
 import DemandeStagePage1 from "../views/DemandeStagePage1.vue";
 import DemandeStagePage2 from "../views/DemandeStagePage2.vue";
 import AjoutDemandeStage from "../views/AjoutDemandeStage.vue";
@@ -31,18 +31,18 @@ const router = createRouter({
     },
     {
       path: "/Entreprises",
-      name: "enterprises",
+      name: "entreprises",
       component: Entreprises,
     },
     {
       path: "/Entreprise/:id",
-      name: "enterpriseDetails",
-      component: EnterprisesDetails,
+      name: "entrepriseDetails",
+      component: EntreprisesDetails,
       children: [
         {
-          path: "update", // Example: /enterprise/:id/update
-          name: "enterpriseUpdate",
-          component: EnterprisesDetails,
+          path: "update", // Example: /entreprise/:id/update
+          name: "entrepriseUpdate",
+          component: EntreprisesDetails,
         },
       ],
     },
