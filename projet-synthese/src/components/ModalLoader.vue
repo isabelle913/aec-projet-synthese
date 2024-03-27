@@ -97,7 +97,7 @@ const theModel = computed({
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
-
+/*
 .animate-spin {
   animation: spin 1s linear infinite;
 
@@ -109,5 +109,5 @@ const theModel = computed({
       transform: rotate(360deg);
     }
   }
-}
+ } */
 </style>
