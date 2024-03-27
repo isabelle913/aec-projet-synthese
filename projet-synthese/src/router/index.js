@@ -6,6 +6,7 @@ import TableauBord from "@/views/TableauBord.vue";
 import DemandeStagePage1 from "@/views/DemandeStagePage1.vue";
 import DemandeStagePage2 from "@/views/DemandeStagePage2.vue";
 import AjoutDemandeStage from "@/views/AjoutDemandeStage.vue";
+import Authentificator from "../components/Authentificator.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
