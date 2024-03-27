@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 // import HomeView from "../views/HomeView.vue";
 import Entreprises from "@/views/Entreprises.vue";
-import EnterprisesDetails from "@/views/EnterprisesDetails.vue";
+import EntreprisesDetails from "@/views/EntreprisesDetails.vue";
 import TableauBord from "@/views/TableauBord.vue";
 
 const router = createRouter({
@@ -20,12 +20,12 @@ const router = createRouter({
     {
       path: "/enterprise/:id", //router.push({ path: '/enterprise/:id' })  or router.push({ name: 'enterprise', params: { id: id } })
       name: "enterprise",
-      component: EnterprisesDetails,
+      component: EntreprisesDetails,
       children: [
         {
           path: ":action", //router.push({ path: '/enterprise/:id/:action' })  or router.push({ name: 'enterprise', params: { id: id, action: 'update' } })
           name: "enterprise",
-          component: EnterprisesDetails,
+          component: EntreprisesDetails,
         },
       ],
     },
