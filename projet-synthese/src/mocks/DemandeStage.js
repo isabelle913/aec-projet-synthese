@@ -2,7 +2,7 @@ export const DemandeStage = [
   {
     _id: "1",
     title: "Stage pour développeur web",
-    description: "lorem ipsum",
+    description: "lorem ipsum lorem ipsum",
     candidate: {
       _id: "1",
       description: "lorem ipsum",
