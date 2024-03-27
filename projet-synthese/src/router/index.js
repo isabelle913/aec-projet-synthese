@@ -19,7 +19,6 @@ const router = createRouter({
       path: "/demandestagepage1",
       name: "demandestagepage1",
       component: DemandeStagePage1,
-      //component: HomeView
     },
     {
       path: "/demande/:_id",
@@ -31,7 +30,6 @@ const router = createRouter({
       path: "/demandestagepage2",
       name: "demandestagepage2",
       component: DemandeStagePage2,
-      //component: HomeView
     },
     {
       path: "/ajoutdemandestage",
