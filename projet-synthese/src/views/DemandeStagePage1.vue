@@ -123,7 +123,8 @@ import InternshipRequestsServices from "@/services/internshipRequests/internship
 
 const router = useRouter();
 const { _id } = router.currentRoute.value.params;
-const { liste, allInternshipRequests } = InternshipRequestsServices();
+const { internshipRequestsListe, allInternshipRequests } =
+  InternshipRequestsServices();
 const InternshipRequest = ref(null);
 
 onMounted(() => {
@@ -132,8 +133,10 @@ onMounted(() => {
 
 function load() {
   watchEffect(() => {
-    if (Array.isArray(liste.value)) {
-      InternshipRequest.value = liste.value.find((item) => item._id === _id);
+    if (Array.isArray(internshipRequestsListe.value)) {
+      InternshipRequest.value = internshipRequestsListe.value.find(
+        (item) => item._id === _id
+      );
     }
   });
 }
