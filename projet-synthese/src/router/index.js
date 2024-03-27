@@ -9,29 +9,32 @@ import AjoutDemandeStage from "@/views/AjoutDemandeStage.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-
     {
-      path: '/',
-      name: 'Authentificator',
-      component: Authentificator
+      path: "/",
+      name: "Authentificator",
+      component: Authentificator,
       //component: HomeView
     },
     {
-      path: '/demandestagepage1',
-      name: 'demandestagepage1',
-      component: DemandeStagePage1
-      //component: HomeView
+      path: "/demandestagepage1",
+      name: "demandestagepage1",
+      component: DemandeStagePage1,
     },
     {
-      path: '/demandestagepage2',
-      name: 'demandestagepage2',
-      component: DemandeStagePage2
-      //component: HomeView
+      path: "/demande/:_id",
+      name: "DemandeStagePage1",
+      component: DemandeStagePage1,
+      props: true,
     },
     {
-      path: '/ajoutdemandestage',
-      name: 'ajoutdemandestage',
-      component: AjoutDemandeStage
+      path: "/demandestagepage2",
+      name: "demandestagepage2",
+      component: DemandeStagePage2,
+    },
+    {
+      path: "/ajoutdemandestage",
+      name: "ajoutdemandestage",
+      component: AjoutDemandeStage,
       //component: HomeView
     },
     {
