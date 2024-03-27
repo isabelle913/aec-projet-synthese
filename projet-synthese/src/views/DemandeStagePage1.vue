@@ -115,42 +115,6 @@
     </section>
   </div>
 </template>
-<!-- <script setup>
-
-/* import { DemandeStage } from "../mocks/DemandeStage.js";
-export default {
-  name: "DemandeStagePage1",
-  data() {
-    return {
-      demandeStage: DemandeStage[0],
-    };
-  },
-}; */
-import { ref, onMounted, watchEffect } from "vue";
-import { useRouter } from "vue-router";
-import InternshipRequestsServices from "@/services/internshipRequests/internshipRequestsServices";
-const router = useRouter();
-const { liste, allInternshipRequests } = InternshipRequestsServices();
-/* const { InternshipRequestsListe, allInternshipRequests } =
-  InternshipRequestsServices(); */
-const InternshipRequests = ref([]);
-onMounted(() => {
-  allInternshipRequests();
-});
-
-function load() {
-  console.log("Ici on va loader les demandes de stages");
-
-  watchEffect(() => {
-    if (Array.isArray(liste.value)) {
-      InternshipRequests.value = [...liste.value];
-      console.log(InternshipRequests.value);
-    }
-  });
-}
-load();
-</script>
- -->
 
 <script setup>
 import { ref, onMounted, watchEffect } from "vue";
