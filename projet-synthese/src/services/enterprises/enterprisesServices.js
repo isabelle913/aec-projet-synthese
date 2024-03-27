@@ -33,14 +33,14 @@ export default function EnterpriseService() {
       });
   };
 
-  const addEnterprises = async () => {
+  const addEnterprises = async (newEnterprise) => {
     try {
       const response = await fetch("https://aec-projet-integrateur-api.fly.dev/enterprises/", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(),
+        body: JSON.stringify(newEnterprise),
       });
 
       console.log(body);
@@ -58,14 +58,14 @@ export default function EnterpriseService() {
     }
   };
 
-  const editEnterprises = async (_id) =>{
+  const editEnterprises = async (data) =>{
     try {
-      const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/enterprises/${_id}`,{
+      const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/enterprises/${data._id}`,{
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(),
+      body: JSON.stringify(data),
       });
 
       if(response.ok){

@@ -57,7 +57,29 @@ export default function CandidatesService() {
     }
   };
 
-  const deleteEnterprise = async (_id) => {
+  const editCandidates = async (data) =>{
+    try {
+      const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/candidates/${data._id}`,{
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+      });
+
+      if(response.ok){
+        success.value = true;
+        console.log('Requête PATCH réussie !')
+      } else{
+        console.error('Échec de la requête PATCH:', error);
+        success.value = false;
+      }
+    }catch(error){
+
+    }
+  };
+
+  const deleteCandidates = async (_id) => {
     try {
       const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/candidates/${_id}`, {
         method: 'DELETE',
@@ -83,6 +105,7 @@ export default function CandidatesService() {
     allCandidates,
     getCandidateById,
     addCandidates,
-    deleteEnterprise,
+    editCandidates,
+    deleteCandidates,
   };
 }

@@ -56,7 +56,29 @@ export default function ActivityServices() {
     }
   };
 
-  const deleteEnterprise = async (_id) => {
+  const editActivitySector = async (data) =>{
+    try {
+      const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/activity-sectors/${data._id}`,{
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+      });
+
+      if(response.ok){
+        success.value = true;
+        console.log('Requête PATCH réussie !')
+      } else{
+        console.error('Échec de la requête PATCH:', error);
+        success.value = false;
+      }
+    }catch(error){
+
+    }
+  };
+
+  const deleteActivitySector = async (_id) => {
     try {
       const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/activity-sectors/${_id}`, {
         method: 'DELETE',
@@ -82,6 +104,7 @@ export default function ActivityServices() {
     allActivitySectors,
     getActivitySectorById,
     addActivitySector,
-    deleteEnterprise,
+    editActivitySector,
+    deleteActivitySector,
   };
 }

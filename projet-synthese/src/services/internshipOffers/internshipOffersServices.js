@@ -56,14 +56,14 @@ export default function InternshipOffersService() {
     }
   };
 
-  const editInternshipOffer = async (_id) =>{
+  const editInternshipOffer = async (data) =>{
     try {
-      const response = await fetch("https://aec-projet-integrateur-api.fly.dev/internship-offers/",{
+      const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/internship-offers/${data._id}`,{
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(),
+      body: JSON.stringify(data),
       });
 
       if(response.ok){
