@@ -105,6 +105,6 @@ export default function InternshipTypesServices() {
     getInternshipTypeById,
     addInternshipType,
     editInternshipType,
-    deleteEnterprise
+    deleteInternshipType
   };
 }
