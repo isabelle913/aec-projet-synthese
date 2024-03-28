@@ -241,11 +241,6 @@ function onGoToView(e) {
   router.push({ path: `/enterprise/${_id}` });
 }
 
-function setloader() {
-  if (isLoadedProvinces.value && isLoadedActivitiesSector.value && isLoadedEnterprise.value) console.log("Miip", isLoadedProvinces.value, isLoadedActivitiesSector.value, isLoadedEnterprise.value);
-  else console.log("Biip", isLoadedProvinces.value, isLoadedActivitiesSector.value, isLoadedEnterprise.value);
-}
-
 onMounted(() => {
   if (_id === "new") {
     isEditOrCreate.value = true;
@@ -261,10 +256,9 @@ onMounted(() => {
 watchEffect(() => {
   if (Object.keys(objet.value).length !== 0) {
     enterprise.value = objet.value; // Assigner directement la valeur
-    console.log("enterprise", enterprise.value);
+    // console.log("enterprise", enterprise.value);
     isLoadedEnterprise.value = true;
     if (enterprise.value.statusCode) isQueryError.value = true;
-    setloader();
   }
 });
 watchEffect(() => {
@@ -272,7 +266,6 @@ watchEffect(() => {
     provinces.value = [...provincesListe.value];
     isLoadedProvinces.value = true;
     // console.log("provinces", provinces.value);
-    setloader();
   }
 });
 watchEffect(() => {
@@ -280,7 +273,6 @@ watchEffect(() => {
     activitiesSector.value = [...activityListe.value];
     isLoadedActivitiesSector.value = true;
     // console.log("activitiesSector", activitiesSector.value);
-    setloader();
   }
 });
 </script>
