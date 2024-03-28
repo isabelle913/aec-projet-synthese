@@ -78,7 +78,7 @@ export default function InternshipOffersService() {
     }
   };
 
-  const deleteEnterprise = async (_id) => {
+  const deleteInternshipOffer = async (_id) => {
     try {
       const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/internship-offers/${_id}`, {
         method: "DELETE",
@@ -105,6 +105,6 @@ export default function InternshipOffersService() {
     getInternshipOffereById,
     addInternshipOffer,
     editInternshipOffer,
-    deleteEnterprise,
+    deleteInternshipOffer,
   };
 }
