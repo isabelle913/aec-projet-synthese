@@ -56,15 +56,14 @@ export default function InternshipRequestsServices() {
     }
   };
 
-  const editInternshipRequest = async (_id) => {
-    console.log(_id);
+  const editInternshipRequest = async (data) =>{
     try {
-      const response = await fetch("https://aec-projet-integrateur-api.fly.dev/internship-requests/", {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(),
+      const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/internship-requests/${data._id}`,{
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
       });
 
       if (response.ok) {
@@ -79,7 +78,7 @@ export default function InternshipRequestsServices() {
     }
   };
 
-  const deleteEnterprise = async (_id) => {
+  const deleteInternshipRequest = async (_id) => {
     try {
       const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/internship-requests/${_id}`, {
         method: "DELETE",
@@ -106,6 +105,6 @@ export default function InternshipRequestsServices() {
     getInternshipRequestById,
     addInternshipRequest,
     editInternshipRequest,
-    deleteEnterprise,
+    deleteInternshipRequest
   };
 }
