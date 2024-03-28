@@ -2,6 +2,7 @@ import { ref } from "vue";
 
 export default function CandidatesService() {
   const candidatesListe = ref([]);
+  const candidatesListeCount = ref();
   const objet = ref({});
   const success = ref(false);
 
@@ -17,6 +18,19 @@ export default function CandidatesService() {
     }
 
     return candidatesListe.value;
+  };
+
+  const getCandidateCount = async() => {
+    try{
+      const response = await fetch("https://aec-projet-integrateur-api.fly.dev/candidates/count");
+      const data = await response.json();
+
+      candidatesListeCount.value = data;
+      console.log('Nombre de candidat:', candidatesListeCount.value);
+    } catch (error){
+      console.error("Une erreur s'est produite lors de la récupération des données:", error);
+    }
+    return candidatesListeCount.value;
   };
 
   const getCandidateById = (_id) => {
@@ -57,7 +71,29 @@ export default function CandidatesService() {
     }
   };
 
-  const deleteEnterprise = async (_id) => {
+  const editCandidates = async (data) =>{
+    try {
+      const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/candidates/${data._id}`,{
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+      });
+
+      if(response.ok){
+        success.value = true;
+        console.log('Requête PATCH réussie !')
+      } else{
+        console.error('Échec de la requête PATCH:', error);
+        success.value = false;
+      }
+    }catch(error){
+
+    }
+  };
+
+  const deleteCandidates = async (_id) => {
     try {
       const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/candidates/${_id}`, {
         method: 'DELETE',
@@ -78,11 +114,14 @@ export default function CandidatesService() {
 
   return {
     candidatesListe,
+    candidatesListeCount,
     objet,
     success,
     allCandidates,
     getCandidateById,
+    getCandidateCount,
     addCandidates,
-    deleteEnterprise,
+    editCandidates,
+    deleteCandidates,
   };
 }

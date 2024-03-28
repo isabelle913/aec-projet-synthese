@@ -1,13 +1,18 @@
 <template>
-  <div class="container mx-auto">
+  <div id="app" class="container mx-auto">
     <!-- Header -->
+    <div class="flex justify-between items-center">
+      <!-- TODO Gang Est-ce nécessaire -->
+      <LogoEstage />
+      <MenuAction />
+    </div>
     <!-- menu -->
-
-    <RouterView />
-
-    <!--<p class="flex justify-center items-center text-3xl h-screen">Bonjour super team</p>-->
-
-    <!-- Footer         <BidonForm />   -->
+    <Navigation />
+    <div class="col-span-12 md:col-span-8 max-md:p-10 p-16 bg-slate-300 variableSection">
+      <!-- TODO Gang pourquoi identification  -->
+      <!-- <router-view :identification="identification" /> -->
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -25,6 +30,10 @@ import InternshipOffersService from "./services/internshipOffers/internshipOffer
 import CandidatesService from "./services/candidates/candidatesServices";
 import ActivityServices from "./services/activitySectors/activitySectorsServices";
 import InternshipTypesServices from "./services/internshipTypes/internshipTypesServices";
+
+import Navigation from "./components/Navigation.vue";
+import MenuAction from "./components/MenuAction.vue";
+import LogoEstage from "./components/LogoEstage.vue";
 
 const { /*liste,*/ allEnterprises } = EnterpriseService();
 const { /*liste,*/ allProvinces } = ProvinceService();

@@ -84,20 +84,20 @@
         <BtnBase title="Retour à la liste des entreprises" icon="list" color="#f9cb40" :action="onGoToListe" />
       </div>
     </form>
-    <!-- TODO mettre loader -->
-    <!-- TODO effacer cette ligne -->
-    <div v-if="isLoading" class="text-6xl ted-red-600">Coucou</div>
   </section>
+
   <section v-else class="h-screen bg-slate-100 page-padding">
     <div class="h-full flex justify-center items-center">
       <div class="text-4xl text-center">Une erreur est survenue lors de la récupération des données</div>
     </div>
   </section>
+
   <teleport to="body">
     <ModalSuppression v-model="isOpenModalSuppression" :description="enterprise.name" :action="onDelete" @close="isOpenModalSuppression = false" />
   </teleport>
+
   <teleport to="body">
-    <modalLoader v-model="isOpenModalLoading" />
+    <Loader v-model="isLoading" />
   </teleport>
 </template>
 <script setup>
@@ -109,7 +109,7 @@ import useUtile from "../composables/utile.js";
 import BtnBase from "../components/BtnBase.vue";
 import InputEnterprise from "@/components/InputEnterprise.vue";
 import ModalSuppression from "@/components/ModalSuppression.vue";
-import modalLoader from "@/components/ModalLoader.vue";
+import Loader from "@/components/Loader.vue";
 
 import EnterpriseService from "../services/enterprises/enterprisesServices";
 import ProvinceService from "../services/provinces/provincesServices";
@@ -131,15 +131,17 @@ const activitiesSector = ref([]);
 const provinces = ref([]);
 
 const isQueryError = ref(false);
+
 const isLoadedProvinces = ref(false);
 const isLoadedActivitiesSector = ref(false);
 const isLoadedEnterprise = ref(false);
-const isLoading = computed(() => !isLoadedProvinces || !isLoadedActivitiesSector || !isLoadedEnterprise); // TODO corriger
-const isOpenModalLoading = ref(false);
+
+const isLoading = computed(() => {
+  if (isLoadedProvinces.value && isLoadedActivitiesSector.value && isLoadedEnterprise.value) return false;
+  else return true;
+});
 
 const isOpenModalSuppression = ref(false);
-// console.log("id", _id);
-// console.log("route.params", route.params);
 
 const isError = reactive({
   enterpriseName: false,
@@ -239,6 +241,11 @@ function onGoToView(e) {
   router.push({ path: `/enterprise/${_id}` });
 }
 
+function setloader() {
+  if (isLoadedProvinces.value && isLoadedActivitiesSector.value && isLoadedEnterprise.value) console.log("Miip", isLoadedProvinces.value, isLoadedActivitiesSector.value, isLoadedEnterprise.value);
+  else console.log("Biip", isLoadedProvinces.value, isLoadedActivitiesSector.value, isLoadedEnterprise.value);
+}
+
 onMounted(() => {
   if (_id === "new") {
     isEditOrCreate.value = true;
@@ -257,6 +264,7 @@ watchEffect(() => {
     console.log("enterprise", enterprise.value);
     isLoadedEnterprise.value = true;
     if (enterprise.value.statusCode) isQueryError.value = true;
+    setloader();
   }
 });
 watchEffect(() => {
@@ -264,6 +272,7 @@ watchEffect(() => {
     provinces.value = [...provincesListe.value];
     isLoadedProvinces.value = true;
     // console.log("provinces", provinces.value);
+    setloader();
   }
 });
 watchEffect(() => {
@@ -271,6 +280,7 @@ watchEffect(() => {
     activitiesSector.value = [...activityListe.value];
     isLoadedActivitiesSector.value = true;
     // console.log("activitiesSector", activitiesSector.value);
+    setloader();
   }
 });
 </script>

@@ -1,0 +1,21 @@
+@import "variable";
+h1 {
+  color: $color-text-noire;
+}
+.leftColumn {
+  background-color: $color-background_identification;
+}
+.rightColumn img {
+  width: 100%;
+}
+.input:focus {
+  border-color: $color-background_btn_tableau; /* Change this to your desired background color */
+  outline: none; /* Remove the default focus outline */
+}
+.btn {
+  background-color: $color-background_btn_tableau;
+
+  &:hover {
+    background-color: $color-background_btn_tableau_hover;
+  }
+}
