@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-// import HomeView from "../views/HomeView.vue";
 import Entreprises from "@/views/Entreprises.vue";
 import EnterprisesDetails from "@/views/EnterprisesDetails.vue";
 import TableauBord from "@/views/TableauBord.vue";
@@ -42,14 +41,6 @@ const router = createRouter({
       //component: HomeView
     },
     {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import("../views/AboutView.vue"),
-    },
-    {
       path: "/enterprises",
       name: "enterprises",
       component: Entreprises,
@@ -63,6 +54,23 @@ const router = createRouter({
           path: ":action", //router.push({ path: '/enterprise/:id/:action' })  or router.push({ name: 'enterprise', params: { id: id, action: 'update' } })
           name: "enterprise",
           component: EnterprisesDetails,
+        },
+      ],
+    },
+    {
+      path: "/candidats",
+      name: "candidats",
+      component: Candidats,
+    },
+    {
+      path: "/candidats/:id", //router.push({ path: '/candidats/:id' })  or router.push({ name: 'candidats', params: { id: id } })
+      name: "candidats",
+      component: CandidatDetails,
+      children: [
+        {
+          path: ":action", //router.push({ path: '/candidats/:id/:action' })  or router.push({ name: 'candidats', params: { id: id, action: 'update' } })
+          name: "candidats",
+          component: CandidatDetails,
         },
       ],
     },
