@@ -6,6 +6,10 @@
       <CardEntreprise v-for="entreprise in entreprises" :key="entreprise._id" :entreprise="entreprise" />
     </div>
   </section>
+
+  <teleport to="body">
+    <Loader v-model="isLoading" />
+  </teleport>
 </template>
 
 <script setup>
@@ -14,6 +18,7 @@ import { useRouter } from "vue-router";
 
 import BtnBase from "../components/BtnBase.vue";
 import CardEntreprise from "../components/CardEntreprise.vue";
+import Loader from "@/components/Loader.vue";
 
 import EnterpriseService from "../services/enterprises/enterprisesServices";
 
@@ -22,6 +27,8 @@ const router = useRouter();
 const { enterpriseListe, allEnterprises } = EnterpriseService();
 const entreprises = ref([]);
 
+const isLoading = ref(true);
+
 onMounted(() => {
   allEnterprises();
 });
@@ -29,7 +36,8 @@ onMounted(() => {
 watchEffect(() => {
   if (Array.isArray(enterpriseListe.value)) {
     entreprises.value = [...enterpriseListe.value];
-    console.log(entreprises.value);
+    // console.log(entreprises.value);
+    isLoading.value = false;
   }
 });
 
@@ -42,7 +50,6 @@ function onEnterpriseDetails() {
    idem pour typographie titre
    On pourrait utiliser des class 
 */
-// TODO pour les images soit matcher des images de mon choix ou mettre une par default
 </script>
 
 <style scoped>
