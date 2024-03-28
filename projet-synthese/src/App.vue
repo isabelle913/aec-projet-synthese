@@ -3,11 +3,11 @@
     <!-- Header -->
     <!-- menu -->
 
-    <RouterView />
+    <!--<RouterView />-->
 
     <!--<p class="flex justify-center items-center text-3xl h-screen">Bonjour super team</p>-->
-
-    <!-- Footer         <BidonForm />   -->
+    <HomeView />
+    <!-- Footer            -->
   </div>
 </template>
 
@@ -15,7 +15,7 @@
 
 /*Section test pour les services.*/
 
-import BidonForm from "@/views/BidonForm.vue";
+import HomeView from "@/views/HomeView.vue";
 
 import { ref, onMounted, watchEffect } from 'vue';
 
@@ -31,20 +31,26 @@ const {/*liste,*/ allEnterprises} = EnterpriseService();
 const {/*liste,*/ allProvinces} = ProvinceService();
 const {/*liste,*/ allInternshipRequests} = InternshipRequestsServices();
 const {/*liste,*/ allInternshipOffers} = InternshipOffersService();
+
 const {/*liste,*/ allCandidates} = CandidatesService();
+const {/*liste,*/ getCandidateCount} = CandidatesService();
+
 const {/*liste,*/ allActivitySectors} = ActivityServices();
 const {/*liste,*/ allInternshipTypes} = InternshipTypesServices();
 
 onMounted(() => {
-  /*allEnterprises();
+  allEnterprises();
   allProvinces();
   allInternshipRequests();
   allInternshipOffers();
+
   allCandidates();
+  getCandidateCount();
+
   allActivitySectors();
-  allInternshipTypes();*/
+  allInternshipTypes();
 });
 
 </script>
 
-<style scoped></style>./services/activitySectors/internshipTypesServices
+<style scoped></style>
