@@ -13,7 +13,7 @@ import { useRouter } from "vue-router";
 import BtnBase from "../components/BtnBase.vue";
 import CardCandidat from "../components/CardCandidat.vue";
 
-import { mockCandidats } from "../mocks/Candidats.js"; // TODO changer source
+// import { mockCandidats } from "../mocks/Candidats.js"; // TODO changer source
 
 const router = useRouter();
 
