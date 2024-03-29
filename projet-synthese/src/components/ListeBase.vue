@@ -7,16 +7,22 @@
       <div class="text-red-500 text-sm">En attente de validation</div>
     </div>
 
-    <div class="grid grid-cols-12">
-      <div class="col-span-12 sm:col-span-8 lg:col-span-4 text-gray-600 leading-8 border-b-4 border-b-gray-600 sm:mr-4">Profil</div>
-      <div v-if="isDemande" class="lg:col-span-3 text-gray-600 leading-8 border-b-4 border-b-gray-600 mr-4 hidden lg:block">Établissement</div>
-      <div v-else class="lg:col-span-3 text-gray-600 leading-8 border-b-4 border-b-gray-600 mr-4 hidden lg:block">Ville</div>
-      <div class="lg:col-span-2 text-gray-600 leading-8 border-b-4 border-b-gray-600 mr-4 hidden lg:block">Date</div>
-      <div class="col-span-12 sm:col-span-4 lg:col-span-3 text-gray-600 leading-8 border-b-4 border-b-gray-600">Actions</div>
+    <div v-if="isTableaubord" class="grid grid-cols-12">
+      <div class="col-span-12 sm:col-span-8 lg:col-span-4 sm:mr-4" :class="theClassHeader">{{ isDemande ? "Profil" : "Poste" }}</div>
+      <div class="hidden lg:block lg:col-span-3 mr-4" :class="theClassHeader">{{ isDemande ? "Établissement" : "Ville" }}</div>
+      <div class="hidden lg:block lg:col-span-2 mr-4" :class="theClassHeader">Date</div>
+      <div class="col-span-12 sm:col-span-4 lg:col-span-3" :class="theClassHeader">Actions</div>
+    </div>
+    <div v-else class="grid grid-cols-12">
+      <div class="col-span-12 sm:col-span-8 lg:col-span-4 sm:mr-4" :class="theClassHeader">{{ isDemande ? "Profil" : "Poste" }}</div>
+      <div class="hidden lg:block lg:col-span-2 mr-4" :class="theClassHeader">Secteur d'activité</div>
+      <div class="hidden lg:block lg:col-span-2 mr-4" :class="theClassHeader">{{ isDemande ? "Établissement" : "Région" }}</div>
+      <div class="hidden lg:block lg:col-span-2 mr-4" :class="theClassHeader">Date</div>
+      <div class="col-span-12 sm:col-span-3 lg:col-span-2" :class="theClassHeader">Actions</div>
     </div>
 
-    <ListeItemRequest v-if="isDemande" v-for="item in listeItems" :key="item._id" :item="item" />
-    <ListeItemOffer v-if="!isDemande" v-for="item in listeItems" :key="item._id" :item="item" />
+    <ListeItemRequest v-if="isDemande" v-for="item in listeItems" :key="item._id" :item="item" :is-tableaubord="isTableaubord" />
+    <ListeItemOffer v-if="!isDemande" v-for="item in listeItems" :key="item._id" :item="item" :is-tableaubord="isTableaubord" />
   </div>
 </template>
 
@@ -31,7 +37,10 @@ const props = defineProps({
     required: true,
   },
   isDemande: {
-    // gang ce props est pour déterminer si c'est une demande ou une offre
+    type: Boolean,
+    default: false,
+  },
+  isTableaubord: {
     type: Boolean,
     default: false,
   },
@@ -40,5 +49,7 @@ const props = defineProps({
 const theTitle = computed(() => {
   return props.isDemande ? "demandes" : "offres";
 });
+
+const theClassHeader = "text-gray-600 leading-8 border-b-4 border-b-gray-600";
 </script>
 <style scoped></style>

@@ -46,6 +46,10 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  isTableaubord: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const router = useRouter();

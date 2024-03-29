@@ -1,8 +1,8 @@
 <template>
   <div class="bg-slate-100 page-padding flex flex-col gap-y-12">
     <ApercuRapide :count-internship-requests="countInternshipRequests" :count-internship-offers="countInternshipOffers" />
-    <ListeBase v-if="internshipRequestsFiltered.length > 0" is-demande :liste-items="internshipRequestsFiltered" />
-    <ListeBase v-if="internshipOffers.length > 0" :liste-items="internshipOffers" />
+    <ListeBase v-if="internshipRequestsFiltered.length > 0" :liste-items="internshipRequestsFiltered" is-demande is-tableaubord />
+    <ListeBase v-if="internshipOffers.length > 0" :liste-items="internshipOffers" is-tableaubord />
   </div>
   <teleport to="body">
     <Loader v-model="isLoading" />
