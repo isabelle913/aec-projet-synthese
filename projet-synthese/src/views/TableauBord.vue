@@ -1,8 +1,9 @@
 <template>
   <section class="bg-slate-100 page-padding">
-    <ApercuRapide :count-internship-requests="countInternshipRequests" :count-internship-offers="countInternshipOffers" />
+    <ApercuRapide :count-internship-requests="countInternshipRequests" :count-internship-offers="countInternshipOffers" :count-candidats="howManyCandidates" />
+    <!-- TODO corriger espace -->
     <ListeBase v-if="internshipRequestsFiltered.length > 0" :liste-items="internshipRequestsFiltered" is-demande is-tableaubord />
-    <ListeBase v-if="internshipOffers.length > 0" :liste-items="internshipOffers" is-tableaubord />
+    <ListeBase v-if="internshipOffersFiltered.length > 0" :liste-items="internshipOffersFiltered" is-tableaubord />
   </section>
   <teleport to="body">
     <Loader v-model="isLoading" />
@@ -22,7 +23,7 @@ import Loader from "@/components/Loader.vue";
 
 const { internshipRequestsListe, allInternshipRequests } = InternshipRequestsServices();
 const { internshipOffersListe, allInternshipOffers } = InternshipOffersService();
-const { allCandidates } = CandidatesService();
+const { candidatesListeCount, getCandidateCount } = CandidatesService();
 
 const internshipRequests = ref([]);
 const internshipRequestsFiltered = ref([]);
@@ -30,6 +31,7 @@ const howManyInternshipRequest = 5;
 const internshipOffers = ref([]);
 const internshipOffersFiltered = ref([]);
 const howManyInternshipOffers = 5;
+const howManyCandidates = ref(0);
 
 const countInternshipRequests = computed(() => internshipRequests.value.length);
 const countInternshipOffers = computed(() => internshipOffers.value.length);
@@ -39,7 +41,7 @@ const isLoading = ref(true);
 onMounted(() => {
   allInternshipRequests();
   allInternshipOffers();
-  allCandidates();
+  getCandidateCount();
 });
 
 watchEffect(() => {
@@ -49,9 +51,9 @@ watchEffect(() => {
     isLoading.value = false;
 
     let count = 1;
+    internshipRequestsFiltered.value = [];
     internshipRequestsListe.value.map((request) => {
-      // TODO Affiche seulement les demandes inactives
-      if (request.isActive && count <= howManyInternshipRequest) {
+      if (!request.isActive && count <= howManyInternshipRequest) {
         internshipRequestsFiltered.value.push(request);
         count += 1;
       }
@@ -59,7 +61,6 @@ watchEffect(() => {
   }
 });
 // TODO écouter enregistrement du cours
-// TODO Alex Candidats Ajouter count STP
 watchEffect(() => {
   if (Array.isArray(internshipOffersListe.value)) {
     internshipOffers.value = [...internshipOffersListe.value];
@@ -67,13 +68,20 @@ watchEffect(() => {
     isLoading.value = false;
 
     let count = 1;
+    internshipOffersFiltered.value = [];
     internshipOffersListe.value.map((request) => {
-      // TODO Affiche seulement les demandes inactives
-      if (request.isActive && count <= howManyInternshipOffers) {
+      if (!request.isActive && count <= howManyInternshipOffers) {
         internshipOffersFiltered.value.push(request);
         count += 1;
       }
     });
+  }
+});
+
+watchEffect(() => {
+  if (candidatesListeCount.value) {
+    // console.log("ICI", candidatesListeCount.value);
+    howManyCandidates.value = candidatesListeCount.value;
   }
 });
 </script>

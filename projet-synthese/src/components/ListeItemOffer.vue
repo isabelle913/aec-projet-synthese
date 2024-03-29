@@ -2,6 +2,7 @@
   <div class="py-4 border-b-2 border-b-gray-200">
     <div class="grid grid-cols-12">
       <!-- Poste  -->
+      <!-- TODO pourquoi dédoublé?? -->
       <div v-if="isTableaubord" class="col-span-12 sm:col-span-8 lg:col-span-4 mr-4 pl-4 border-item" :class="theBorderClass">
         <div class="flex">
           <div class="p-2 mx-2 flex flex-col justify-center rounded-lg" :class="theBgClass">
@@ -39,6 +40,7 @@
       <!-- Actions  -->
       <div class="col-span-12 my-4" :class="isTableaubord ? 'sm:col-span-4 lg:col-span-3' : 'sm:col-span-3 lg:col-span-2'">
         <div class="h-full flex justify-between">
+          <!-- TODO iminuer bouton sur petit écran -->
           <BtnBase v-if="isTableaubord" title="Accepter" color="#BCED09" small :action="onAccept" />
           <div class="flex items-center gap-5">
             <div class="cursor-pointer flex flex-col justify-center" @click="onView"><span class="material-symbols-outlined text-blue-400"> visibility </span></div>
@@ -89,11 +91,13 @@ const theModalSuppressionDescription = computed(() => {
 });
 
 const theBorderClass = computed(() => {
+  if (props.isTableaubord) return "border-offres";
   if (!props.item.isActive) return "border-inactive";
   else return "border-offres";
 });
 
 const theBgClass = computed(() => {
+  if (props.isTableaubord) return "bg-offres";
   if (!props.item.isActive) return "bg-inactive";
   else return "bg-offres";
 });

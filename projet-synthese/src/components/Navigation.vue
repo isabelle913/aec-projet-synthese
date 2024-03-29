@@ -9,8 +9,8 @@
           </div>
         </router-link>
       </li>
-      <li :class="{ active: $route.path === '/demandestagepage1' }" id="demandesStage">
-        <router-link to="#">
+      <li :class="{ active: $route.path === '/demandes' }" id="demandesStage">
+        <router-link to="demandes">
           <div class="flex items-center">
             <IconDemandesStage class="h-8 w-8 mr-8" />
             <span>Demandes de stage</span>
