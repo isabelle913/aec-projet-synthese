@@ -6,6 +6,8 @@ import DemandeStagePage1 from "@/views/DemandeStagePage1.vue";
 import DemandeStagePage2 from "@/views/DemandeStagePage2.vue";
 import AjoutDemandeStage from "@/views/AjoutDemandeStage.vue";
 import Authentificator from "../components/Authentificator.vue";
+import Candidats from "@/views/Candidats.vue";
+import CandidatDetails from "@/views/CandidatDetails.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,6 +19,12 @@ const router = createRouter({
       //component: HomeView
     },
     {
+      path: "/tableau-bord",
+      name: "tableau-bord",
+      component: TableauBord,
+      //component: HomeView
+    },
+    {
       path: "/demandestagepage1",
       name: "demandestagepage1",
       component: DemandeStagePage1,
@@ -24,7 +32,7 @@ const router = createRouter({
     },
     {
       path: "/demande/:_id",
-      name: "DemandeStagePage1",
+      name: "demandestagepage1",
       component: DemandeStagePage1,
       props: true,
     },

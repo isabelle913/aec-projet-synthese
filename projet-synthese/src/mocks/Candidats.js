@@ -1,4 +1,4 @@
-export const mockCandidat = [
+export const mockCandidats = [
   {
     _id: "1",
     image: "https://assets.ezmax.ca/Logo_VD_e_Zmax_2124845685.png",

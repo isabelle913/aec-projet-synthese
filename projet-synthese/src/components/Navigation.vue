@@ -1,40 +1,40 @@
 <template>
     <nav>
       <ul>
-        <li :class="{ active: $route.path === '/' }" id="dashboard">
-          <router-link to="#">
+        <li :class="{ active: $route.path === '/tableau-bord' }" id="dashboard">
+          <router-link to="/tableau-bord">
             <div class="flex items-center">
               <IconTableauBord class="h-8 w-8 mr-8"/> 
               <span>Tableau de bord</span>
             </div>
           </router-link>
         </li>
-        <li :class="{ active: $route.path === '/DemandeStagePage1' }" id="demandesStage">
-          <router-link to="/DemandeStagePage1">
+        <li :class="{ active: $route.path === '/demandestagepage1' }" id="demandesStage">
+          <router-link to="/demandestagepage1">
             <div class="flex items-center">
               <IconDemandesStage class="h-8 w-8 mr-8"/> 
               <span>Demandes de stage</span>
             </div>
           </router-link>
         </li>
-        <li :class="{ active: $route.path === '/OffreStagePage1' }" id="offreStage">
-          <router-link to="/OffreStagePage1">
+        <li :class="{ active: $route.path === '/offrestagepage1' }" id="offreStage">
+          <router-link to="/offrestagepage1">
             <div class="flex items-center">
               <IconOffreStage class="h-8 w-8 mr-8"/> 
               <span>Offres de stage</span>
             </div>
           </router-link>
         </li>
-        <li :class="{ active: $route.path === '/CandidatsPage1' }" id="candidats">
-          <router-link to="/CandidatsPage1">
+        <li :class="{ active: $route.path === '/candidatspage1' }" id="candidats">
+          <router-link to="/candidatspage1">
             <div class="flex items-center">
               <IconCandidats class="h-8 w-8 mr-8"/> 
               <span>Candidats</span>
             </div>
           </router-link>
         </li>
-        <li :class="{ active: $route.path === '/Entreprises' }" id="entreprises">
-          <router-link to="/Entreprises">
+        <li :class="{ active: $route.path === '/entreprises' }" id="entreprises">
+          <router-link to="/entreprises">
             <div class="flex items-center">
               <IconEntreprises class="h-8 w-8 mr-8"/> 
               <span>Entreprises</span>
