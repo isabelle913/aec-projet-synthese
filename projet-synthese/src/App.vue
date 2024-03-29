@@ -32,7 +32,7 @@ import InternshipTypesServices from "./services/internshipTypes/internshipTypesS
 
 import Navigation from "./components/Navigation.vue";
 import MenuAction from "./components/MenuAction.vue";
-import LogoEstage from './components/LogoEstage.vue';
+import LogoEstage from "./components/LogoEstage.vue";
 
 const { /*liste,*/ allEnterprises } = EnterpriseService();
 const { /*liste,*/ allProvinces } = ProvinceService();

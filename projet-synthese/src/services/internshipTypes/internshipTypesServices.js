@@ -56,14 +56,14 @@ export default function InternshipTypesServices() {
     }
   };
 
-  const editInternshipType = async (_id) =>{
+  const editInternshipType = async (data) =>{
     try {
-      const response = await fetch("https://aec-projet-integrateur-api.fly.dev/internship-types/",{
+      const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/internship-types/${data._id}`,{
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(),
+      body: JSON.stringify(data),
       });
 
       if(response.ok){
@@ -78,7 +78,7 @@ export default function InternshipTypesServices() {
     }
   };
 
-  const deleteEnterprise = async (_id) => {
+  const deleteInternshipType = async (_id) => {
     try {
       const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/internship-types/${_id}`, {
         method: 'DELETE',
@@ -105,6 +105,6 @@ export default function InternshipTypesServices() {
     getInternshipTypeById,
     addInternshipType,
     editInternshipType,
-    deleteEnterprise
+    deleteInternshipType
   };
 }

@@ -8,6 +8,8 @@ import AjoutDemandeStage from "@/views/AjoutDemandeStage.vue";
 import Authentificator from "../components/Authentificator.vue";
 import Candidats from "@/views/Candidats.vue";
 import CandidatDetails from "@/views/CandidatDetails.vue";
+import Candidats from "@/views/Candidats.vue";
+import CandidatDetails from "@/views/CandidatDetails.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

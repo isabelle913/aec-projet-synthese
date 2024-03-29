@@ -1,10 +1,11 @@
 <template>
+  <div>
     <nav>
       <ul>
         <li :class="{ active: $route.path === '/tableau-bord' }" id="dashboard">
           <router-link to="tableau-bord">
             <div class="flex items-center">
-              <IconTableauBord class="h-8 w-8 mr-8"/> 
+              <IconTableauBord class="h-8 w-8 mr-8" />
               <span>Tableau de bord</span>
             </div>
           </router-link>
@@ -12,7 +13,7 @@
         <li :class="{ active: $route.path === '/demandestagepage1' }" id="demandesStage">
           <router-link to="demandestagepage1">
             <div class="flex items-center">
-              <IconDemandesStage class="h-8 w-8 mr-8"/> 
+              <IconDemandesStage class="h-8 w-8 mr-8" />
               <span>Demandes de stage</span>
             </div>
           </router-link>
@@ -20,7 +21,7 @@
         <li :class="{ active: $route.path === '/offrestagepage1' }" id="offreStage">
           <router-link to="offrestagepage1">
             <div class="flex items-center">
-              <IconOffreStage class="h-8 w-8 mr-8"/> 
+              <IconOffreStage class="h-8 w-8 mr-8" />
               <span>Offres de stage</span>
             </div>
           </router-link>
@@ -28,7 +29,7 @@
         <li :class="{ active: $route.path === '/candidats' }" id="candidats">
           <router-link to="candidats">
             <div class="flex items-center">
-              <IconCandidats class="h-8 w-8 mr-8"/> 
+              <IconCandidats class="h-8 w-8 mr-8" />
               <span>Candidats</span>
             </div>
           </router-link>
@@ -36,7 +37,7 @@
         <li>
           <router-link  :to="{name: 'entreprises'}">
             <div class="flex items-center">
-              <IconEntreprises class="h-8 w-8 mr-8"/> 
+              <IconEntreprises class="h-8 w-8 mr-8" />
               <span>Entreprises</span>
             </div>
           </router-link>
@@ -115,23 +116,21 @@
   #dashboard span{
   color: #0c9da3;
   font-weight: bold;
-  }
-  
-  #demandesStage span{
+}
+
+#demandesStage span {
   color: #d2a350;
-  }
-  
-  #offreStage span{
+}
+
+#offreStage span {
   color: #ba2025;
-  }
-  
-  #candidats span{
+}
+
+#candidats span {
   color: #9b5ba2;
-  }
-  
-  #entreprises span{
+}
+
+#entreprises span {
   color: #86a8e6;
-  }
-  
-  </style>
-  
+}
+</style>
