@@ -53,7 +53,7 @@ const router = createRouter({
       name: "enterprises",
       component: Entreprises,
     },
-    /*{
+    {
       path: "/enterprise/:id", //router.push({ path: '/enterprise/:id' })  or router.push({ name: 'enterprise', params: { id: id } })
       name: "enterprise",
       component: EnterprisesDetails,
@@ -72,12 +72,12 @@ const router = createRouter({
     },
     {
       path: "/candidats/:id", //router.push({ path: '/candidats/:id' })  or router.push({ name: 'candidats', params: { id: id } })
-      name: "candidats",
+      name: "candidat",
       component: CandidatDetails,
       children: [
         {
           path: ":action", //router.push({ path: '/candidats/:id/:action' })  or router.push({ name: 'candidats', params: { id: id, action: 'update' } })
-          name: "candidats",
+          name: "candidat",
           component: CandidatDetails,
         },
       ],
