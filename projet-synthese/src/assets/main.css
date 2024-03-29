@@ -284,6 +284,121 @@ nav {
   cursor: pointer;
 }
 
+/* $color-text-principale: #c5c5c5; //Couleur dans le paragraphe ou contenu. */
+.border-item {
+  border-left-style: solid;
+  border-left-width: 4px;
+}
+
+.border-offres {
+  border-left-color: #ba2025;
+}
+
+.border-inactive {
+  border-left-color: #848280;
+}
+
+.bg-offres {
+  background-color: #ba2025;
+}
+
+.bg-inactive {
+  background-color: #848280;
+}
+
+/* $color-text-principale: #c5c5c5; //Couleur dans le paragraphe ou contenu. */
+.bg-demandes {
+  background-color: #d2a350;
+}
+
+.bg-demandes__darker {
+  background-color: #be8b31;
+}
+
+.bg-offres {
+  background-color: #ba2025;
+}
+
+.bg-offres__darker {
+  background-color: #8e191c;
+}
+
+.bg-candidats {
+  background-color: #9b5ba2;
+}
+
+.bg-candidats__darker {
+  background-color: #7c4981;
+}
+
+/* $color-text-principale: #c5c5c5; //Couleur dans le paragraphe ou contenu. */
+.border-item {
+  border-left-style: solid;
+  border-left-width: 4px;
+}
+
+.border-demandes {
+  border-left-color: #d2a350;
+}
+
+.border-inactive {
+  border-left-color: #848280;
+}
+
+.bg-demandes {
+  background-color: #d2a350;
+}
+
+/* $color-text-principale: #c5c5c5; //Couleur dans le paragraphe ou contenu. */
+.loader-background {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.loader-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 1s ease-in-out;
+}
+
+.dot {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #000;
+  margin: 0 15px;
+  animation: loader infinite 0.3s alternate;
+  background: #0c9da3;
+}
+
+.d2 {
+  animation-delay: 0.05s;
+}
+
+.d3 {
+  animation-delay: 0.1s;
+}
+
+@keyframes loader {
+  100% {
+    transform: translateY(-30px);
+  }
+}
+/* $color-text-principale: #c5c5c5; //Couleur dans le paragraphe ou contenu. */
+.text-demandes {
+  color: #d2a350;
+}
+
+.text-offres {
+  color: #ba2025;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -311,4 +426,4 @@ nav {
 
 /*****************************/
 /* FIN PAGE AUTHENTIFICATION */
-/*****************************/
+/*****************************//*# sourceMappingURL=main.css.map */

@@ -1,7 +1,7 @@
 <template>
   <section class="bg-slate-100 page-padding">
     <h2>Entreprises</h2>
-    <BtnBase class="my-8" title="Ajouter une entreprise" color="#F9CB40" :action="onEnterpriseDetails" />
+    <BtnBase class="my-8" title="Ajouter une entreprise" color="#F9CB40" :action="onAddEntreprise" />
     <div class="flex flex-wrap gap-5">
       <CardEntreprise v-for="entreprise in entreprises" :key="entreprise._id" :entreprise="entreprise" />
     </div>
@@ -41,8 +41,8 @@ watchEffect(() => {
   }
 });
 
-function onEnterpriseDetails() {
-  router.push({ name: "enterprise", params: { id: "new" } });
+function onAddEntreprise() {
+  router.push({ name: "entreprise", params: { id: "new" } });
 }
 
 /* TODO suggestions:

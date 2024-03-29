@@ -27,7 +27,7 @@ const props = defineProps({
 });
 
 function onDetails(idString) {
-  router.push({ name: "enterprise", params: { id: idString } });
+  router.push({ name: "entreprise", params: { id: idString } });
 }
 </script>
 <style scoped>

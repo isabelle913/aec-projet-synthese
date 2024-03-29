@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Entreprises from "@/views/Entreprises.vue";
-import EnterprisesDetails from "@/views/EnterprisesDetails.vue";
+import EntrepriseDetails from "@/views/EntrepriseDetails.vue";
 import TableauBord from "@/views/TableauBord.vue";
 import DemandeStagePage1 from "@/views/DemandeStagePage1.vue";
 import DemandeStagePage2 from "@/views/DemandeStagePage2.vue";
@@ -51,17 +51,19 @@ const router = createRouter({
     {
       path: "/entreprises",
       name: "entreprises",
+      path: "/entreprises",
+      name: "entreprises",
       component: Entreprises,
     },
     {
-      path: "/enterprise/:id", //router.push({ path: '/enterprise/:id' })  or router.push({ name: 'enterprise', params: { id: id } })
-      name: "enterprise",
-      component: EnterprisesDetails,
+      path: "/entreprise/:id",
+      name: "entreprise",
+      component: EntrepriseDetails,
       children: [
         {
-          path: ":action", //router.push({ path: '/enterprise/:id/:action' })  or router.push({ name: 'enterprise', params: { id: id, action: 'update' } })
-          name: "enterpriseAction",
-          component: EnterprisesDetails,
+          path: ":action",
+          name: "entreprise",
+          component: EntrepriseDetails,
         },
       ],
     },
@@ -77,7 +79,7 @@ const router = createRouter({
       children: [
         {
           path: ":action", //router.push({ path: '/candidats/:id/:action' })  or router.push({ name: 'candidats', params: { id: id, action: 'update' } })
-          name: "candidatAction",
+          name: "candidat",
           component: CandidatDetails,
         },
       ],

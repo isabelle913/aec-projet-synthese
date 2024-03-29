@@ -57,7 +57,7 @@ const theIconName = computed(() => {
     isDisplay: props.icon ? true : false,
   };
 });
-
+// TODO gérer couleur
 // TODO ajouter le hover plus foncé
 </script>
 <style></style>

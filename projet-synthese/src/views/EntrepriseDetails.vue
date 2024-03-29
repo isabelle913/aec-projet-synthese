@@ -48,10 +48,10 @@
 
         <!-- 2e partie -->
         <div class="grid grid-cols-12 gap-8">
-          <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.address" name="address" :is-error="isError.address" label="Adresse" :is-edit="isEditOrCreate" />
-          <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.phone" name="phone" :is-error="isError.phone" label="Téléphone" :is-edit="isEditOrCreate" />
-          <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.city" name="city" :is-error="isError.city" label="Ville" :is-edit="isEditOrCreate" />
-          <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.email" name="email" :is-error="isError.email" label="Courriel" :is-edit="isEditOrCreate" />
+          <InputEntreprise class="col-span-12 md:col-span-6" v-model="enterprise.address" name="address" :is-error="isError.address" label="Adresse" :is-edit="isEditOrCreate" />
+          <InputEntreprise class="col-span-12 md:col-span-6" v-model="enterprise.phone" name="phone" :is-error="isError.phone" label="Téléphone" :is-edit="isEditOrCreate" />
+          <InputEntreprise class="col-span-12 md:col-span-6" v-model="enterprise.city" name="city" :is-error="isError.city" label="Ville" :is-edit="isEditOrCreate" />
+          <InputEntreprise class="col-span-12 md:col-span-6" v-model="enterprise.email" name="email" :is-error="isError.email" label="Courriel" :is-edit="isEditOrCreate" />
 
           <!-- Provinces -->
           <div class="col-span-12 md:col-span-6 border-l-8 border-l-gray-600 px-4">
@@ -68,10 +68,10 @@
             </div>
           </div>
 
-          <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.website" name="website" :is-error="isError.website" label="Site Web" :is-edit="isEditOrCreate" />
-          <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.postalCode" name="postalCode" :is-error="isError.postalCode" label="Code postal" :is-edit="isEditOrCreate" />
+          <InputEntreprise class="col-span-12 md:col-span-6" v-model="enterprise.website" name="website" :is-error="isError.website" label="Site Web" :is-edit="isEditOrCreate" />
+          <InputEntreprise class="col-span-12 md:col-span-6" v-model="enterprise.postalCode" name="postalCode" :is-error="isError.postalCode" label="Code postal" :is-edit="isEditOrCreate" />
           <!-- Image -->
-          <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.image" name="image" :is-error="isError.image" label="URL du logo" :is-edit="isEditOrCreate" />
+          <InputEntreprise class="col-span-12 md:col-span-6" v-model="enterprise.image" name="image" :is-error="isError.image" label="URL du logo" :is-edit="isEditOrCreate" />
         </div>
       </div>
 
@@ -107,7 +107,7 @@ import { useRoute, useRouter } from "vue-router";
 import useUtile from "../composables/utile.js";
 
 import BtnBase from "../components/BtnBase.vue";
-import InputEnterprise from "@/components/InputEnterprise.vue";
+import InputEntreprise from "@/components/InputEntreprise.vue";
 import ModalSuppression from "@/components/ModalSuppression.vue";
 import Loader from "@/components/Loader.vue";
 
@@ -212,7 +212,7 @@ function onValidate(e) {
 }
 
 function onUpdate() {
-  router.push({ path: `/enterprise/${enterprise.value._id}/update` });
+  router.push({ path: `/entreprise/${enterprise.value._id}/update` });
 }
 
 function onReset(e) {
@@ -222,7 +222,7 @@ function onReset(e) {
 }
 
 function onGoToListe() {
-  router.push({ name: "enterprises" });
+  router.push({ name: "entreprises" });
 }
 
 function onOpenModalSuppression(e) {
@@ -238,12 +238,7 @@ function onDelete(e) {
 function onGoToView(e) {
   e.preventDefault();
   isEditOrCreate.value = false;
-  router.push({ path: `/enterprise/${_id}` });
-}
-
-function setloader() {
-  if (isLoadedProvinces.value && isLoadedActivitiesSector.value && isLoadedEnterprise.value) console.log("Miip", isLoadedProvinces.value, isLoadedActivitiesSector.value, isLoadedEnterprise.value);
-  else console.log("Biip", isLoadedProvinces.value, isLoadedActivitiesSector.value, isLoadedEnterprise.value);
+  router.push({ path: `/entreprise/${_id}` });
 }
 
 onMounted(() => {
@@ -261,10 +256,9 @@ onMounted(() => {
 watchEffect(() => {
   if (Object.keys(objet.value).length !== 0) {
     enterprise.value = objet.value; // Assigner directement la valeur
-    console.log("enterprise", enterprise.value);
+    // console.log("entreprise", entreprise.value);
     isLoadedEnterprise.value = true;
     if (enterprise.value.statusCode) isQueryError.value = true;
-    setloader();
   }
 });
 watchEffect(() => {
@@ -272,7 +266,6 @@ watchEffect(() => {
     provinces.value = [...provincesListe.value];
     isLoadedProvinces.value = true;
     // console.log("provinces", provinces.value);
-    setloader();
   }
 });
 watchEffect(() => {
@@ -280,12 +273,12 @@ watchEffect(() => {
     activitiesSector.value = [...activityListe.value];
     isLoadedActivitiesSector.value = true;
     // console.log("activitiesSector", activitiesSector.value);
-    setloader();
   }
 });
 </script>
 
 <style scoped>
+/* TODO déplacer css */
 .page-padding {
   padding: 3rem;
 }
