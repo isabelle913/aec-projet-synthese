@@ -2,7 +2,7 @@
     <nav>
       <ul>
         <li :class="{ active: $route.path === '/tableau-bord' }" id="dashboard">
-          <router-link to="/tableau-bord">
+          <router-link to="tableau-bord">
             <div class="flex items-center">
               <IconTableauBord class="h-8 w-8 mr-8"/> 
               <span>Tableau de bord</span>
@@ -10,7 +10,7 @@
           </router-link>
         </li>
         <li :class="{ active: $route.path === '/demandestagepage1' }" id="demandesStage">
-          <router-link to="/demandestagepage1">
+          <router-link to="demandestagepage1">
             <div class="flex items-center">
               <IconDemandesStage class="h-8 w-8 mr-8"/> 
               <span>Demandes de stage</span>
@@ -18,23 +18,23 @@
           </router-link>
         </li>
         <li :class="{ active: $route.path === '/offrestagepage1' }" id="offreStage">
-          <router-link to="/offrestagepage1">
+          <router-link to="offrestagepage1">
             <div class="flex items-center">
               <IconOffreStage class="h-8 w-8 mr-8"/> 
               <span>Offres de stage</span>
             </div>
           </router-link>
         </li>
-        <li :class="{ active: $route.path === '/candidatspage1' }" id="candidats">
-          <router-link to="/candidatspage1">
+        <li :class="{ active: $route.path === '/candidats' }" id="candidats">
+          <router-link to="candidats">
             <div class="flex items-center">
               <IconCandidats class="h-8 w-8 mr-8"/> 
               <span>Candidats</span>
             </div>
           </router-link>
         </li>
-        <li :class="{ active: $route.path === '/entreprises' }" id="entreprises">
-          <router-link to="/entreprises">
+        <li>
+          <router-link  :to="{name: 'entreprises'}">
             <div class="flex items-center">
               <IconEntreprises class="h-8 w-8 mr-8"/> 
               <span>Entreprises</span>
@@ -69,7 +69,7 @@
     /*background-color: #333;*/
     padding: 30px 0;
     text-align: left !important;
-    width: 250px;
+    width:250px;
   }
   ul {
     list-style-type: none;
@@ -106,10 +106,11 @@
   #candidats{
     border-right: #9b5ba2 solid;
   }
-  
-  #entreprises{
+
+  a.router-link-active{
     border-right: #86a8e6 solid;
-  }
+}
+  
   
   #dashboard span{
   color: #0c9da3;

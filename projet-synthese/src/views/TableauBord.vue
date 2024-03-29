@@ -1,9 +1,9 @@
 <template>
-  <div class="bg-slate-100 page-padding flex flex-col gap-y-12">
+  <section class="bg-slate-100 page-padding">
     <ApercuRapide :count-internship-requests="countInternshipRequests" :count-internship-offers="countInternshipOffers" />
     <ListeBase v-if="internshipRequestsFiltered.length > 0" is-demande :liste-items="internshipRequestsFiltered" />
     <ListeBase v-if="internshipOffers.length > 0" :liste-items="internshipOffers" />
-  </div>
+    </section>
 </template>
 <script setup>
 import { computed, onMounted, ref, watchEffect } from "vue";

@@ -2,21 +2,23 @@
   <div id="app" class="container mx-auto">
     <!-- Header -->
     <div class="flex justify-between items-center">
-      <LogoEstage />
+
       <MenuAction />      
     </div>
     <!-- menu -->
-    <Navigation />
-    <div class="col-span-12 md:col-span-8 max-md:p-10 p-16 bg-slate-300 variableSection">
-      <router-view :identification="identification" />
+    <div class="flex ">
+      <Navigation />
+      <div class="col-span-12 md:col-span-8 bg-f6f6f6 variableSection">
+        <router-view />
+      </div>
     </div>
+
   </div>
 </template>
 
 <script setup>
 /*Section test pour les services.*/
 
-// import BidonForm from "@/views/BidonForm.vue";
 
 import { ref, onMounted, watchEffect } from "vue";
 

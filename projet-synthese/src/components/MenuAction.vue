@@ -1,4 +1,7 @@
 <template>
+ <router-link to="/">
+    <img src="@/assets/images/estage-logo.png" alt="Logo Estage">
+  </router-link>
   <div class="navMenuAction">
     <div class="flex navMenuAction__item">
       <div>
@@ -30,7 +33,7 @@
       </div>
     </div>
 
-    <div class="flex navMenuAction__utilisateur ml-20">
+    <div class="flex gap-4 navMenuAction__utilisateur ml-20">
 
       <div>
         <div><p>John Doe</p></div>

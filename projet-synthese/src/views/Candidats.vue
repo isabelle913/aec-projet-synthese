@@ -1,7 +1,7 @@
 <template>
   <section class="bg-slate-100 page-padding">
     <h2>Candidats</h2>
-    <BtnBase title="Ajouter une candidats" color="#9b5ba2" :action="onCandidatDetails" />
+    <BtnBase title="Ajouter un candidat" color="#9b5ba2" :action="onCandidatDetails" />
     <div class="flex flex-wrap gap-5">
       <CardCandidat v-for="candidat in candidats" :key="candidat._id" :candidat="candidat" />
     </div>
@@ -17,8 +17,8 @@ import { mockCandidats } from "../mocks/Candidats.js"; // TODO changer source
 
 const router = useRouter();
 
-const candidats = mockCandidats;
-console.log(candidat);
+//const candidats = mockCandidats;
+//console.log(candidat);
 
 function onCandidatDetails() {
   router.push({ name: "candidat", params: { id: "0" } });
