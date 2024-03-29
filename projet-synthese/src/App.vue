@@ -1,18 +1,16 @@
 <template>
   <div id="app" class="container mx-auto">
     <!-- Header -->
-    <div class="flex justify-between items-center">
-
+    <div class="flex justify-between items-center" v-if="isAuthenticated">
       <MenuAction />      
     </div>
     <!-- menu -->
     <div class="flex ">
-      <Navigation />
+      <Navigation v-if="isAuthenticated" />
       <div class="col-span-12 md:col-span-8 bg-f6f6f6 variableSection">
         <router-view />
       </div>
     </div>
-
   </div>
 </template>
 
@@ -20,7 +18,7 @@
 /*Section test pour les services.*/
 
 
-import { ref, onMounted, watchEffect } from "vue";
+import { onMounted, ref } from 'vue';
 
 import EnterpriseService from "./services/enterprises/enterprisesServices";
 import ProvinceService from "./services/provinces/provincesServices";
@@ -32,8 +30,14 @@ import InternshipTypesServices from "./services/internshipTypes/internshipTypesS
 
 import Navigation from "./components/Navigation.vue";
 import MenuAction from "./components/MenuAction.vue";
-import LogoEstage from "./components/LogoEstage.vue";
 
+const isAuthenticated = ref(false);
+
+onMounted(() => {
+  router.appContext.app.config.globalProperties.$app.on('authenticated', () => {
+    isAuthenticated.value = true;
+  });
+});
 const { /*liste,*/ allEnterprises } = EnterpriseService();
 const { /*liste,*/ allProvinces } = ProvinceService();
 const { /*liste,*/ allInternshipRequests } = InternshipRequestsServices();
