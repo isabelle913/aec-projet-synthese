@@ -3,7 +3,7 @@
     <ApercuRapide :count-internship-requests="countInternshipRequests" :count-internship-offers="countInternshipOffers" />
     <ListeBase v-if="internshipRequestsFiltered.length > 0" :liste-items="internshipRequestsFiltered" is-demande is-tableaubord />
     <ListeBase v-if="internshipOffers.length > 0" :liste-items="internshipOffers" is-tableaubord />
-  </div>
+    </section>
   <teleport to="body">
     <Loader v-model="isLoading" />
   </teleport>
