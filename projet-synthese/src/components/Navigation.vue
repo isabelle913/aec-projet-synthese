@@ -10,7 +10,7 @@
           </router-link>
         </li>
         <li :class="{ active: $route.path === '/demandestagepage1' }" id="demandesStage">
-          <router-link to="demandestagepage1">
+          <router-link to="#">
             <div class="flex items-center">
               <IconDemandesStage class="h-8 w-8 mr-8" />
               <span>Demandes de stage</span>
@@ -18,7 +18,7 @@
           </router-link>
         </li>
         <li :class="{ active: $route.path === '/offrestagepage1' }" id="offreStage">
-          <router-link to="offrestagepage1">
+          <router-link to="#">
             <div class="flex items-center">
               <IconOffreStage class="h-8 w-8 mr-8" />
               <span>Offres de stage</span>
@@ -33,8 +33,8 @@
             </div>
           </router-link>
         </li>
-        <li>
-          <router-link  :to="{name: 'entreprises'}">
+        <li :class="{ active: $route.path === '/entreprises' }" id="entreprises">
+          <router-link to="entreprises">
             <div class="flex items-center">
               <IconEntreprises class="h-8 w-8 mr-8" />
               <span>Entreprises</span>
@@ -107,9 +107,9 @@
     border-right: #9b5ba2 solid;
   }
 
-  a.router-link-active{
+/*  a{
     border-right: #86a8e6 solid;
-}
+}*/
   
   
   #dashboard span{
