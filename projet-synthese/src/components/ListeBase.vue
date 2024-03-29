@@ -22,12 +22,12 @@
     </div>
 
     <ListeItemRequest v-if="isDemande" v-for="item in listeItems" :key="item._id" :item="item" :is-tableaubord="isTableaubord" />
-    <ListeItemOffer v-if="!isDemande" v-for="item in listeItems" :key="item._id" :item="item" :is-tableaubord="isTableaubord" />
+    <ListeItemOffer v-if="!isDemande" v-for="item in theListeItems" :key="item._id" :item="item" :is-tableaubord="isTableaubord" @update-data="updateData" />
   </div>
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import ListeItemRequest from "./ListeItemRequest.vue";
 import ListeItemOffer from "./ListeItemOffer.vue";
 
@@ -46,10 +46,17 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(["updateData"]);
+const theListeItems = ref(props.listeItems);
+
+const theClassHeader = "text-gray-600 leading-8 border-b-4 border-b-gray-600";
+
 const theTitle = computed(() => {
   return props.isDemande ? "demandes" : "offres";
 });
 
-const theClassHeader = "text-gray-600 leading-8 border-b-4 border-b-gray-600";
+function updateData() {
+  emit("updateData");
+}
 </script>
 <style scoped></style>
