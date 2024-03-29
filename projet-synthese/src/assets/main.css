@@ -302,6 +302,10 @@ nav {
   background-color: #ba2025;
 }
 
+.bg-inactive {
+  background-color: #848280;
+}
+
 /* $color-text-principale: #c5c5c5; //Couleur dans le paragraphe ou contenu. */
 .bg-demandes {
   background-color: #d2a350;
