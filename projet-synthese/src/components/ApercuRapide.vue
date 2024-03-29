@@ -11,7 +11,7 @@
             </div>
             <div>
               <div class="hidden lg:block 2xl:hidden text-2xl">Stages</div>
-              <div class="hidden 2xl:block text-2xl">Demandes de stage</div>
+              <div class="hidden 2xl:block text-4xl">Demandes de stage</div>
               <div class="text-4xl">{{ countInternshipRequests }}</div>
             </div>
           </div>
@@ -32,7 +32,7 @@
             </div>
             <div>
               <div class="hidden lg:block 2xl:hidden text-2xl">Offres</div>
-              <div class="hidden 2xl:block text-2xl">Offres de stage</div>
+              <div class="hidden 2xl:block text-4xl">Offres de stage</div>
               <div class="text-4xl">{{ countInternshipOffers }}</div>
             </div>
           </div>
@@ -52,7 +52,7 @@
               <span class="material-symbols-outlined text-4xl md:text-6xl align-middle"> person </span>
             </div>
             <div>
-              <div class="hidden lg:block text-2xl">Candidats</div>
+              <div class="hidden lg:block text-4xl">Candidats</div>
               <div class="text-4xl">{{ countCandidats }}</div>
             </div>
           </div>
@@ -80,26 +80,4 @@ const props = defineProps({
 });
 </script>
 
-<style scoped>
-/* TODO changer couleur pour les variables */
-.bg-demandes {
-  background-color: #f9cb40;
-}
-.bg-demandes__darker {
-  background-color: #896b10;
-}
-
-.bg-offres {
-  background-color: #bc4b51;
-}
-.bg-offres__darker {
-  background-color: #7e1c21;
-}
-
-.bg-candidats {
-  background-color: blue;
-}
-.bg-candidats__darker {
-  background-color: rgb(15, 15, 153);
-}
-</style>
+<style scoped></style>

@@ -41,13 +41,4 @@ const theTitle = computed(() => {
   return props.isDemande ? "demandes" : "offres";
 });
 </script>
-<style scoped>
-/* TODO changer couleur pour les variables */
-.text-demandes {
-  color: #f9cb40;
-}
-
-.text-offres {
-  color: #bc4b51;
-}
-</style>
+<style scoped></style>

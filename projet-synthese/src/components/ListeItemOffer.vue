@@ -8,7 +8,7 @@
             <span class="material-symbols-outlined text-4xl">business_center</span>
           </div>
           <div>
-            <div class="text-lgfont-semibold">{{ item.title }}</div>
+            <div class="text-lg font-semibold">{{ item.title }}</div>
             <div class="text-gray-600">{{ item.enterprise.name }}</div>
           </div>
         </div>
@@ -78,19 +78,4 @@ function onDelete() {
 }
 </script>
 
-<style scoped>
-/* TODO changer couleur pour les variables */
-.border-item {
-  border-left-style: solid;
-  border-left-width: 4px;
-}
-.border-offres {
-  border-left-color: #bc4b51;
-}
-.border-inactive {
-  border-left-color: red;
-}
-.bg-offres {
-  background-color: #bc4b51;
-}
-</style>
+<style scoped></style>

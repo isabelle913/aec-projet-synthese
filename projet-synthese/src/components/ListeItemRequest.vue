@@ -80,19 +80,4 @@ function onDelete() {
 }
 </script>
 
-<style scoped>
-/* TODO changer couleur pour les variables */
-.border-item {
-  border-left-style: solid;
-  border-left-width: 4px;
-}
-.border-demandes {
-  border-left-color: #f9cb40;
-}
-.border-inactive {
-  border-left-color: red;
-}
-.bg-demandes {
-  background-color: #f9cb40;
-}
-</style>
+<style scoped></style>
