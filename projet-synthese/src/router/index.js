@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Entreprises from "@/views/Entreprises.vue";
-import EntreprisesDetails from "@/views/EntrepriseDetails.vue";
+import EntrepriseDetails from "@/views/EntrepriseDetails.vue";
 import TableauBord from "@/views/TableauBord.vue";
 import DemandeStagePage1 from "@/views/DemandeStagePage1.vue";
 import DemandeStagePage2 from "@/views/DemandeStagePage2.vue";
@@ -56,12 +56,12 @@ const router = createRouter({
     {
       path: "/entreprise/:id",
       name: "entreprise",
-      component: EntreprisesDetails,
+      component: EntrepriseDetails,
       children: [
         {
           path: ":action",
           name: "entreprise",
-          component: EntreprisesDetails,
+          component: EntrepriseDetails,
         },
       ],
     },

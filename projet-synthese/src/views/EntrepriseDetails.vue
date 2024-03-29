@@ -126,7 +126,7 @@ const _id = route.params.id;
 const isUpdate = route.params.action === "update" ? true : false;
 const isEditOrCreate = ref(false);
 
-const entreprise = ref({});
+const enterprise = ref({});
 const activitiesSector = ref([]);
 const provinces = ref([]);
 
@@ -134,10 +134,10 @@ const isQueryError = ref(false);
 
 const isLoadedProvinces = ref(false);
 const isLoadedActivitiesSector = ref(false);
-const isLoadedEntreprise = ref(false);
+const isLoadedEnterprise = ref(false);
 
 const isLoading = computed(() => {
-  if (isLoadedProvinces.value && isLoadedActivitiesSector.value && isLoadedEntreprise.value) return false;
+  if (isLoadedProvinces.value && isLoadedActivitiesSector.value && isLoadedEnterprise.value) return false;
   else return true;
 });
 
@@ -196,29 +196,29 @@ function onValidate(e) {
   if (!validatePostalCode(enterprise.value.postalCode)) isError.postalCode = true;
 
   console.log("isError", isError);
-  console.log("entreprise.value", entreprise.value);
+  console.log("enterprise.value", enterprise.value);
 
   if (Object.values(isError).every((result) => !result)) {
-    console.log("POST/PATCH", entreprise.value);
+    console.log("POST/PATCH", enterprise.value);
     if (_id === "new") {
       console.log("vers le POST");
-      addEnterprises(entreprise.value);
-      entreprise.value = {};
+      addEnterprises(enterprise.value);
+      enterprise.value = {};
     } else {
       console.log("vers le PATCH");
-      editEnterprises(entreprise.value);
+      editEnterprises(enterprise.value);
     }
   }
 }
 
 function onUpdate() {
-  router.push({ path: `/entreprise/${entreprise.value._id}/update` });
+  router.push({ path: `/entreprise/${enterprise.value._id}/update` });
 }
 
 function onReset(e) {
   e.preventDefault();
   console.log("onReset");
-  entreprise.value = {};
+  enterprise.value = {};
 }
 
 function onGoToListe() {
@@ -255,10 +255,10 @@ onMounted(() => {
 
 watchEffect(() => {
   if (Object.keys(objet.value).length !== 0) {
-    entreprise.value = objet.value; // Assigner directement la valeur
+    enterprise.value = objet.value; // Assigner directement la valeur
     // console.log("entreprise", entreprise.value);
-    isLoadedEntreprise.value = true;
-    if (entreprise.value.statusCode) isQueryError.value = true;
+    isLoadedEnterprise.value = true;
+    if (enterprise.value.statusCode) isQueryError.value = true;
   }
 });
 watchEffect(() => {
