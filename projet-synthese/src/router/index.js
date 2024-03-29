@@ -8,6 +8,7 @@ import AjoutDemandeStage from "@/views/AjoutDemandeStage.vue";
 import Authentificator from "../components/Authentificator.vue";
 import Candidats from "@/views/Candidats.vue";
 import CandidatDetails from "@/views/CandidatDetails.vue";
+import Offres from "@/views/Offres.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,19 +17,16 @@ const router = createRouter({
       path: "/",
       name: "Authentificator",
       component: Authentificator,
-      //component: HomeView
     },
     {
       path: "/tableau-bord",
       name: "tableau-bord",
       component: TableauBord,
-      //component: HomeView
     },
     {
       path: "/demandestagepage1",
       name: "demandestagepage1",
       component: DemandeStagePage1,
-      //component: HomeView
     },
     {
       path: "/demande/:_id",
@@ -40,17 +38,40 @@ const router = createRouter({
       path: "/demandestagepage2",
       name: "demandestagepage2",
       component: DemandeStagePage2,
-      //component: HomeView
     },
     {
       path: "/ajoutdemandestage",
       name: "ajoutdemandestage",
       component: AjoutDemandeStage,
-      //component: HomeView
     },
     {
-      path: "/entreprises",
-      name: "entreprises",
+      path: "/offres",
+      name: "offres",
+      component: Offres,
+    },
+    // {
+    //   path: "/offre/:id",
+    //   name: "offre",
+    //   component: TODO A Compléter,
+    // },
+    {
+      path: "/candidats",
+      name: "candidats",
+      component: Candidats,
+    },
+    {
+      path: "/candidat/:id", //router.push({ path: '/candidats/:id' })  or router.push({ name: 'candidats', params: { id: id } })
+      name: "candidat",
+      component: CandidatDetails,
+      children: [
+        {
+          path: ":action", //router.push({ path: '/candidats/:id/:action' })  or router.push({ name: 'candidats', params: { id: id, action: 'update' } })
+          name: "candidat",
+          component: CandidatDetails,
+        },
+      ],
+    },
+    {
       path: "/entreprises",
       name: "entreprises",
       component: Entreprises,
@@ -68,21 +89,8 @@ const router = createRouter({
       ],
     },
     {
-      path: "/candidats",
-      name: "candidats",
-      component: Candidats,
-    },
-    {
-      path: "/candidat/:id", //router.push({ path: '/candidats/:id' })  or router.push({ name: 'candidats', params: { id: id } })
-      name: "candidat",
-      component: CandidatDetails,
-      children: [
-        {
-          path: ":action", //router.push({ path: '/candidats/:id/:action' })  or router.push({ name: 'candidats', params: { id: id, action: 'update' } })
-          name: "candidat",
-          component: CandidatDetails,
-        },
-      ],
+      path: "/:patchMatch(.*)*",
+      component: Authentificator,
     },
   ],
 });
