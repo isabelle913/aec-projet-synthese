@@ -9,6 +9,7 @@ import Authentificator from "../components/Authentificator.vue";
 import Candidats from "@/views/Candidats.vue";
 import CandidatDetails from "@/views/CandidatDetails.vue";
 import Offres from "@/views/Offres.vue";
+import Demandes from "@/views/Demandes.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,6 +23,11 @@ const router = createRouter({
       path: "/tableau-bord",
       name: "tableau-bord",
       component: TableauBord,
+    },
+    {
+      path: "/demandes",
+      name: "demandes",
+      component: Demandes,
     },
     {
       path: "/demandestagepage1",

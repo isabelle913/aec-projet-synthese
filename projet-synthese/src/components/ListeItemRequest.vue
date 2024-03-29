@@ -1,45 +1,73 @@
 <template>
   <div class="py-4 border-b-2 border-b-gray-200">
     <div class="grid grid-cols-12">
-      <!--  -->
-      <div class="col-span-12 sm:col-span-8 lg:col-span-4 mr-4 pl-4 border-item" :class="theBorderClass">
+      <!-- Poste / Profil -->
+      <!-- TODO pourquoi dédoublé?? -->
+      <div v-if="isTableaubord" class="col-span-12 sm:col-span-8 lg:col-span-4 mr-4 pl-4 border-item" :class="theBorderClass">
         <div class="flex">
           <div class="p-2 mx-2 flex flex-col justify-center rounded-lg bg-demandes">
             <span class="material-symbols-outlined text-4xl">school</span>
           </div>
           <div>
-            <div class="text-lgfont-semibold">Intégrateur Web</div>
+            <div class="text-lgfont-semibold">{{ item.title }}</div>
             <div class="text-gray-600">{{ theDisplayName }}</div>
           </div>
         </div>
       </div>
-      <!--  -->
-      <div class="lg:col-span-3 mr-4 hidden lg:block">
+      <div v-else class="col-span-12 sm:col-span-8 lg:col-span-4 sm:mr-4 pl-4 border-item" :class="theBorderClass">
+        <div class="flex">
+          <div class="p-2 mx-2 flex flex-col justify-center rounded-lg bg-demandes">
+            <span class="material-symbols-outlined text-4xl">school</span>
+          </div>
+          <div>
+            <div class="text-lgfont-semibold">{{ item.title }}</div>
+            <div class="text-gray-600">{{ theDisplayName }}</div>
+          </div>
+        </div>
+      </div>
+      <!--Etablissement -->
+      <div v-if="isTableaubord" class="hidden lg:block lg:col-span-3 mr-4">
         <div class="h-full flex flex-col justify-center text-gray-600">Cegep de Trois-Rivières</div>
       </div>
-      <!--  -->
-      <div class="lg:col-span-2 mr-4 hidden lg:block">
+      <!--Secteur activité -->
+      <div v-if="!isTableaubord" class="hidden lg:block lg:col-span-2 mr-4">
+        <div class="h-full flex flex-col justify-center text-gray-600">Nouvelles technologies</div>
+      </div>
+      <!--Région -->
+      <div v-if="!isTableaubord" class="hidden lg:block lg:col-span-2 mr-4">
+        <div class="h-full flex flex-col justify-center text-gray-600">{{ item.candidate.city }}</div>
+      </div>
+      <!-- Date -->
+      <div class="hidden lg:block lg:col-span-2 mr-4">
         <div class="h-full flex flex-col justify-center text-gray-600">{{ theDisplayDate }}</div>
       </div>
-      <!--  -->
-      <div class="col-span-12 sm:col-span-4 lg:col-span-3 my-4">
+      <!-- Actions -->
+      <div class="col-span-12 my-4" :class="isTableaubord ? 'sm:col-span-4 lg:col-span-3' : 'sm:col-span-3 lg:col-span-2'">
         <div class="h-full flex justify-between">
-          <BtnBase title="Accepter" color="#BCED09" small :action="onAccept" />
+          <!-- TODO Diminuer bouton sur petit écran -->
+          <BtnBase v-if="isTableaubord" title="Accepter" color="#BCED09" small :action="onAccept" />
           <div class="flex items-center gap-5">
             <div class="cursor-pointer flex flex-col justify-center" @click="onView"><span class="material-symbols-outlined text-blue-400"> visibility </span></div>
             <div class="cursor-pointer flex flex-col justify-center" @click="onEdit"><span class="material-symbols-outlined text-amber-600"> edit </span></div>
-            <div class="cursor-pointer flex flex-col justify-center" @click="onDelete"><span class="material-symbols-outlined text-red-600"> delete </span></div>
+            <div class="cursor-pointer flex flex-col justify-center" @click="onOpenModalSuppression"><span class="material-symbols-outlined text-red-600"> delete </span></div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <teleport to="body">
+    <ModalSuppression v-model="isOpenModalSuppression" :description="theModalSuppressionDescription" :action="onDelete" @close="isOpenModalSuppression = false" />
+  </teleport>
 </template>
 
 <script setup>
-import { computed } from "vue";
-import BtnBase from "./BtnBase.vue";
+import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
+
+import InternshipRequestsServices from "@/services/internshipRequests/internshipRequestsServices";
+
+import BtnBase from "./BtnBase.vue";
+import ModalSuppression from "./ModalSuppression.vue";
 
 const props = defineProps({
   item: {
@@ -52,35 +80,62 @@ const props = defineProps({
   },
 });
 
+const { deleteInternshipRequest, editInternshipRequest } = InternshipRequestsServices();
 const router = useRouter();
 
+const emit = defineEmits(["updateData"]);
+
+const isOpenModalSuppression = ref(false);
+
+const theModalSuppressionDescription = computed(() => {
+  return props.item.title + " - " + theDisplayName.value;
+});
+
+// TODO vérifier si bonne couleur
 const theBorderClass = computed(() => {
   if (!props.item.isActive) return "border-inactive";
   else return "border-demandes";
 });
+
+// TODO implanter
+const theBgClass = computed(() => {
+  if (props.isTableaubord) return "bg-offres";
+  if (!props.item.isActive) return "bg-inactive";
+  else return "bg-offres";
+});
+
 const theDisplayName = computed(() => {
   return props.item.candidate.firstName + " " + props.item.candidate.lastName;
 });
+
 const theDisplayDate = computed(() => {
   return props.item.endDate.split("T")[0];
 });
+
 function onAccept() {
-  console.log("Accepte", props.item._id);
-  // TODO ?? qu'est-ce que ça fait quand on accepte
+  props.item.isActive = true;
+  editInternshipRequest(props.item);
 }
+
 function onView() {
-  console.log("onView");
-  // TODO mettre route vers candidat view
-  // router.push({ name: "candidat", params: { id: props.item._id } });
+  router.push({ path: `demande/${props.item._id}` });
 }
+
 function onEdit() {
-  console.log("onEdit");
-  // TODO mettre route vers candidat edit
+  console.log("onEdit", props.item._id);
+  // TODO Moussa quel url veux-tu utiliser
   //  router.push({ name: "candidat", params: { id: props.item._id } });
 }
+
+function onOpenModalSuppression(e) {
+  e.preventDefault();
+  isOpenModalSuppression.value = true;
+}
+
 function onDelete() {
-  console.log("onDelete");
-  // TODO mettre route vers modal pour supprimer candidat
+  deleteInternshipRequest(props.item._id);
+  isOpenModalSuppression.value = false;
+  emit("updateData");
 }
 </script>
 

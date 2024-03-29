@@ -12,7 +12,7 @@ export default function CandidatesService() {
       const data = await response.json();
 
       candidatesListe.value = data;
-      console.log('Liste des candidats:', candidatesListe.value);
+      console.log("Liste des candidats:", candidatesListe.value);
     } catch (error) {
       console.error("Une erreur s'est produite lors de la récupération des données:", error);
     }
@@ -20,14 +20,14 @@ export default function CandidatesService() {
     return candidatesListe.value;
   };
 
-  const getCandidateCount = async() => {
-    try{
+  const getCandidateCount = async () => {
+    try {
       const response = await fetch("https://aec-projet-integrateur-api.fly.dev/candidates/count");
       const data = await response.json();
 
       candidatesListeCount.value = data;
-      console.log('Nombre de candidat:', candidatesListeCount.value);
-    } catch (error){
+      console.log("Nombre de candidat:", candidatesListeCount.value);
+    } catch (error) {
       console.error("Une erreur s'est produite lors de la récupération des données:", error);
     }
     return candidatesListeCount.value;
@@ -35,13 +35,13 @@ export default function CandidatesService() {
 
   const getCandidateById = (_id) => {
     return fetch(`https://aec-projet-integrateur-api.fly.dev/candidates/${_id}`)
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         objet.value = data;
-        console.log('Candidat trouvée :', objet.value);
+        console.log("Candidat trouvée :", objet.value);
         return objet.value;
       })
-      .catch(error => {
+      .catch((error) => {
         console.log("Une erreur s'est produite lors de la récupération des données:", error);
         throw error;
       });
@@ -50,64 +50,64 @@ export default function CandidatesService() {
   const addCandidates = async (newCandidates) => {
     try {
       const response = await fetch("https://aec-projet-integrateur-api.fly.dev/candidates/", {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(newCandidates),
       });
 
       if (response.ok) {
         success.value = true;
-        console.log('Requête POST réussie !');
+        console.log("Requête POST réussie !");
         // Vous pouvez ajouter ici d'autres actions après le succès de la requête.
       } else {
-        console.error('Échec de la requête POST.');
+        console.error("Échec de la requête POST.");
         success.value = false;
       }
     } catch (error) {
-      console.error('Erreur lors de la requête POST:', error);
+      console.error("Erreur lors de la requête POST:", error);
       success.value = false;
     }
   };
 
-  const editCandidates = async (data) =>{
+  const editCandidates = async (data) => {
     try {
-      const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/candidates/${data._id}`,{
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
+      const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/candidates/${data._id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
       });
 
-      if(response.ok){
+      if (response.ok) {
         success.value = true;
-        console.log('Requête PATCH réussie !')
-      } else{
-        console.error('Échec de la requête PATCH:', error);
+        console.log("Requête PATCH réussie !");
+      } else {
+        console.error("Échec de la requête PATCH:");
         success.value = false;
       }
-    }catch(error){
-
+    } catch (error) {
+      console.log(error);
     }
   };
 
   const deleteCandidates = async (_id) => {
     try {
       const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/candidates/${_id}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
 
       if (response.ok) {
         success.value = true;
-        console.log('Requête DELETE réussie !');
+        console.log("Requête DELETE réussie !");
       } else {
-        console.error('Échec de la requête DELETE.');
+        console.error("Échec de la requête DELETE.");
         success.value = false;
       }
     } catch (error) {
-      console.error('Erreur lors de la requête DELETE:', error);
+      console.error("Erreur lors de la requête DELETE:", error);
       success.value = false;
     }
   };

@@ -29,6 +29,7 @@ const router = useRouter();
 
 const internshipOffers = ref([]);
 
+// TODO vérifier loader
 const isLoading = ref(true);
 
 function AddOffer(e) {
@@ -45,19 +46,16 @@ function updateData() {
 }
 
 onMounted(() => {
-  console.log("onMounted Offres");
   allInternshipOffers();
 });
 
 watchEffect(() => {
   if (Array.isArray(internshipOffersListe.value)) {
     internshipOffers.value = [...internshipOffersListe.value];
-    console.log("Offers ICI", internshipOffers.value);
+    console.log("Offers", internshipOffers.value);
     isLoading.value = false;
   }
 });
-
-// TODO mettre loader
 </script>
 <style scoped>
 /* TODO page-padding */
