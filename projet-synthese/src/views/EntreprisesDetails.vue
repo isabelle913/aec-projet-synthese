@@ -48,10 +48,10 @@
 
         <!-- 2e partie -->
         <div class="grid grid-cols-12 gap-8">
-          <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.address" name="address" :is-error="isError.address" label="Adresse" :is-edit="isEditOrCreate" />
-          <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.phone" name="phone" :is-error="isError.phone" label="Téléphone" :is-edit="isEditOrCreate" />
-          <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.city" name="city" :is-error="isError.city" label="Ville" :is-edit="isEditOrCreate" />
-          <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.email" name="email" :is-error="isError.email" label="Courriel" :is-edit="isEditOrCreate" />
+          <InputEntreprise class="col-span-12 md:col-span-6" v-model="enterprise.address" name="address" :is-error="isError.address" label="Adresse" :is-edit="isEditOrCreate" />
+          <InputEntreprise class="col-span-12 md:col-span-6" v-model="enterprise.phone" name="phone" :is-error="isError.phone" label="Téléphone" :is-edit="isEditOrCreate" />
+          <InputEntreprise class="col-span-12 md:col-span-6" v-model="enterprise.city" name="city" :is-error="isError.city" label="Ville" :is-edit="isEditOrCreate" />
+          <InputEntreprise class="col-span-12 md:col-span-6" v-model="enterprise.email" name="email" :is-error="isError.email" label="Courriel" :is-edit="isEditOrCreate" />
 
           <!-- Provinces -->
           <div class="col-span-12 md:col-span-6 border-l-8 border-l-gray-600 px-4">
@@ -68,10 +68,10 @@
             </div>
           </div>
 
-          <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.website" name="website" :is-error="isError.website" label="Site Web" :is-edit="isEditOrCreate" />
-          <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.postalCode" name="postalCode" :is-error="isError.postalCode" label="Code postal" :is-edit="isEditOrCreate" />
+          <InputEntreprise class="col-span-12 md:col-span-6" v-model="enterprise.website" name="website" :is-error="isError.website" label="Site Web" :is-edit="isEditOrCreate" />
+          <InputEntreprise class="col-span-12 md:col-span-6" v-model="enterprise.postalCode" name="postalCode" :is-error="isError.postalCode" label="Code postal" :is-edit="isEditOrCreate" />
           <!-- Image -->
-          <InputEnterprise class="col-span-12 md:col-span-6" v-model="enterprise.image" name="image" :is-error="isError.image" label="URL du logo" :is-edit="isEditOrCreate" />
+          <InputEntreprise class="col-span-12 md:col-span-6" v-model="enterprise.image" name="image" :is-error="isError.image" label="URL du logo" :is-edit="isEditOrCreate" />
         </div>
       </div>
 
@@ -107,7 +107,7 @@ import { useRoute, useRouter } from "vue-router";
 import useUtile from "../composables/utile.js";
 
 import BtnBase from "../components/BtnBase.vue";
-import InputEnterprise from "@/components/InputEnterprise.vue";
+import InputEntreprise from "@/components/InputEntreprise.vue";
 import ModalSuppression from "@/components/ModalSuppression.vue";
 import Loader from "@/components/Loader.vue";
 
@@ -126,7 +126,7 @@ const _id = route.params.id;
 const isUpdate = route.params.action === "update" ? true : false;
 const isEditOrCreate = ref(false);
 
-const enterprise = ref({});
+const entreprise = ref({});
 const activitiesSector = ref([]);
 const provinces = ref([]);
 
@@ -134,10 +134,10 @@ const isQueryError = ref(false);
 
 const isLoadedProvinces = ref(false);
 const isLoadedActivitiesSector = ref(false);
-const isLoadedEnterprise = ref(false);
+const isLoadedEntreprise = ref(false);
 
 const isLoading = computed(() => {
-  if (isLoadedProvinces.value && isLoadedActivitiesSector.value && isLoadedEnterprise.value) return false;
+  if (isLoadedProvinces.value && isLoadedActivitiesSector.value && isLoadedEntreprise.value) return false;
   else return true;
 });
 
@@ -196,33 +196,33 @@ function onValidate(e) {
   if (!validatePostalCode(enterprise.value.postalCode)) isError.postalCode = true;
 
   console.log("isError", isError);
-  console.log("enterprise.value", enterprise.value);
+  console.log("entreprise.value", entreprise.value);
 
   if (Object.values(isError).every((result) => !result)) {
-    console.log("POST/PATCH", enterprise.value);
+    console.log("POST/PATCH", entreprise.value);
     if (_id === "new") {
       console.log("vers le POST");
-      addEnterprises(enterprise.value);
-      enterprise.value = {};
+      addEnterprises(entreprise.value);
+      entreprise.value = {};
     } else {
       console.log("vers le PATCH");
-      editEnterprises(enterprise.value);
+      editEnterprises(entreprise.value);
     }
   }
 }
 
 function onUpdate() {
-  router.push({ path: `/enterprise/${enterprise.value._id}/update` });
+  router.push({ path: `/entreprise/${entreprise.value._id}/update` });
 }
 
 function onReset(e) {
   e.preventDefault();
   console.log("onReset");
-  enterprise.value = {};
+  entreprise.value = {};
 }
 
 function onGoToListe() {
-  router.push({ name: "enterprises" });
+  router.push({ name: "entreprises" });
 }
 
 function onOpenModalSuppression(e) {
@@ -238,7 +238,7 @@ function onDelete(e) {
 function onGoToView(e) {
   e.preventDefault();
   isEditOrCreate.value = false;
-  router.push({ path: `/enterprise/${_id}` });
+  router.push({ path: `/entreprise/${_id}` });
 }
 
 onMounted(() => {
@@ -255,10 +255,10 @@ onMounted(() => {
 
 watchEffect(() => {
   if (Object.keys(objet.value).length !== 0) {
-    enterprise.value = objet.value; // Assigner directement la valeur
-    // console.log("enterprise", enterprise.value);
-    isLoadedEnterprise.value = true;
-    if (enterprise.value.statusCode) isQueryError.value = true;
+    entreprise.value = objet.value; // Assigner directement la valeur
+    // console.log("entreprise", entreprise.value);
+    isLoadedEntreprise.value = true;
+    if (entreprise.value.statusCode) isQueryError.value = true;
   }
 });
 watchEffect(() => {
@@ -278,6 +278,7 @@ watchEffect(() => {
 </script>
 
 <style scoped>
+/* TODO déplacer css */
 .page-padding {
   padding: 3rem;
 }
