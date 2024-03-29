@@ -24,8 +24,8 @@
           </div>
         </div>
       </div>
-      <!-- Ville / Région  -->
-      <div class="hidden lg:block mr-4" :class="isTableaubord ? 'lg:col-span-3' : 'lg:col-span-2'">
+      <!-- Secteur activité  -->
+      <div v-if="!isTableaubord" class="hidden lg:block mr-4" :class="isTableaubord ? 'lg:col-span-3' : 'lg:col-span-2'">
         <div class="h-full flex flex-col justify-center text-gray-600">{{ theActivitySector }}</div>
       </div>
       <!-- Ville / Région  -->
@@ -76,11 +76,12 @@ const props = defineProps({
 });
 
 const { objet, getActivitySectorById } = ActivityServices();
-// TODO
-const { internshipOffersObjet, deleteEnterprise } = InternshipOffersService();
+const { deleteInternshipOffer, editInternshipOffer } = InternshipOffersService();
 const router = useRouter();
 
-const theActivitySector = ref({});
+const emit = defineEmits(["updateData"]);
+
+const theActivitySector = ref("n/d");
 const isOpenModalSuppression = ref(false);
 
 const theModalSuppressionDescription = computed(() => {
@@ -102,28 +103,31 @@ const theDisplayDate = computed(() => {
 });
 
 function onAccept() {
-  console.log("Accepte", props.item._id);
-  // TODO ?? qu'est-ce que ça fait quand on accepte
+  props.item.isActive = true;
+  editInternshipOffer(props.item);
 }
 function onView() {
-  console.log("onView");
-  router.push({ name: "offres", params: { id: props.item._id } });
-  // TODO mettre route vers candidat view
+  console.log("onView", props.item._id);
+  // TODO OFFRE décommenter lorsque offre prêt
+  // router.push({ name: "offre", params: { id: props.item._id } });
 }
 
 function onEdit() {
-  console.log("onEdit");
-  router.push({ name: "offres", params: { id: props.item._id } });
-  // TODO mettre route vers candidat edit
+  console.log("onEdit", props.item._id);
+  // TODO  OFFRE décommenter lorsque offre prêt
+  // router.push({ name: "offre", params: { id: props.item._id, action: "update" } });
 }
 function onOpenModalSuppression(e) {
   e.preventDefault();
   isOpenModalSuppression.value = true;
 }
+
 function onDelete() {
-  console.log("onDelete");
-  // TODO mettre route vers modal pour supprimer candidat
+  deleteInternshipOffer(props.item._id);
+  isOpenModalSuppression.value = false;
+  emit("updateData");
 }
+
 onMounted(() => {
   getActivitySectorById(props.item.enterprise.activitySector);
 });
@@ -133,7 +137,7 @@ watchEffect(() => {
     theActivitySector.value = objet.value.value;
     // console.log("theActivitySector", theActivitySector.value);
   } else {
-    theActivitySector.value = "";
+    theActivitySector.value = "n/d";
   }
 });
 </script>

@@ -11,7 +11,7 @@ export default function ActivityServices() {
       const data = await response.json();
 
       activityListe.value = data;
-      console.log('Liste des secteurs d\'activités:', activityListe.value);
+      console.log("Liste des secteurs d'activités:", activityListe.value);
     } catch (error) {
       console.error("Une erreur s'est produite lors de la récupération des données:", error);
     }
@@ -21,13 +21,13 @@ export default function ActivityServices() {
 
   const getActivitySectorById = (_id) => {
     return fetch(`https://aec-projet-integrateur-api.fly.dev/activity-sectors/${_id}`)
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         objet.value = data;
-        console.log('Secteurs d\'activité trouvée :', objet.value);
+        // console.log('Secteurs d\'activité trouvée :', objet.value);
         return objet.value;
       })
-      .catch(error => {
+      .catch((error) => {
         console.log("Une erreur s'est produite lors de la récupération des données:", error);
         throw error;
       });
@@ -36,63 +36,63 @@ export default function ActivityServices() {
   const addActivitySector = async (newActivitySector) => {
     try {
       const response = await fetch("https://aec-projet-integrateur-api.fly.dev/activity-sectors/", {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(newActivitySector),
       });
 
       if (response.ok) {
         success.value = true;
-        console.log('Requête POST réussie !');
+        console.log("Requête POST réussie !");
       } else {
-        console.error('Échec de la requête POST.');
+        console.error("Échec de la requête POST.");
         success.value = false;
       }
     } catch (error) {
-      console.error('Erreur lors de la requête POST:', error);
+      console.error("Erreur lors de la requête POST:", error);
       success.value = false;
     }
   };
 
-  const editActivitySector = async (data) =>{
+  const editActivitySector = async (data) => {
     try {
-      const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/activity-sectors/${data._id}`,{
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
+      const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/activity-sectors/${data._id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
       });
 
-      if(response.ok){
+      if (response.ok) {
         success.value = true;
-        console.log('Requête PATCH réussie !')
-      } else{
-        console.error('Échec de la requête PATCH:', error);
+        console.log("Requête PATCH réussie !");
+      } else {
+        console.error("Échec de la requête PATCH:");
         success.value = false;
       }
-    }catch(error){
-
+    } catch (error) {
+      console.log(error);
     }
   };
 
   const deleteActivitySector = async (_id) => {
     try {
       const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/activity-sectors/${_id}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
 
       if (response.ok) {
         success.value = true;
-        console.log('Requête DELETE réussie !');
+        console.log("Requête DELETE réussie !");
       } else {
-        console.error('Échec de la requête DELETE.');
+        console.error("Échec de la requête DELETE.");
         success.value = false;
       }
     } catch (error) {
-      console.error('Erreur lors de la requête DELETE:', error);
+      console.error("Erreur lors de la requête DELETE:", error);
       success.value = false;
     }
   };
