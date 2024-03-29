@@ -1,5 +1,4 @@
 <template>
-  <div>
     <nav>
       <ul>
         <li :class="{ active: $route.path === '/tableau-bord' }" id="dashboard">

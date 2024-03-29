@@ -8,8 +8,6 @@ import AjoutDemandeStage from "@/views/AjoutDemandeStage.vue";
 import Authentificator from "../components/Authentificator.vue";
 import Candidats from "@/views/Candidats.vue";
 import CandidatDetails from "@/views/CandidatDetails.vue";
-import Candidats from "@/views/Candidats.vue";
-import CandidatDetails from "@/views/CandidatDetails.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -79,7 +77,7 @@ const router = createRouter({
       children: [
         {
           path: ":action", //router.push({ path: '/candidats/:id/:action' })  or router.push({ name: 'candidats', params: { id: id, action: 'update' } })
-          name: "candidat",
+          name: "candidatAction",
           component: CandidatDetails,
         },
       ],

@@ -4,7 +4,6 @@
     <ListeBase v-if="internshipRequestsFiltered.length > 0" is-demande :liste-items="internshipRequestsFiltered" />
     <ListeBase v-if="internshipOffers.length > 0" :liste-items="internshipOffers" />
     </section>
-  </div>
   <teleport to="body">
     <Loader v-model="isLoading" />
   </teleport>
