@@ -1,40 +1,48 @@
 <template>
   <section class="bg-slate-100 page-padding">
     <h2>Candidats</h2>
-    <BtnBase title="Ajouter un candidat" color="#9b5ba2" :action="onCandidatDetails" />
-    <div class="flex flex-wrap gap-5">
-      <CardCandidat v-for="candidat in candidats" :key="candidat._id" :candidat="candidat" />
+    <BtnBase title="Ajouter un candidat" color="#9b5ba2" :action="onAddCandidat" />
+    <div class="flex flex-wrap gap-8">
+      <CardCandidat v-for="candidat in candidates" :key="candidat._id" :candidat="candidat" />
     </div>
   </section>
+  <teleport to="body">
+    <Loader v-model="isLoading" />
+  </teleport>
 </template>
 
 <script setup>
+import { ref, onMounted, watchEffect } from "vue";
 import { useRouter } from "vue-router";
 import BtnBase from "../components/BtnBase.vue";
 import CardCandidat from "../components/CardCandidat.vue";
+import Loader from "@/components/Loader.vue";
 
-// import { mockCandidats } from "../mocks/Candidats.js"; // TODO changer source
+import CandidatesService from "../services/candidates/candidatesServices";
 
 const router = useRouter();
 
-//const candidats = mockCandidats;
-//console.log(candidat);
+const { candidatesListe, allCandidates } = CandidatesService();
+const candidates = ref([]);
 
-function onCandidatDetails() {
-  router.push({ name: "candidat", params: { id: "0" } });
+const isLoading = ref(true);
+
+onMounted(() => {
+  allCandidates(); 
+});
+
+watchEffect(() => {
+  if (Array.isArray(candidatesListe.value)) {
+    candidates.value = [...candidatesListe.value];
+    isLoading.value = false;
+  }
+});
+
+function onAddCandidat() {
+  router.push({ name: "candidat", params: { id: "new" } });
 }
 
-function load() {
-  console.log("Ici on va loader les candidats");
-  // TODO get allCandidats
-}
-load();
 
-/* TODO suggestions:
-   mettre le padding de nos pages dans une variables
-   idem pour typographie titre
-   On pourrait utiliser des class 
-*/
 </script>
 <style scoped>
 h2 {
@@ -43,4 +51,5 @@ h2 {
 .page-padding {
   padding: 3rem;
 }
+
 </style>

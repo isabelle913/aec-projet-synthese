@@ -36,8 +36,8 @@
     <div class="flex gap-4 navMenuAction__utilisateur ml-20">
 
       <div>
-        <div><p>John Doe</p></div>
-        <div><p>Admin</p></div>
+        <div><p>{{ nom }}</p></div>
+        <div><p>{{ email }}</p></div>
       </div>
       <div>
         <img src="../assets/images/johnDoe.png" alt="Photo de John Doe" />
@@ -46,13 +46,18 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "MenuAction",
-  components: {
-    IconPlus
-  }
-};
-
+<script setup>
+import { useAuthStore } from '@/store/AuthStore.js';
 import IconPlus from './icons/IconPlus.vue';
+
+const store = useAuthStore();
+const nom = store.nom;
+const email = store.email;
+
+// Retourne les valeurs nom et email pour les rendre disponibles dans le template
+{ 
+  const nom = store.nom;
+  const email = store.email;
+  const IconPlus = IconPlus;
+}
 </script>

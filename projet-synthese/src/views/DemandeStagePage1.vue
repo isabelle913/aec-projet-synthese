@@ -1,6 +1,6 @@
 <template>
   <div v-if="InternshipRequest">
-    <div class="DemandeStage__Titre">
+    <div class="DemandeStage__Titre page-padding">
       <p>Demande de stage</p>
       <h1>Développeur Front-End</h1>
     </div>
@@ -142,3 +142,9 @@ function load() {
 }
 load();
 </script>
+<style scoped>
+/* TODO page-padding */
+.page-padding {
+  padding: 3rem;
+}
+</style>

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- Contenu de votre composant Authentificator.vue -->
     <div class="flex">
       <div class="authentification-img">
         <img
@@ -17,9 +16,10 @@
         </p>
 
         <div class="authentification-container_form">
-          <form @submit.prevent="handleSubmit">
+          <form @submit.prevent="authenticateUser">
             <div class="mb-6">
-              <input
+              <input 
+                v-model="nom"
                 type="text"
                 id="nom"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -29,6 +29,7 @@
             </div>
             <div class="mb-6">
               <input
+                v-model="email"
                 type="email"
                 id="email"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -51,17 +52,33 @@
 
 <script setup>
 import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/store/AuthStore.js';
+import { ref } from 'vue';
 
+const store = useAuthStore();
 const router = useRouter();
 
-const handleSubmit = () => {
-  // Simuler l'authentification réussie ici
+// Déclarer les valeurs nom et email comme réactives avec ref
+const nom = ref(store.nom);
+const email = ref(store.email);
 
-  // Émettre un événement d'authentification réussie
-  router.push({ name: 'tableau-bord' });
-  router.appContext.app.emit('authenticated');
+// Mettre à jour les valeurs nom et email lorsque le store change
+store.$subscribe((mutation) => {
+  if (mutation.type === 'UPDATE_CREDENTIALS') {
+    nom.value = store.nom;
+    email.value = store.email;
+  }
+});
+
+const authenticateUser = () => {
+  store.updateCredentials(true, nom.value, email.value, 'token');
+  console.log('User authenticated'); // Ajout du console.log
+  router.push({ name: 'tableau-bord' }); // Redirection vers le tableau de bord
 }
 </script>
+
+
+
 
 <style lang="scss">
 @import "./../assets/main.scss";
