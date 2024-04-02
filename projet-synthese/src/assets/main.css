@@ -20,7 +20,6 @@ html {
 body {
   color: #363636;
   font-size: 1.7rem;
-  line-height: 1.5;
   font-weight: 400;
 }
 
@@ -58,6 +57,19 @@ p {
   margin: 0;
 }
 
+.page-padding {
+  padding: 8rem 10rem;
+}
+
+.btn-modal-delete {
+  background-color: #ef4444;
+}
+
+.btn-modal-delete__outline {
+  border: solid 1px #ef4444;
+  color: #ef4444;
+}
+
 /* $color-text-principale: #c5c5c5; //Couleur dans le paragraphe ou contenu. */
 h1 {
   color: #111111;
@@ -72,12 +84,12 @@ h1 {
 }
 
 .input:focus {
-  border-color: #0c9da3; /* Change this to your desired background color */
+  border-color: #64b5dd; /* Change this to your desired background color */
   outline: none; /* Remove the default focus outline */
 }
 
 .btn {
-  background-color: #0c9da3;
+  background-color: #64b5dd;
 }
 .btn:hover {
   background-color: #86ced1;
@@ -110,7 +122,7 @@ nav {
 }
 
 .nav_btn_tableau {
-  color: #0c9da3;
+  color: #64b5dd;
 }
 .nav_btn_tableau:hover {
   color: #fff;
@@ -253,11 +265,11 @@ nav {
   color: #363636;
 }
 .DemandeStage__section h2 {
-  color: #0c9da3;
+  color: #64b5dd;
   margin-bottom: 2rem;
 }
 .DemandeStage__section h3 {
-  color: #0c9da3;
+  color: #64b5dd;
 }
 
 .DemandeStage__section__Entete {
@@ -277,7 +289,7 @@ nav {
 .file-input::before {
   content: "Parcourir";
   display: inline-block;
-  background-color: #0c9da3;
+  background-color: #64b5dd;
   color: #fff;
   padding: 8px 12px;
   border-radius: 4px;
@@ -374,7 +386,7 @@ nav {
   background: #000;
   margin: 0 15px;
   animation: loader infinite 0.3s alternate;
-  background: #0c9da3;
+  background: #64b5dd;
 }
 
 .d2 {
@@ -397,6 +409,24 @@ nav {
 
 .text-offres {
   color: #ba2025;
+}
+
+/* $color-text-principale: #c5c5c5; //Couleur dans le paragraphe ou contenu. */
+.presentation-body-title {
+  color: #64b5dd;
+}
+
+.presentation-title-border {
+  border-left: solid #64b5dd 10px;
+}
+
+.btn-entreprise {
+  background-color: #64b5dd;
+}
+
+.btn-entreprise__outline {
+  border: solid 1px #9ca3af;
+  color: "#9CA3AF";
 }
 
 @tailwind base;

@@ -1,9 +1,11 @@
 <template>
   <section class="bg-slate-100 page-padding">
-    <h2>Entreprises</h2>
-    <BtnBase class="my-8" title="Ajouter une entreprise" color="#F9CB40" :action="onAddEntreprise" />
-    <div class="flex flex-wrap gap-5">
-      <CardEntreprise v-for="entreprise in entreprises" :key="entreprise._id" :entreprise="entreprise" />
+    <div>
+      <h2>Entreprises</h2>
+      <BtnBase class="mb-24 mt-20" title="Ajouter une entreprise" color="#F9CB40" :action="onAddEntreprise" />
+      <div class="flex flex-wrap gap-24">
+        <CardEntreprise v-for="entreprise in entreprises" :key="entreprise._id" :entreprise="entreprise" />
+      </div>
     </div>
   </section>
 
@@ -44,19 +46,6 @@ watchEffect(() => {
 function onAddEntreprise() {
   router.push({ name: "entreprise", params: { id: "new" } });
 }
-
-/* TODO suggestions:
-   mettre le padding de nos pages dans une variable
-   idem pour typographie titre
-   On pourrait utiliser des class 
-*/
 </script>
 
-<style scoped>
-h2 {
-  font-size: 3rem;
-}
-.page-padding {
-  padding: 3rem;
-}
-</style>
+<style scoped></style>
