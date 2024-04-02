@@ -1,0 +1,9 @@
+@import "variable";
+
+.btn-candidats {
+  background-color: $color-background_btn_candidat;
+
+  &:hover {
+    background-color: darken($color-background_btn_candidat, 10%);
+  }
+}

@@ -48,3 +48,10 @@
   border-radius: 4px;
   cursor: pointer;
 }
+.btn-stage {
+  background-color: $color-background_btn_demande;
+
+  &:hover {
+    background-color: darken($color-background_btn_demande, 20%);
+  }
+}

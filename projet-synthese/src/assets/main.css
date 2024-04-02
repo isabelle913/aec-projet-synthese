@@ -25,7 +25,7 @@ body {
 
 .container {
   width: 100%;
-  max-width: 120rem;
+  max-width: 75rem;
   margin: 0 auto;
 }
 
@@ -61,13 +61,23 @@ p {
   padding: 8rem 10rem;
 }
 
+.page-background {
+  background-color: #f8fafc;
+}
+
 .btn-modal-delete {
   background-color: #ef4444;
 }
-
+.btn-modal-delete:hover {
+  background-color: #bd1010;
+}
 .btn-modal-delete__outline {
   border: solid 1px #ef4444;
   color: #ef4444;
+}
+.btn-modal-delete__outline:hover {
+  border: solid 1px #bd1010;
+  color: #bd1010;
 }
 
 /* $color-text-principale: #c5c5c5; //Couleur dans le paragraphe ou contenu. */
@@ -84,8 +94,8 @@ h1 {
 }
 
 .input:focus {
-  border-color: #64b5dd; /* Change this to your desired background color */
-  outline: none; /* Remove the default focus outline */
+  border-color: #64b5dd;
+  outline: none;
 }
 
 .btn {
@@ -160,7 +170,7 @@ nav {
 }
 
 .nav_btn_candidats {
-  color: #9b5ba2;
+  color: #7f2987;
 }
 .nav_btn_candidats:hover {
   color: #fff;
@@ -232,11 +242,11 @@ nav {
 }
 
 .navMenuAction_btn_candidat {
-  color: #9b5ba2;
-  border-color: #9b5ba2;
+  color: #7f2987;
+  border-color: #7f2987;
 }
 .navMenuAction_btn_candidat:hover {
-  background-color: #9b5ba2;
+  background-color: #7f2987;
 }
 
 /* $color-text-principale: #c5c5c5; //Couleur dans le paragraphe ou contenu. */
@@ -296,6 +306,13 @@ nav {
   cursor: pointer;
 }
 
+.btn-stage {
+  background-color: #d2a350;
+}
+.btn-stage:hover {
+  background-color: #966d26;
+}
+
 /* $color-text-principale: #c5c5c5; //Couleur dans le paragraphe ou contenu. */
 .border-item {
   border-left-style: solid;
@@ -322,7 +339,6 @@ nav {
 .bg-demandes {
   background-color: #d2a350;
 }
-
 .bg-demandes__darker {
   background-color: #be8b31;
 }
@@ -330,17 +346,15 @@ nav {
 .bg-offres {
   background-color: #ba2025;
 }
-
 .bg-offres__darker {
   background-color: #8e191c;
 }
 
 .bg-candidats {
-  background-color: #9b5ba2;
+  background-color: #7f2987;
 }
-
 .bg-candidats__darker {
-  background-color: #7c4981;
+  background-color: #5a1d60;
 }
 
 /* $color-text-principale: #c5c5c5; //Couleur dans le paragraphe ou contenu. */
@@ -423,10 +437,32 @@ nav {
 .btn-entreprise {
   background-color: #64b5dd;
 }
-
+.btn-entreprise:hover {
+  background-color: #2785b4;
+}
 .btn-entreprise__outline {
-  border: solid 1px #9ca3af;
-  color: "#9CA3AF";
+  border: solid 1px #64b5dd;
+  color: #64b5dd;
+}
+.btn-entreprise__outline:hover {
+  border: solid 1px #2785b4;
+  color: #2785b4;
+}
+
+/* $color-text-principale: #c5c5c5; //Couleur dans le paragraphe ou contenu. */
+.btn-offrestage {
+  background-color: #ba2025;
+}
+.btn-offrestage:hover {
+  background-color: #8e191c;
+}
+
+/* $color-text-principale: #c5c5c5; //Couleur dans le paragraphe ou contenu. */
+.btn-candidats {
+  background-color: #7f2987;
+}
+.btn-candidats:hover {
+  background-color: #5a1d60;
 }
 
 @tailwind base;
