@@ -55,6 +55,21 @@ const router = createRouter({
       name: "offres",
       component: Offres,
     },
+    {
+      path: "/OffredeStage",
+      name: "OffredeStage",
+      component: OffredeStage,
+    },
+    {
+      path: "/OffredeStageAjout",
+      name: "OffredeStageAjout",
+      component: OffredeStageAjout,
+    },
+    {
+      path: "/OffredeStage/:id",
+      name: "OffredeStageDetail",
+      component: OffredeStageDetail,
+    },
     // {
     //   path: "/offre/:id",
     //   name: "offre",
