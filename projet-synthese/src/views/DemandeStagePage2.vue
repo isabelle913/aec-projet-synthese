@@ -66,6 +66,7 @@
             />
           </div>
         </div>
+
         <div class="DemandeStage__section__info__item">
           <div class="mb-16 mr-2">
             <label class="text-bg font-bold" for="secteurActivite"

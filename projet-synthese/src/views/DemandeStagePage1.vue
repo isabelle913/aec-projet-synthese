@@ -1,10 +1,13 @@
 <template>
-  <div v-if="InternshipRequest">
-    <div class="DemandeStage__Titre">
-      <p>Demande de stage</p>
-      <h1>Développeur Front-End</h1>
-    </div>
-    <div class="DemandeStage__btn">
+  <div v-if="!isQueryError">
+    <form>
+      <!-- Entête -->
+      <div class="DemandeStage__Titre">
+        <p>Demande de stage</p>
+        <h1>Développeur Front-End</h1>
+      </div>
+
+      <!--  <div class="DemandeStage__btn">
       <button class="text-green-500 DemandeStage__btn__check">
         <ion-icon name="checkmark-sharp"></ion-icon>
       </button>
@@ -14,124 +17,473 @@
       <button class="text-red-500 DemandeStage__btn__close">
         <ion-icon name="close-sharp"></ion-icon>
       </button>
-    </div>
+    </div> -->
 
-    <section class="bg-white p-10 DemandeStage__section">
-      <div class="DemandeStage__section__Entete">
-        <h2>
-          {{ InternshipRequest.candidate.firstName }}
-          {{ InternshipRequest.candidate.lastName }}
-        </h2>
-        <p>
-          {{ InternshipRequest.candidate.description }}
-        </p>
-        <br />
-        <p>
-          {{ InternshipRequest.candidate.description }}
-        </p>
+      <!-- boutons haut -->
+      <div class="flex justify-center flex-wrap md:justify-end gap-5 py-8">
+        <BtnBase
+          v-if="!isEditOrCreate && _id !== 'new'"
+          icon="Done"
+          :action="onWhatFor"
+          show-icon-only
+          icon-color="green"
+          icon-size="text-6xl"
+        />
+        <BtnBase
+          v-if="isEditOrCreate && _id !== 'new'"
+          icon="close"
+          :action="onGoToView"
+          show-icon-only
+          icon-color="red"
+          icon-size="text-6xl"
+        />
+        <BtnBase
+          v-if="isEditOrCreate && _id === 'new'"
+          icon="close"
+          :action="onReset"
+          show-icon-only
+          icon-color="red"
+          icon-size="text-6xl"
+        />
+        <BtnBase
+          v-if="isEditOrCreate"
+          icon="save"
+          :action="onValidate"
+          show-icon-only
+          icon-color="green"
+          icon-size="text-6xl"
+        />
+        <BtnBase
+          v-if="!isEditOrCreate"
+          icon="edit_square"
+          :action="onUpdate"
+          show-icon-only
+          icon-size="text-6xl"
+        />
+        <BtnBase
+          v-if="!isEditOrCreate"
+          icon="disabled_by_default"
+          :action="onOpenModalSuppression"
+          show-icon-only
+          icon-color="red"
+          icon-size="text-6xl"
+        />
       </div>
 
-      <div class="grid grid-cols-12 gap-5 my-8 DemandeStage__section__info">
-        <div class="col-span-12 md:col-span-6 max-md:p-10 bg-orange-300">
-          <div class="DemandeStage__section__info__item">
-            <p><strong>Programme de formation</strong></p>
-            <p>{{ InternshipRequest.title }}</p>
-          </div>
-          <div class="DemandeStage__section__info__item">
-            <p><strong>Secteur d'activité</strong></p>
-            <p>{{ InternshipRequest.description }}</p>
-          </div>
-          <div class="DemandeStage__section__info__item">
-            <p><strong>Compétences</strong></p>
-            <p>{{ InternshipRequest.skills }}</p>
-          </div>
+      <!-- corps -->
+      <section class="bg-white p-10 DemandeStage__section">
+        <div v-if="!isEditOrCreate" class="DemandeStage__section__Entete">
+          <h2>
+            {{ InternshipRequest?.candidate?.firstName }}
+            {{ InternshipRequest?.candidate?.lastName }}
+          </h2>
+          <p>
+            {{ InternshipRequest?.candidate?.description }}
+          </p>
+          <br />
+          <p>
+            {{ InternshipRequest?.candidate?.description }}
+          </p>
         </div>
-        <div class="col-span-12 md:col-span-6 max-md:p-10 bg-lime-300">
-          <div class="DemandeStage__section__info__item">
-            <p><strong>Établissement d'enseignement :</strong></p>
-            <p>CégepdeTroisRivières</p>
-          </div>
-          <div class="DemandeStage__section__info__item">
-            <p><strong>Ville</strong></p>
-            <p>{{ InternshipRequest.candidate.city }}</p>
-          </div>
-          <div class="DemandeStage__section__info__item">
-            <p>
-              <strong>Région</strong>
+        <div v-else>
+          <div class="mb-16 mr-2">
+            <label class="text-bg font-bold" for="internshipRequestFirstName"
+              >Prenom candidat</label
+            >
+            <input
+              class="shadow appearance-none border rounded w-full py-7 px-3 mt-5 leading-tight focus:outline-none focus:shadow-outline input"
+              id="internshipRequestFirstName"
+              name="internshipRequestFirstName"
+              placeholder="Kevin Labonté"
+              type="text"
+              v-model="InternshipRequest.candidate.firstName"
+              required
+            />
+            <p
+              v-if="isError.internshipRequestFirstName"
+              class="col-start-4 col-span-9 text-red-500 text-xs italic"
+            >
+              Veuillez inscrire le prenom du candidat
             </p>
-            <p>{{ InternshipRequest.province.value }}</p>
+          </div>
+          <div class="mb-16 mr-2">
+            <label class="text-bg font-bold" for="internshipRequestLastName"
+              >Nom candidat</label
+            >
+            <input
+              class="shadow appearance-none border rounded w-full py-7 px-3 mt-5 leading-tight focus:outline-none focus:shadow-outline input"
+              id="internshipRequestLastName"
+              name="internshipRequestLastName"
+              placeholder="Kevin Labonté"
+              type="text"
+              v-model="InternshipRequest.candidate.lastName"
+              required
+            />
+            <p
+              v-if="isError.internshipRequestLastName"
+              class="col-start-4 col-span-9 text-red-500 text-xs italic"
+            >
+              Veuillez inscrire le nom du candidat
+            </p>
+          </div>
+          <div class="mb-16 mr-2">
+            <label class="text-bg font-bold" for="internshipRequestDescription"
+              >Présentation</label
+            >
+            <textarea
+              class="text-justify shadow appearance-none border rounded w-full py-7 px-3 mt-5 leading-tight focus:outline-none focus:shadow-outline input"
+              id="internshipRequestDescription"
+              placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet doloribus
+      sequi ipsa placeat possimus fugit veniam! Porro quis suscipit commodi
+      aliquid. Culpa suscipit voluptatum maxime, vero nostrum ducimus aperiam
+      reprehenderit quae, recusandae cumque voluptates vitae quaerat eum aut
+      eius est dolorum in assumenda. Praesentium laboriosam fugiat soluta
+      corporis excepturi aliquam?"
+              name="internshipRequestDescription"
+              cols="25"
+              rows="6"
+              v-model="InternshipRequest.candidate.description"
+            ></textarea>
+            <p
+              v-if="isError.internshipRequestDescription"
+              class="col-start-4 col-span-9 text-red-500 text-xs italic"
+            >
+              Veuillez inscrire la description
+            </p>
           </div>
         </div>
-      </div>
 
-      <h3>Information sur le stage recherché</h3>
+        <div class="grid grid-cols-12 gap-5 my-8 DemandeStage__section__info">
+          <div class="col-span-12 md:col-span-6 max-md:p-10 bg-orange-300">
+            <div
+              v-if="!isEditOrCreate"
+              class="DemandeStage__section__info__item"
+            >
+              <p><strong>Programme de formation</strong></p>
+              <p>{{ InternshipRequest.title }}</p>
+            </div>
 
-      <div class="grid grid-cols-12 gap-5 my-8 DemandeStage__section__info">
-        <div class="col-span-12 md:col-span-6 max-md:p-10 bg-orange-300">
-          <div class="DemandeStage__section__info__item">
-            <p><strong>Type de stage</strong></p>
-            <p>{{ InternshipRequest.internshipType.value }}</p>
+            <div
+              v-if="!isEditOrCreate"
+              class="DemandeStage__section__info__item"
+            >
+              <p><strong>Secteur d'activité</strong></p>
+              <p>{{ InternshipRequest.description }}</p>
+            </div>
+
+            <div
+              v-if="!isEditOrCreate"
+              class="DemandeStage__section__info__item"
+            >
+              <p><strong>Compétences</strong></p>
+              <p>{{ InternshipRequest.skills }}</p>
+            </div>
           </div>
-          <div class="DemandeStage__section__info__item">
-            <p><strong>Nombre d'heure par semaine</strong></p>
-            <p>{{ InternshipRequest.weeklyWorkHours }}</p>
-          </div>
-          <div class="DemandeStage__section__info__item">
-            <p><strong>Rémunération</strong></p>
-            <p>ladiscrétionde lentreprise</p>
+          <div class="col-span-12 md:col-span-6 max-md:p-10 bg-lime-300">
+            <div
+              v-if="!isEditOrCreate"
+              class="DemandeStage__section__info__item"
+            >
+              <p><strong>Établissement d'enseignement :</strong></p>
+              <p>Cégep de Trois-Rivières</p>
+            </div>
+            <div
+              v-if="!isEditOrCreate"
+              class="DemandeStage__section__info__item"
+            >
+              <p><strong>Ville</strong></p>
+              <p>{{ InternshipRequest.candidate?.city }}</p>
+            </div>
+            <div
+              v-if="!isEditOrCreate"
+              class="DemandeStage__section__info__item"
+            >
+              <p>
+                <strong>Région</strong>
+              </p>
+              <p>{{ InternshipRequest.province?.value }}</p>
+            </div>
           </div>
         </div>
-        <div class="col-span-12 md:col-span-6 max-md:p-10 bg-lime-300">
-          <div class="DemandeStage__section__info__item">
-            <p><strong>Date de début</strong></p>
-            <p>{{ InternshipRequest.startDate }}</p>
+
+        <h3>Information sur le stage recherché</h3>
+
+        <div class="grid grid-cols-12 gap-5 my-8 DemandeStage__section__info">
+          <div class="col-span-12 md:col-span-6 max-md:p-10 bg-orange-300">
+            <div
+              v-if="!isEditOrCreate"
+              class="DemandeStage__section__info__item"
+            >
+              <p><strong>Type de stage</strong></p>
+              <p>{{ InternshipRequest.internshipType?.value }}</p>
+            </div>
+            <div
+              v-if="!isEditOrCreate"
+              class="DemandeStage__section__info__item"
+            >
+              <p><strong>Nombre d'heure par semaine</strong></p>
+              <p>{{ InternshipRequest.weeklyWorkHours }}</p>
+            </div>
+            <div class="DemandeStage__section__info__item">
+              <p><strong>Rémunération</strong></p>
+              <p>ladiscrétionde lentreprise</p>
+            </div>
           </div>
-          <div class="DemandeStage__section__info__item">
-            <p><strong>Date de fin</strong></p>
-            <p>{{ InternshipRequest.endDate }}</p>
+          <div class="col-span-12 md:col-span-6 max-md:p-10 bg-lime-300">
+            <div
+              v-if="!isEditOrCreate"
+              class="DemandeStage__section__info__item"
+            >
+              <p><strong>Date de début</strong></p>
+              <p>{{ InternshipRequest.startDate }}</p>
+            </div>
+            <div
+              v-if="!isEditOrCreate"
+              class="DemandeStage__section__info__item"
+            >
+              <p><strong>Date de fin</strong></p>
+              <p>{{ InternshipRequest.endDate }}</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <h3>Informations suplémentaires</h3>
-      <div class="mt-8">
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore
-          expedita maxime vel quis quas quia, laborum rerum tempora et possimus
-          officiis, ullam sunt esse perspiciatis accusamus beatae iure eligendi
-          blanditiis reiciendis nisi quae quibusdam nostrum ratione. Magni
-          architecto error atque velit dicta quas voluptatem qui. Quis sequi,
-          reiciendis et sint ab mollitia at sapiente Similique.
-        </p>
-        <button
-          class="text-white font-bold py-4 px-4 mt-24 rounded focus:outline-none focus:shadow-outline btn"
-          @click="telecharger"
-        >
-          <div>
-            <ion-icon name="cloud-download-sharp"></ion-icon>Télécharger le C.V.
-          </div>
-        </button>
+        <h3>Informations suplémentaires</h3>
+        <div class="mt-8">
+          <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore
+            expedita maxime vel quis quas quia, laborum rerum tempora et
+            possimus officiis, ullam sunt esse perspiciatis accusamus beatae
+            iure eligendi blanditiis reiciendis nisi quae quibusdam nostrum
+            ratione. Magni architecto error atque velit dicta quas voluptatem
+            qui. Quis sequi, reiciendis et sint ab mollitia at sapiente
+            Similique.
+          </p>
+          <button
+            class="text-white font-bold py-4 px-4 mt-24 rounded focus:outline-none focus:shadow-outline btn"
+            @click="telecharger"
+          >
+            <div>
+              <ion-icon name="cloud-download-sharp"></ion-icon>Télécharger le
+              C.V.
+            </div>
+          </button>
+        </div>
+      </section>
+
+      <div class="flex justify-center flex-wrap md:justify-end gap-5 py-8">
+        <BtnBase
+          v-if="isEditOrCreate && _id !== 'new'"
+          title="Annuler"
+          icon="close"
+          color="#f9cb40"
+          outline
+          :action="onGoToView"
+        />
+        <BtnBase
+          v-if="isEditOrCreate && _id === 'new'"
+          title="Annuler"
+          icon="close"
+          color="#f9cb40"
+          outline
+          :action="onReset"
+        />
+        <BtnBase
+          v-if="isEditOrCreate"
+          :title="theBtnValidateTitle"
+          icon="save"
+          color="#f9cb40"
+          :action="onValidate"
+        />
+        <BtnBase
+          v-if="!isEditOrCreate"
+          title="Modifier"
+          icon="edit"
+          color="#f9cb40"
+          :action="onUpdate"
+        />
+        <BtnBase
+          v-if="!isEditOrCreate"
+          title="Supprimer"
+          icon="delete"
+          color="#f9cb40"
+          :action="onOpenModalSuppression"
+        />
       </div>
-    </section>
+    </form>
   </div>
+
+  <div v-else class="h-screen bg-slate-100 page-padding">
+    <div class="h-full flex justify-center items-center">
+      <div class="text-4xl text-center">
+        Une erreur est survenue lors de la récupération des données
+      </div>
+    </div>
+  </div>
+
+  <teleport to="body">
+    <ModalSuppression
+      v-model="isOpenModalSuppression"
+      :description="InternshipRequest.candidate?.description"
+      :action="onDelete"
+      @close="isOpenModalSuppression = false"
+    />
+  </teleport>
+
+  <teleport to="body">
+    <Loader v-model="isLoading" />
+  </teleport>
 </template>
 
 <script setup>
-import { ref, onMounted, watchEffect } from "vue";
+import { ref, computed, reactive, onMounted, watchEffect } from "vue";
 import { useRouter } from "vue-router";
 import InternshipRequestsServices from "@/services/internshipRequests/internshipRequestsServices";
+import ModalSuppression from "@/components/ModalSuppression.vue";
+import BtnBase from "@/components/BtnBase.vue";
 
 const router = useRouter();
-const { _id } = router.currentRoute.value.params;
 const { internshipRequestsListe, allInternshipRequests } =
   InternshipRequestsServices();
-const InternshipRequest = ref(null);
+
+const {
+  objet,
+  getInternshipRequestById,
+  addInternshipRequest,
+  editInternshipRequest,
+  deleteInternshipRequest,
+} = InternshipRequestsServices();
+
+/* const { _id } = router.currentRoute.value.params;
+ */
+const { _id } = router.currentRoute.value.params;
+const isUpdate =
+  router.currentRoute.value.params.action === "update" ? true : false;
+const isEditOrCreate = ref(false);
+
+const InternshipRequest = ref({});
+const isQueryError = ref(false);
+const isLoadedInternshipRequest = ref(false);
+
+/* const isLoading = computed(() => {
+  if (isLoadedInternshipRequest.value) return false;
+  else return true;
+});
+ */
+
+const isLoading = computed(() => {
+  if (_id === "new") return false;
+  if (isLoadedInternshipRequest.value) return false;
+  else return true;
+});
+const isOpenModalSuppression = ref(false);
+
+const isError = reactive({
+  internshipRequestFirstName: false,
+  internshipRequestLastName: false,
+  internshipRequestDescription: false,
+});
+
+const theBtnValidateTitle = computed(() => {
+  if (_id === "new") return "Ajouter";
+  else return "Mettre à jour";
+});
+
+function onValidate(e) {
+  e.preventDefault();
+  console.log("onValidate");
+
+  if (InternshipRequest.value.firstName === "")
+    isError.internshipRequestFirstName = true;
+  else isError.internshipRequestFirstName = false;
+
+  if (InternshipRequest.value.lastName === "")
+    isError.internshipRequestLastName = true;
+  else isError.internshipRequestLastName = false;
+
+  if (InternshipRequest.value.description === "")
+    isError.internshipRequestDescription = true;
+  else isError.internshipRequestDescription = false;
+
+  console.log("isError", isError);
+  console.log("InternshipRequest.value", InternshipRequest.value);
+
+  /* if (Object.values(isError).every((result) => !result)) {
+    console.log("POST/PATCH", InternshipRequest.value);
+    if (_id === "new") {
+      console.log("vers le POST");
+      addInternshipRequest(InternshipRequest.value);
+      InternshipRequest.value = {};
+    } else {
+      console.log("vers le PATCH");
+      editInternshipRequest(InternshipRequest.value);
+    }
+  } */
+
+  // If form is valid, handle form submission
+  if (Object.values(isError).every((result) => !result)) {
+    console.log("Form is valid. Submitting...");
+
+    // Perform form submission logic here
+    if (_id === "new") {
+      console.log("Submitting new form...");
+      addInternshipRequest(InternshipRequest.value);
+      InternshipRequest.value = {};
+    } else {
+      console.log("Submitting updated form...");
+      editInternshipRequest(InternshipRequest.value);
+    }
+  } else {
+    console.log("Form contains errors. Cannot submit.");
+  }
+}
+
+function onUpdate() {
+  router.push({ path: `/demande/${InternshipRequest.value._id}/update` });
+}
+
+function onReset(e) {
+  e.preventDefault();
+  console.log("onReset");
+  InternshipRequest.value = {};
+}
+
+function onOpenModalSuppression(e) {
+  e.preventDefault();
+  isOpenModalSuppression.value = true;
+}
+
+function onDelete(e) {
+  deleteInternshipRequest(_id);
+  isOpenModalSuppression.value = false;
+}
+
+function onGoToView(e) {
+  e.preventDefault();
+  isEditOrCreate.value = false;
+  router.push({ path: `/demande/${_id}` });
+}
 
 onMounted(() => {
+  if (_id === "new") {
+    isEditOrCreate.value = true;
+  } else {
+    getInternshipRequestById(_id);
+    if (isUpdate) isEditOrCreate.value = true;
+  }
+
   allInternshipRequests();
 });
 
-function load() {
+watchEffect(() => {
+  if (Object.keys(objet.value).length !== 0) {
+    InternshipRequest.value = objet.value; // Assigner directement la valeur
+    // console.log("InternshipRequest", InternshipRequest.value);
+    isLoadedInternshipRequest.value = true;
+    if (InternshipRequest.value.statusCode) isQueryError.value = true;
+  }
+});
+
+/* function load() {
   watchEffect(() => {
     if (Array.isArray(internshipRequestsListe.value)) {
       InternshipRequest.value = internshipRequestsListe.value.find(
@@ -140,5 +492,5 @@ function load() {
     }
   });
 }
-load();
+load(); */
 </script>
