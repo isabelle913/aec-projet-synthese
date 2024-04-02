@@ -77,3 +77,11 @@ p {
     }
   }
 }
+
+.btn-accept {
+  background-color: $color-background_btn_accept;
+
+  &:hover {
+    background-color: darken($color-background_btn_accept, 10%);
+  }
+}

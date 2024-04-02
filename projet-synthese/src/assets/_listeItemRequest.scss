@@ -7,9 +7,12 @@
 .border-demandes {
   border-left-color: $color-background_btn_demande;
 }
-.border-inactive {
+.border-demandes-inactives {
   border-left-color: $color-BorderLeft_inactif;
 }
 .bg-demandes {
   background-color: $color-background_btn_demande;
+}
+.bg-demandes-inactives {
+  background-color: $color-BorderLeft_inactif;
 }

@@ -1,10 +1,10 @@
 <template>
   <div class="bg-white p-12">
     <div v-if="isTableaubord" class="mb-12">
-      <div class="text-2xl font-semibold">
+      <h3 class="font-semibold">
         Dernières <span class="font-semibold" :class="isDemande ? 'text-demandes' : 'text-offres'">{{ theTitle }}</span> de stage
-      </div>
-      <div class="text-red-500 text-sm">En attente de validation</div>
+      </h3>
+      <p class="text-red-500">En attente de validation</p>
     </div>
     <div v-else>
       <div class="py-8"></div>

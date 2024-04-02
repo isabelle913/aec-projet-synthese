@@ -11,7 +11,7 @@
             </div>
             <div>
               <div class="hidden lg:block 2xl:hidden text-2xl">Stages</div>
-              <div class="hidden 2xl:block text-4xl">Demandes de stage</div>
+              <div class="hidden 2xl:block text-3xl">Demandes de stage</div>
               <div class="text-4xl">{{ countInternshipRequests }}</div>
             </div>
           </div>
@@ -32,7 +32,7 @@
             </div>
             <div>
               <div class="hidden lg:block 2xl:hidden text-2xl">Offres</div>
-              <div class="hidden 2xl:block text-4xl">Offres de stage</div>
+              <div class="hidden 2xl:block text-3xl">Offres de stage</div>
               <div class="text-4xl">{{ countInternshipOffers }}</div>
             </div>
           </div>
@@ -52,7 +52,7 @@
               <span class="material-symbols-outlined text-4xl md:text-6xl align-middle"> person </span>
             </div>
             <div>
-              <div class="hidden lg:block text-4xl">Candidats</div>
+              <div class="hidden lg:block text-3xl">Candidats</div>
               <div class="text-4xl">{{ countCandidats }}</div>
             </div>
           </div>
