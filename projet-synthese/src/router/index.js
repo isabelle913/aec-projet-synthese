@@ -10,6 +10,9 @@ import Candidats from "@/views/Candidats.vue";
 import CandidatDetails from "@/views/CandidatDetails.vue";
 import Offres from "@/views/Offres.vue";
 import Demandes from "@/views/Demandes.vue";
+import OffredeStage from "@/views/OffredeStage.vue";
+import OffredeStageAjout from "@/views/OffredeStageAjout.vue";
+import OffredeStageDetail from "@/views/OffredeStageDetail.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,9 +22,9 @@ const router = createRouter({
       name: "Authentificator",
       component: Authentificator,
     },
-    { 
-      path: "/tableau-bord", 
-      component: TableauBord, 
+    {
+      path: "/tableau-bord",
+      component: TableauBord,
       name: "tableau-bord",
     },
     {
@@ -70,11 +73,6 @@ const router = createRouter({
       name: "OffredeStageDetail",
       component: OffredeStageDetail,
     },
-    // {
-    //   path: "/offre/:id",
-    //   name: "offre",
-    //   component: TODO A Compléter,
-    // },
     {
       path: "/candidats",
       name: "candidats",
