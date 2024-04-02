@@ -1,5 +1,5 @@
 <template>
-  <div class="page-background page-padding flex flex-col gap-y-12 h-screen">
+  <div class="page-background page-padding flex flex-col gap-y-12">
     <div>
       <h2>Demandes de stage</h2>
       <BtnBase class="mb-12 mt-20" title="Ajouter une demandes de stage" btn-class="btn-stage" :action="AddRequest" />
