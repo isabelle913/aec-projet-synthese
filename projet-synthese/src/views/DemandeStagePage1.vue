@@ -454,19 +454,20 @@
     />
   </teleport>
 
-  <!-- <teleport to="body">
+  <teleport to="body">
     <Loader v-model="isLoading" />
-  </teleport> -->
+  </teleport>
 </template>
 
 <script setup>
 import { ref, computed, reactive, onMounted, watchEffect } from "vue";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import InternshipRequestsServices from "@/services/internshipRequests/internshipRequestsServices";
 import ModalSuppression from "@/components/ModalSuppression.vue";
 import BtnBase from "@/components/BtnBase.vue";
 
 const router = useRouter();
+const route = useRoute();
 const { internshipRequestsListe, allInternshipRequests } =
   InternshipRequestsServices();
 
@@ -478,11 +479,10 @@ const {
   deleteInternshipRequest,
 } = InternshipRequestsServices();
 
-/* const { _id } = router.currentRoute.value.params;
- */
 const { _id } = router.currentRoute.value.params;
 const isUpdate =
   router.currentRoute.value.params.action === "update" ? true : false;
+
 const isEditOrCreate = ref(false);
 
 const InternshipRequest = ref({});
@@ -587,7 +587,8 @@ function onValidate(e) {
   }
 }
 
-function onUpdate() {
+function onUpdate(e) {
+  e.preventDefault();
   console.log("onUpdate function called");
   router.push({ path: `/demande/${InternshipRequest.value._id}/update` });
 }
@@ -615,6 +616,9 @@ function onGoToView(e) {
 }
 
 onMounted(() => {
+  console.log("Route ID:", _id);
+  console.log("Component mounted with ID:", _id);
+
   if (_id === "new") {
     isEditOrCreate.value = true;
   } else {
@@ -633,15 +637,4 @@ watchEffect(() => {
     if (InternshipRequest.value.statusCode) isQueryError.value = true;
   }
 });
-
-/* function load() {
-  watchEffect(() => {
-    if (Array.isArray(internshipRequestsListe.value)) {
-      InternshipRequest.value = internshipRequestsListe.value.find(
-        (item) => item._id === _id
-      );
-    }
-  });
-}
-load(); */
 </script>
