@@ -1,0 +1,18 @@
+@import "variable";
+
+.presentation-body-title {
+  color: $color-background_btn_tableau;
+}
+
+.presentation-title-border {
+  border-left: solid $color-background_btn_tableau 10px;
+}
+
+.btn-entreprise {
+  background-color: $color-background_btn_tableau;
+}
+
+.btn-entreprise__outline {
+  border: solid 1px #9ca3af;
+  color: "#9CA3AF";
+}

@@ -20,7 +20,9 @@
 
 @use "loader";
 
-@use "_listeBase";
+@use "listeBase";
+
+@use "entreprise";
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Roboto+Slab&family=Rubik:wght@400;500;600;700&display=swap");
 

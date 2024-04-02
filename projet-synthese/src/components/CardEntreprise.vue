@@ -1,5 +1,6 @@
 <template>
-  <div class="flex-none bg-white p-4 w-[500px] h-[250px] flex cursor-pointer" @click="onDetails(entreprise._id)">
+  <!-- w-[500px]  -->
+  <div class="flex-none bg-white p-4 w-2/5 h-[250px] flex cursor-pointer" @click="onDetails(entreprise._id)">
     <div class="w-1/2 flex grid place-content-center p-6">
       <img :src="getLogo(entreprise.name)" :alt="`Logo de l'entreprise ${entreprise.name}`" />
     </div>

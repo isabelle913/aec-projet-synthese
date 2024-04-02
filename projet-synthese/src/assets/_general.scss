@@ -10,17 +10,19 @@
   padding: 0;
 }
 html {
+  // TODO vérifier
   font-size: 62.5%;
 }
 
 body {
   color: $color-text-principale;
-  font-size: 1.7rem;
-  line-height: 1.5;
+  font-size: 1.7rem; // TODO vérifier
+  // line-height: 1.5;
 
   font-weight: 400;
 }
 .container {
+  // TODO vérifier
   width: 100%;
   max-width: 120rem;
   margin: 0 auto;
@@ -50,4 +52,14 @@ h3 {
 }
 p {
   margin: 0;
+}
+.page-padding {
+  padding: 8rem 10rem;
+}
+.btn-modal-delete {
+  background-color: $color-background_btn_delete;
+}
+.btn-modal-delete__outline {
+  border: solid 1px $color-background_btn_delete;
+  color: $color-background_btn_delete;
 }

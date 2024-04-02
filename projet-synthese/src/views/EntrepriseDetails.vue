@@ -2,36 +2,42 @@
   <section v-if="!isQueryError" class="bg-slate-100 page-padding">
     <form>
       <!-- Entête -->
-      <div v-if="!isEditOrCreate" class="presentation-title-border mb-20">
-        <div class="ml-4">
-          <div class="text-gray-600">Entreprise</div>
-          <div class="text-gray-600 text-6xl mb-10">{{ enterprise.name }}</div>
-          <div v-if="enterprise.activitySector" class="text-gray-600 bg-white py-2 px-4 inline text-2xl">{{ enterprise.activitySector.value }}</div>
+      <div class="flex items-center">
+        <div class="flex-none w-64 pr-8">
+          <img src="../assets/images/estage-logo.png" alt="Logo de l'entreprise" />
+        </div>
+        <div class="flex-auto">
+          <div v-if="!isEditOrCreate" class="presentation-title-border">
+            <div class="ml-4">
+              <div class="text-gray-600">Entreprise</div>
+              <div class="text-gray-600 text-6xl mb-10">{{ enterprise.name }}</div>
+              <div v-if="enterprise.activitySector" class="text-gray-600 bg-white py-2 px-4 inline text-2xl">{{ enterprise.activitySector.value }}</div>
+            </div>
+          </div>
+          <div v-else class="mb-20">
+            <div class="grid grid-cols-12 mb-3">
+              <label class="col-span-3 text-gray-600 text-2xl mr-4" for="enterpriseName">Nom de l'entreprise:</label>
+              <input class="col-span-9 border border-gray-400 rounded py-3 px-3 text-gray-600 text-2xl leading-tight focus:border-gray-800 hover:border-gray-800" id="enterpriseName" name="enterpriseName" type="text" v-model="enterprise.name" />
+              <p v-if="isError.enterpriseName" class="col-start-4 col-span-9 text-red-500 text-xs italic">Veuillez inscrire le nom de l'entreprise</p>
+            </div>
+            <div class="grid grid-cols-12 mb-3">
+              <label class="col-span-3 text-gray-600 text-2xl mr-4" for="activitySector">Secteur d'activité:</label>
+              <select class="col-span-9 border border-gray-400 rounded py-3 px-3 text-gray-600 text-2xl leading-tight focus:border-gray-800 hover:border-gray-800" id="activitySector" name="activitySector" v-model="enterprise.activitySector">
+                <option v-for="activity in activitiesSector" :key="activity._id" :value="activity">{{ activity.value }}</option>
+              </select>
+              <p v-if="isError.activitySector" class="col-start-4 col-span-9 text-red-500 text-xs italic">Veuillez choisir un secteur d'activité</p>
+            </div>
+          </div>
         </div>
       </div>
-      <div v-else class="mb-20">
-        <div class="grid grid-cols-12 mb-3">
-          <label class="col-span-3 text-gray-600 text-2xl mr-4" for="enterpriseName">Nom de l'entreprise:</label>
-          <input class="col-span-9 border border-gray-400 rounded py-3 px-3 text-gray-600 text-2xl leading-tight focus:border-gray-800 hover:border-gray-800" id="enterpriseName" name="enterpriseName" type="text" v-model="enterprise.name" />
-          <p v-if="isError.enterpriseName" class="col-start-4 col-span-9 text-red-500 text-xs italic">Veuillez inscrire le nom de l'entreprise</p>
-        </div>
-        <div class="grid grid-cols-12 mb-3">
-          <label class="col-span-3 text-gray-600 text-2xl mr-4" for="activitySector">Secteur d'activité:</label>
-          <select class="col-span-9 border border-gray-400 rounded py-3 px-3 text-gray-600 text-2xl leading-tight focus:border-gray-800 hover:border-gray-800" id="activitySector" name="activitySector" v-model="enterprise.activitySector">
-            <option v-for="activity in activitiesSector" :key="activity._id" :value="activity">{{ activity.value }}</option>
-          </select>
-          <p v-if="isError.activitySector" class="col-start-4 col-span-9 text-red-500 text-xs italic">Veuillez choisir un secteur d'activité</p>
-        </div>
-      </div>
-
-      <!-- boutons -->
-      <!-- TODO Valider les couleurs -->
+      <!-- boutons haut -->
       <div class="flex justify-center flex-wrap md:justify-end gap-5 py-8">
-        <BtnBase v-if="isEditOrCreate && _id !== 'new'" title="Annuler" icon="close" color="#f9cb40" outline :action="onGoToView" show-icon-only icon-color="red" />
-        <BtnBase v-if="isEditOrCreate && _id === 'new'" title="Annuler" icon="close" color="#f9cb40" outline :action="onReset" show-icon-only icon-color="red" />
-        <BtnBase v-if="isEditOrCreate" :title="theBtnValidateTitle" icon="save" color="#f9cb40" :action="onValidate" show-icon-only icon-color="green" />
-        <BtnBase v-if="!isEditOrCreate" title="Modifier" icon="edit" color="#f9cb40" :action="onUpdate" show-icon-only icon-color="#f9cb40" />
-        <BtnBase v-if="!isEditOrCreate" title="Supprimer" icon="delete" color="#f9cb40" :action="onOpenModalSuppression" show-icon-only icon-color="red" />
+        <BtnBase v-if="!isEditOrCreate && _id !== 'new'" icon="Done" :action="onWhatFor" show-icon-only icon-color="green" icon-size="text-6xl" />
+        <BtnBase v-if="isEditOrCreate && _id !== 'new'" icon="close" :action="onGoToView" show-icon-only icon-color="red" icon-size="text-6xl" />
+        <BtnBase v-if="isEditOrCreate && _id === 'new'" icon="close" :action="onReset" show-icon-only icon-color="red" icon-size="text-6xl" />
+        <BtnBase v-if="isEditOrCreate" icon="save" :action="onValidate" show-icon-only icon-color="green" icon-size="text-6xl" />
+        <BtnBase v-if="!isEditOrCreate" icon="edit_square" :action="onUpdate" show-icon-only icon-size="text-6xl" />
+        <BtnBase v-if="!isEditOrCreate" icon="disabled_by_default" :action="onOpenModalSuppression" show-icon-only icon-color="red" icon-size="text-6xl" />
       </div>
 
       <!-- corps -->
@@ -44,9 +50,15 @@
           <textarea class="w-full border border-gray-400 rounded py-3 px-3 text-gray-600 text-2xl leading-tight focus:border-gray-800 hover:border-gray-800" id="description" name="description" v-model="enterprise.description" placeholder="Inscrire une description" />
           <p v-if="isError.enterpriseName" class="col-start-4 col-span-9 text-red-500 text-xs italic">Veuillez inscrire le nom de l'entreprise</p>
         </div>
-        <div class="presentation-body-title text-2xl my-10">Informations</div>
 
         <!-- 2e partie -->
+        <!-- TODO vérifier les 2 modes edit -->
+        <div class="presentation-body-title text-2xl my-10">Personne contact</div>
+        <div v-if="!isEditOrCreate" class="text-3xl my-10 font-semibold">{{ contactOnView }}</div>
+        <input v-else class="col-span-9 border border-gray-400 rounded py-3 px-3 text-gray-600 text-2xl leading-tight focus:border-gray-800 hover:border-gray-800" id="contactName" name="contactName" type="text" v-model="contactOnEdit" />
+
+        <!-- 3e partie -->
+        <div class="presentation-body-title text-2xl my-10">Informations</div>
         <div class="grid grid-cols-12 gap-8">
           <InputEntreprise class="col-span-12 md:col-span-6" v-model="enterprise.address" name="address" :is-error="isError.address" label="Adresse" :is-edit="isEditOrCreate" />
           <InputEntreprise class="col-span-12 md:col-span-6" v-model="enterprise.phone" name="phone" :is-error="isError.phone" label="Téléphone" :is-edit="isEditOrCreate" />
@@ -75,13 +87,14 @@
         </div>
       </div>
 
+      <!-- boutons bas -->
       <div class="flex justify-center flex-wrap md:justify-end gap-5 py-8">
         <BtnBase v-if="isEditOrCreate && _id !== 'new'" title="Annuler" icon="close" color="#f9cb40" outline :action="onGoToView" />
         <BtnBase v-if="isEditOrCreate && _id === 'new'" title="Annuler" icon="close" color="#f9cb40" outline :action="onReset" />
         <BtnBase v-if="isEditOrCreate" :title="theBtnValidateTitle" icon="save" color="#f9cb40" :action="onValidate" />
-        <BtnBase v-if="!isEditOrCreate" title="Modifier" icon="edit" color="#f9cb40" :action="onUpdate" />
-        <BtnBase v-if="!isEditOrCreate" title="Supprimer" icon="delete" color="#f9cb40" :action="onOpenModalSuppression" />
-        <BtnBase title="Retour à la liste des entreprises" icon="list" color="#f9cb40" :action="onGoToListe" />
+        <BtnBase v-if="isEditOrCreate" title="Modifier" icon="edit" color="#f9cb40" :action="onUpdate" />
+        <BtnBase v-if="isEditOrCreate" title="Supprimer" icon="delete" color="#f9cb40" :action="onOpenModalSuppression" />
+        <BtnBase title="Retour à la liste des entreprises" icon="list" color="#f9cb40" :action="onGoToListe" btn-class="btn-entreprise" />
       </div>
     </form>
   </section>
@@ -96,15 +109,16 @@
     <ModalSuppression v-model="isOpenModalSuppression" :description="enterprise.name" :action="onDelete" @close="isOpenModalSuppression = false" />
   </teleport>
 
-  <teleport to="body">
+  <!-- <teleport to="body">
     <Loader v-model="isLoading" />
-  </teleport>
+  </teleport> -->
 </template>
 <script setup>
 import { computed, reactive, ref, onMounted, watchEffect } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 import useUtile from "../composables/utile.js";
+import useLogoBank from "../composables/logoBank.js";
 
 import BtnBase from "../components/BtnBase.vue";
 import InputEntreprise from "@/components/InputEntreprise.vue";
@@ -117,6 +131,7 @@ import ActivityServices from "../services/activitySectors/activitySectorsService
 
 const route = useRoute();
 const router = useRouter();
+const { getLogo } = useLogoBank();
 const { validateEmail, validatePhone, validatePostalCode } = useUtile();
 const { objet, getEntrepriseById, addEnterprises, editEnterprises, deleteEnterprise } = EnterpriseService();
 const { provincesListe, allProvinces } = ProvinceService();
@@ -129,6 +144,8 @@ const isEditOrCreate = ref(false);
 const enterprise = ref({});
 const activitiesSector = ref([]);
 const provinces = ref([]);
+const contactOnView = "Louise St-Cyr";
+const contactOnEdit = ref();
 
 const isQueryError = ref(false);
 
@@ -137,6 +154,7 @@ const isLoadedActivitiesSector = ref(false);
 const isLoadedEnterprise = ref(false);
 
 const isLoading = computed(() => {
+  if (_id === "new") return false;
   if (isLoadedProvinces.value && isLoadedActivitiesSector.value && isLoadedEnterprise.value) return false;
   else return true;
 });
@@ -241,6 +259,10 @@ function onGoToView(e) {
   router.push({ path: `/entreprise/${_id}` });
 }
 
+function onWhatFor() {
+  console.log("Bonjour Bruno et Mathieu, je ne sais pas ce que vous vouliez avec ce bouton!");
+}
+
 onMounted(() => {
   if (_id === "new") {
     isEditOrCreate.value = true;
@@ -276,18 +298,3 @@ watchEffect(() => {
   }
 });
 </script>
-
-<style scoped>
-/* TODO déplacer css */
-.page-padding {
-  padding: 3rem;
-}
-.presentation-title-border {
-  border-left: solid #f9cb40 10px;
-  /* TODO utiliser variable couleur */
-}
-.presentation-body-title {
-  color: #f9cb40;
-}
-</style>
-../composables/utile.js

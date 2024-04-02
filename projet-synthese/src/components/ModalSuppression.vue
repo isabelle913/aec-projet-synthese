@@ -2,16 +2,16 @@
   <Transition name="modal">
     <div v-if="theModel" class="modal-suppression">
       <div class="modal-container">
-        <div class="text-2xl text-center">
+        <div class="text-4xl text-center">
           Voulez-vous vraiment supprimer: <span class="font-semibold">{{ description }}</span>
         </div>
         <div class="flex items-center text-center">
-          <span class="material-symbols-outlined text-red-500 text-3xl">priority_high</span>
-          <span class="text-xl">Attention cette action est irréversible</span>
+          <span class="material-symbols-outlined text-red-500 text-6xl">priority_high</span>
+          <span class="text-2xl">Attention cette action est irréversible</span>
         </div>
         <div class="flex flex-wrap justify-center gap-5">
-          <BtnBase title="Annuler" icon="close" color="#f9cb40" outline @click="onClose" />
-          <BtnBase title="Supprimer" icon="delete" color="#e71a2b" :action="action" />
+          <BtnBase title="Annuler" icon="close" outline btn-class="btn-modal-delete__outline" @click="onClose" />
+          <BtnBase title="Supprimer" icon="delete" btn-class="btn-modal-delete" :action="action" />
         </div>
       </div>
     </div>
