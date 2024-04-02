@@ -5,7 +5,7 @@
       <div v-if="!isEditOrCreate" class="presentation-title-border mb-20">
         <div class="ml-4">
           <div class="text-gray-600">Candidat</div>
-          <div class="text-gray-600 text-6xl mb-10">{{ candidat.name }}</div>
+          <div class="text-gray-600 text-6xl mb-10">{{ candidate.firstName }}</div>
           <div class="text-gray-600 bg-white py-2 px-4 inline text-2xl">{{ candidat.titre }}</div>
         </div>
       </div>
@@ -65,8 +65,8 @@
   </section>
 </template>
 <script setup>
-import { reactive, ref } from "vue";
-import { useRoute } from "vue-router";
+import { computed, reactive, ref, onMounted, watchEffect } from "vue";
+import { useRoute, useRouter } from "vue-router";
 
 import BtnBase from "../components/BtnBase.vue";
 import InputCandidat from "@/components/InputCandidat.vue";
@@ -74,24 +74,6 @@ import InputCandidat from "@/components/InputCandidat.vue";
 const route = useRoute();
 
 const isEditOrCreate = ref(false);
-
-/*const enterprise = {
-  _id: "",
-  image: "",
-  name: "",
-  address: "",
-  postalCode: "",
-  city: "",
-  province: {
-    _id: "65c255fb7e4d2a499b409ca0",
-    value: "QUEBEC",
-  },
-  phone: "",
-  email: "",
-  description: "",
-  activitySector: undefined,
-  website: "",
-};*/
 
 // TODO effacer éventuellement
 const enterprise = {
