@@ -19,10 +19,10 @@ const router = createRouter({
       name: "Authentificator",
       component: Authentificator,
     },
-    {
-      path: "/tableau-bord",
+    { 
+      path: "/tableau-bord", 
+      component: TableauBord, 
       name: "tableau-bord",
-      component: TableauBord,
     },
     {
       path: "/demandes",
@@ -72,7 +72,7 @@ const router = createRouter({
       children: [
         {
           path: ":action", //router.push({ path: '/candidats/:id/:action' })  or router.push({ name: 'candidats', params: { id: id, action: 'update' } })
-          name: "candidat",
+          name: "candidatAction",
           component: CandidatDetails,
         },
       ],

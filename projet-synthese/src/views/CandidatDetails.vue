@@ -5,22 +5,32 @@
       <div v-if="!isEditOrCreate" class="presentation-title-border mb-20">
         <div class="ml-4">
           <div class="text-gray-600">Candidat</div>
-          <div class="text-gray-600 text-6xl mb-10">{{ candidat.name }}</div>
-          <div class="text-gray-600 bg-white py-2 px-4 inline text-2xl">{{ candidat.titre }}</div>
+          <div class="text-gray-600 text-6xl mb-10">{{ candidat.firstName }}</div>
+          <div class="text-gray-600 bg-white py-2 px-4 inline text-2xl">{{ candidat.description }}</div>
         </div>
       </div>
       <div v-else class="mb-20">
         <div class="grid grid-cols-12 mb-3">
-          <label class="col-span-3 text-gray-600 text-2xl mr-4" for="enterpriseName">Nom du candidat:</label>
-          <input class="col-span-9 border border-gray-400 rounded py-3 px-3 text-gray-600 text-2xl leading-tight focus:border-gray-800 hover:border-gray-800" id="candidatName" name="candidatName" type="text" v-model="candidat.name" />
-          <p v-if="isError.candidatName" class="col-start-4 col-span-9 text-red-500 text-xs italic">Veuillez inscrire le nom du candidat</p>
+          <label class="col-span-3 text-gray-600 text-2xl mr-4" for="firstName">Nom du candidat:</label>
+          <input class="col-span-9 border border-gray-400 rounded py-3 px-3 text-gray-600 text-2xl leading-tight focus:border-gray-800 hover:border-gray-800" id="firstName" name="firstName" type="text" v-model="candidat.firstName" />
+          <p v-if="isError.firstName" class="col-start-4 col-span-9 text-red-500 text-xs italic">Veuillez inscrire le nom du candidat</p>
         </div>
         <div class="grid grid-cols-12 mb-3">
-          <label class="col-span-3 text-gray-600 text-2xl mr-4" for="titreSector">Titre:</label>
-          <input class="col-span-9 border border-gray-400 rounded py-3 px-3 text-gray-600 text-2xl leading-tight focus:border-gray-800 hover:border-gray-800" id="candidatTitre" name="candidatTitre" type="text" v-model="candidat.titre" />
-          <p v-if="isError.candidatTitre" class="col-start-4 col-span-9 text-red-500 text-xs italic">Veuillez inscrire le titre du candidat</p>
+          <label class="col-span-3 text-gray-600 text-2xl mr-4" for="description">Titre:</label>
+          <input class="col-span-9 border border-gray-400 rounded py-3 px-3 text-gray-600 text-2xl leading-tight focus:border-gray-800 hover:border-gray-800" id="description" name="description" type="text" v-model="candidat.description" />
+          <p v-if="isError.description" class="col-start-4 col-span-9 text-red-500 text-xs italic">Veuillez inscrire le titre du candidat</p>
         </div>
       </div>
+            <!-- boutons -->
+      <!-- TODO Valider les couleurs -->
+      <div class="flex justify-center flex-wrap md:justify-end gap-5 py-8">
+        <BtnBase v-if="isEditOrCreate && _id !== 'new'" title="Annuler" icon="close" color="#f9cb40" outline :action="onGoToView" show-icon-only icon-color="red" />
+        <BtnBase v-if="isEditOrCreate && _id === 'new'" title="Annuler" icon="close" color="#f9cb40" outline :action="onReset" show-icon-only icon-color="red" />
+        <BtnBase v-if="isEditOrCreate" :title="theBtnValidateTitle" icon="save" color="#f9cb40" :action="onValidate" show-icon-only icon-color="green" />
+        <BtnBase v-if="!isEditOrCreate" title="Modifier" icon="edit" color="#f9cb40" :action="onUpdate" show-icon-only icon-color="#f9cb40" />
+        <BtnBase v-if="!isEditOrCreate" title="Supprimer" icon="delete" color="#f9cb40" :action="onOpenModalSuppression" show-icon-only icon-color="red" />
+      </div>
+
       <!-- corps -->
       <div class="bg-white page-padding">
         <!-- 1er partie -->
@@ -28,8 +38,8 @@
         <div v-if="!isEditOrCreate" class="text-2xl">{{ candidat.description }}</div>
         <div v-else>
           <label class="hidden" for="description">Description</label>
-          <textarea class="w-full border border-gray-400 rounded py-3 px-3 text-gray-600 text-2xl leading-tight focus:border-gray-800 hover:border-gray-800" id="description" name="description" v-model="enterprise.description" placeholder="Inscrire une description" />
-          <p v-if="isError.candidatName" class="col-start-4 col-span-9 text-red-500 text-xs italic">Veuillez inscrire le nom du candidat</p>
+          <textarea class="w-full border border-gray-400 rounded py-3 px-3 text-gray-600 text-2xl leading-tight focus:border-gray-800 hover:border-gray-800" id="description" name="description" v-model="candidat.description" placeholder="Inscrire une description"></textarea>
+          <p v-if="isError.description" class="col-start-4 col-span-9 text-red-500 text-xs italic">Veuillez inscrire le nom du candidat</p>
         </div>
         <div class="presentation-body-title text-2xl my-10">Informations</div>
 
@@ -44,159 +54,108 @@
             <div v-if="!isEditOrCreate" class="text-gray-400">{{ candidat.province.value }}</div>
             <div v-else>
               <label class="hidden" for="province">Province:</label>
-              <select class="block w-full border border-gray-400 rounded py-3 px-3 text-gray-600 leading-tight focus:border-gray-800 hover:border-gray-800" id="province" name="province" v-model="enterprise.province">
+              <select class="block w-full border border-gray-400 rounded py-3 px-3 text-gray-600 leading-tight focus:border-gray-800 hover:border-gray-800" id="province" name="province" v-model="candidat.province">
                 <option v-for="province in provincesForSelect" :key="province._id" :value="province">{{ province.value }}</option>
               </select>
               <p v-if="isError.province" class="text-red-500 text-xs italic">Veuillez choisir une province</p>
             </div>
           </div>
           <InputCandidat class="col-span-12 md:col-span-6" v-model="candidat.postalCode" name="postalCode" :is-error="isError.postalCode" label="Code postal" :is-edit="isEditOrCreate" />
-          <InputCandidat class="col-span-12 md:col-span-6" v-model="candidat.image" name="image" :is-error="isError.image" label="URL du logo" :is-edit="isEditOrCreate" />
+          <!--<InputCandidat class="col-span-12 md:col-span-6" v-model="candidat.image" name="image" :is-error="isError.image" label="URL du logo" :is-edit="isEditOrCreate" />-->
         </div>
       </div>
 
-      <div class="flex justify-end gap-x-5">
-        <!-- TODO ajouter icone au bouton  -->
-        <BtnBase title="Annuler" color="#f9cb40" outline :action="onReset" />
-        <BtnBase title="Sauvegarder" color="#f9cb40" :action="onValidate" />
-        <!-- TODO copier les bouton en haut -->
+      <div class="flex justify-center flex-wrap md:justify-end gap-5 py-8">
+        <BtnBase v-if="isEditOrCreate && _id !== 'new'" title="Annuler" icon="close" color="#f9cb40" outline :action="onGoToView" />
+        <BtnBase v-if="isEditOrCreate && _id === 'new'" title="Annuler" icon="close" color="#f9cb40" outline :action="onReset" />
+        <BtnBase v-if="isEditOrCreate" :title="theBtnValidateTitle" icon="save" color="#f9cb40" :action="onValidate" />
+        <BtnBase v-if="!isEditOrCreate" title="Modifier" icon="edit" color="#f9cb40" :action="onUpdate" />
+        <BtnBase v-if="!isEditOrCreate" title="Supprimer" icon="delete" color="#f9cb40" :action="onOpenModalSuppression" />
+        <BtnBase title="Retour à la liste des entreprises" icon="list" color="#f9cb40" :action="onGoToListe" />
       </div>
     </form>
   </section>
+  <!--
+  <section v-else class="h-screen bg-slate-100 page-padding">
+    <div class="h-full flex justify-center items-center">
+      <div class="text-4xl text-center">Une erreur est survenue lors de la récupération des données</div>
+    </div>
+  </section>
+  -->
+
+  <teleport to="body">
+    <ModalSuppression v-model="isOpenModalSuppression" :description="enterprise.name" :action="onDelete" @close="isOpenModalSuppression = false" />
+  </teleport>
+
+  <teleport to="body">
+    <Loader v-model="isLoading" />
+  </teleport>
+
 </template>
 <script setup>
-import { reactive, ref } from "vue";
-import { useRoute } from "vue-router";
+import { computed, reactive, ref, onMounted, watchEffect } from "vue";
+import { useRoute, useRouter } from "vue-router";
+
+import useUtile from "../composables/utile.js";
 
 import BtnBase from "../components/BtnBase.vue";
+import ModalSuppression from "@/components/ModalSuppression.vue";
+import Loader from "@/components/Loader.vue";
+
 import InputCandidat from "@/components/InputCandidat.vue";
+import CandidatesService from "@/services/candidates/candidatesServices";
+import ProvinceService from "../services/provinces/provincesServices";
 
 const route = useRoute();
+const router = useRouter();
 
+const { validateEmail, validatePhone, validatePostalCode } = useUtile();
+const { object, getCandidateById, addCandidate, editCandidate, deleteCandidate } = CandidatesService();
+const { provincesList, allProvinces } = ProvinceService();
+
+const _id = route.params.id;
+const isUpdate = route.params.action === "update" ? true : false;
 const isEditOrCreate = ref(false);
 
-/*const enterprise = {
-  _id: "",
-  image: "",
-  name: "",
-  address: "",
-  postalCode: "",
-  city: "",
-  province: {
-    _id: "65c255fb7e4d2a499b409ca0",
-    value: "QUEBEC",
-  },
-  phone: "",
-  email: "",
-  description: "",
-  activitySector: undefined,
-  website: "",
-};*/
+const candidat = ref({});
+const skills = ref({});
+const provinces = ref([]);
 
-// TODO effacer éventuellement
-const enterprise = {
-  _id: "7",
-  image: "https://assets.ezmax.ca/Logo_VD_e_Zmax_2124845685.png",
-  name: "eZmax", //ok
-  address: "2500, boul. Daniel-Johnson, bureau 800 , Québec ", //ok
-  postalCode: "H7T 2P6",
-  city: "Laval", //ok
-  province: {
-    //ok
-    idProvince: "1",
-    value: "Québec",
-  },
-  phone: "1-844-403-9629", //ok
-  email: "marketing@ezmax.ca", //ok
-  description: "Les Solutions eZmax inc. se spécialise dans la conception d’applications d’affaires innovantes et optimisées.",
-  activitySector: {
-    //ok
-    idActivitySector: "1",
-    value: "Informatique",
-  },
-  website: "https://www.ezmax.ca", //ok
-};
+const isQueryError = ref(false);
+
+const isLoadedProvinces = ref(false);
+const isLoadedCandidate = ref(false);
+
+const isLoading = computed(() => {
+  if (isLoadedProvinces.value && isLoadedCandidate.value) return false;
+  else return true;
+});
+
+const isOpenModalSuppression = ref(false);
 
 const isError = reactive({
-  candidatName: false,
-  candidatTitre: false,
+  firstName: false,
   description: false,
   address: false,
   phone: false,
   city: false,
   email: false,
   province: false,
-  website: false,
   postalCode: false,
-  image: false,
+  //image: false,
 });
 
-
-
-// TODO éventuellement remplir avec le get
-const provincesForSelect = [
-  {
-    _id: "65c255fb7e4d2a499b409ca0",
-    value: "QUEBEC",
-  },
-  {
-    _id: "65c2571497ac7ec38f58695e",
-    value: "ONTARIO",
-  },
-  {
-    _id: "65c275696d55606cc56d38e7",
-    value: "BRITISH COLUMBIA",
-  },
-  {
-    _id: "65c275736d55606cc56d38ea",
-    value: "ALBERTA",
-  },
-  {
-    _id: "65c2757f6d55606cc56d38ed",
-    value: "MANITOBA",
-  },
-  {
-    _id: "65c275896d55606cc56d38f0",
-    value: "SASKATCHEWAN",
-  },
-  {
-    _id: "65c275996d55606cc56d38f3",
-    value: "NEW BRUNSWICK",
-  },
-  {
-    _id: "65c275a66d55606cc56d38f6",
-    value: "NOVA SCOTIA",
-  },
-  {
-    _id: "65c275b16d55606cc56d38f9",
-    value: "PRINCE EDWARD ISLAND",
-  },
-  {
-    _id: "65c275c36d55606cc56d38fc",
-    value: "YUKON",
-  },
-  {
-    _id: "65c275cf6d55606cc56d38ff",
-    value: "NORTHWEST TERRITORIES",
-  },
-  {
-    _id: "65c275d76d55606cc56d3902",
-    value: "NUNAVUT",
-  },
-  {
-    _id: "65e4de3747cf6b3671ee948e",
-    value: "NEWFOUNDLAND AND LABRADOR",
-  },
-];
+const theBtnValidateTitle = computed(() => {
+  if (_id === "new") return "Ajouter";
+  else return "Mettre à jour";
+});
 
 function onValidate(e) {
   e.preventDefault();
+  console.log("onValidate");
 
-  if (candidat.name === "") isError.candidatName = true;
-  else isError.candidatName = false;
-
-  if (!candidat.titre) isError.titre = true; // TODO Vérifier
-  else isError.titre = false;
+  if (candidat.firstName === "") isError.firstName = true;
+  else isError.firstName = false;
 
   if (candidat.description === "") isError.description = true;
   else isError.description = false;
@@ -204,77 +163,103 @@ function onValidate(e) {
   if (candidat.address === "") isError.address = true;
   else isError.address = false;
 
-  if (candidat.phone === "") isError.phone = true;
+  if (!validatePhone(candidat.phone)) isError.phone = true;
   else isError.phone = false;
 
   if (candidat.city === "") isError.city = true;
   else isError.city = false;
 
-  if (candidat.email === "") isError.email = true;
+  if (!validateEmail(candidat.email)) isError.email = true;
   else isError.email = false;
 
-  if (!candidat.province) isError.province = true; // TODO Vérifier
+  if (!candidat.province) isError.province = true;
   else isError.province = false;
 
-  if (candidat.postalCode === "") isError.postalCode = true;
-  else isError.postalCode = false;
-
-  if (candidat.image === "") isError.image = true;
-  else isError.image = false;
-
-  console.log(Object.values(isError));
+  if (!validatePostalCode(candidat.postalCode)) isError.postalCode = true;
 
   if (Object.values(isError).every((result) => !result)) {
-    // si passe la validation do ->
-    console.log(candidat);
-    // TODO matcher avec service POST or PATCH
-    // if id == 0 -> POST
-    // else Patch
+    console.log("POST/PATCH", candidat.value);
+    if (_id === "new") {
+      console.log("vers le POST");
+      addCandidate(candidat.value);
+      candidat.value = {};
+    } else {
+      console.log("vers le PATCH");
+      editCandidate(candidat.value);
+    }
   }
+  if (Object.values(isError).every((result) => !result)) {
+  generateSkillsFromTitle(candidat.description);
+}
+}
+
+function onUpdate() {
+  router.push({ path: `/candidates/${candidat.value._id}/update` });
 }
 
 function onReset(e) {
   e.preventDefault();
   console.log("onReset");
+  candidat.value = {};
 }
 
-function setCandidat(candidat) {
-  console.log("setCandidat", candidat);
+function onGoToListe() {
+  router.push({ name: "candidat" });
 }
 
-function setTitre(titre) {
-  console.log("setTitre", titre);
+function onOpenModalSuppression(e) {
+  e.preventDefault();
+  isOpenModalSuppression.value = true;
 }
 
-function setProvinces(provinces) {
-  console.log("setProvinces", provinces);
+function onDelete(e) {
+  deleteCandidate(_id);
+  isOpenModalSuppression.value = false;
 }
 
-function load() {
-  /*
-  Explication de ma logique
-    si id === 0 on ajoute un candidat
-    si id !== 0 on consulte ou modifie
-    si le params update est présent on modifie
-  */
-  const _id = route.params.id;
-  const isUpdate = route.params.action === "update" ? true : false;
+function onGoToView(e) {
+  e.preventDefault();
+  isEditOrCreate.value = false;
+  router.push({ path: `/candidat/${_id}` });
+}
 
-  console.log("id", _id);
-  console.log("route.params", route.params);
+function generateSkillsFromTitle(title) {
+  // Séparer le titre en mots
+  const words = title.split(' ');
 
-  if (_id === "0") isEditOrCreate.value = true;
-  else {
-    // TODO getCandidat(_id)
-    // setCandidat(candidat);
+  // Récupérer le premier mot (compétence)
+  const firstSkill = words.length > 0 ? words[0] : '';
+
+  // Assigner la compétence
+  skills.value = firstSkill;
+}
+
+
+
+onMounted(() => {
+  if (_id === "new") {
+    isEditOrCreate.value = true;
+  } else {
+    getCandidateById(_id);
     if (isUpdate) isEditOrCreate.value = true;
-    // TODO mettre message si _id n'existe pas
   }
+  allProvinces();
+});
 
-  // TODO getProvinces()
-  //setProvinces()
-}
-load();
+
+watchEffect(() => {
+  if (Object.keys(object.value).length !== 0) {
+    candidat.value = object.value;
+    isLoadedCandidate.value = true;
+    if (candidat.value.statusCode) isQueryError.value = true;
+  }
+});
+watchEffect(() => {
+  if (Array.isArray(provincesList.value)) {
+    provinces.value = [...provincesList.value];
+    isLoadedProvinces.value = true;
+  }
+});
 </script>
 <style scoped>
 .page-padding {
@@ -282,7 +267,6 @@ load();
 }
 .presentation-title-border {
   border-left: solid #9b5ba2 10px;
-  /* TODO utiliser variable couleur */
 }
 .presentation-body-title {
   color: #9b5ba2;

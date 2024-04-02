@@ -129,6 +129,8 @@ import EnterpriseService from "../services/enterprises/enterprisesServices";
 import ProvinceService from "../services/provinces/provincesServices";
 import ActivityServices from "../services/activitySectors/activitySectorsServices";
 
+// TODO ajouté des * aux champs
+
 const route = useRoute();
 const router = useRouter();
 const { getLogo } = useLogoBank();

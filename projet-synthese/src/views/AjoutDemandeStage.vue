@@ -1,5 +1,5 @@
 <template>
-  <div class="DemandeStage__Titre">
+  <div class="DemandeStage__Titre page-padding">
     <h1>Ajouter une demande</h1>
   </div>
 
@@ -304,3 +304,9 @@ export default {
   name: "AjoutDemandeStage",
 };
 </script>
+<style scoped>
+/* TODO page-padding */
+.page-padding {
+  padding: 3rem;
+}
+</style>

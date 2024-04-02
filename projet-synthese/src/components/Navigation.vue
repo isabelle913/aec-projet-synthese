@@ -1,7 +1,7 @@
 <template>
   <nav>
     <ul>
-      <li :class="{ active: $route.path === '/tableau-bord' }" id="dashboard">
+      <li :class="{ active: $route.path === '/tableau-bord', withBorder: $route.path === '/tableau-bord' }" id="dashboard">
         <router-link to="tableau-bord">
           <div class="flex items-center">
             <IconTableauBord class="h-8 w-8 mr-8" />
@@ -9,7 +9,7 @@
           </div>
         </router-link>
       </li>
-      <li :class="{ active: $route.path === '/demandes' }" id="demandesStage">
+      <li :class="{ active: $route.path === '/demandes', withBorder: $route.path === '/demandes' }" id="demandesStage">
         <router-link to="demandes">
           <div class="flex items-center">
             <IconDemandesStage class="h-8 w-8 mr-8" />
@@ -17,7 +17,7 @@
           </div>
         </router-link>
       </li>
-      <li :class="{ active: $route.path === '/offres' }" id="offreStage">
+      <li :class="{ active: $route.path === '/offres', withBorder: $route.path === '/offres' }" id="offreStage">
         <router-link to="offres">
           <div class="flex items-center">
             <IconOffreStage class="h-8 w-8 mr-8" />
@@ -25,7 +25,7 @@
           </div>
         </router-link>
       </li>
-      <li :class="{ active: $route.path === '/candidats' }" id="candidats">
+      <li :class="{ active: $route.path === '/candidats', withBorder: $route.path === '/candidats' }" id="candidats">
         <router-link to="candidats">
           <div class="flex items-center">
             <IconCandidats class="h-8 w-8 mr-8" />
@@ -33,7 +33,7 @@
           </div>
         </router-link>
       </li>
-      <li :class="{ active: $route.path === '/entreprises' }" id="entreprises">
+      <li :class="{ active: $route.path === '/entreprises', withBorder: $route.path === '/entreprises' }" id="entreprises">
         <router-link to="entreprises">
           <div class="flex items-center">
             <IconEntreprises class="h-8 w-8 mr-8" />
@@ -65,11 +65,11 @@ export default {
 </script>
 
 <style scoped>
+@import "./../assets/_variable.scss";
 nav {
-  /*background-color: #333;*/
   padding: 30px 0;
   text-align: left !important;
-  width: 250px;
+  width: 300px;
 }
 ul {
   list-style-type: none;
@@ -89,25 +89,29 @@ span {
   font-size: 1.7rem;
 }
 
-#dashboard {
+.withBorder {
+  border-right: 3px solid; 
+}
+
+#dashboard.withBorder {
   border-right: #0c9da3 solid;
 }
 
-#demandesStage {
+#demandesStage.withBorder {
   border-right: #d2a350 solid;
 }
 
-#offreStage {
+#offreStage.withBorder {
   border-right: #ba2025 solid;
 }
 
-#candidats {
+#candidats.withBorder {
   border-right: #9b5ba2 solid;
 }
 
-/*  a{
+#entreprises.withBorder{
     border-right: #86a8e6 solid;
-}*/
+}
 
 #dashboard span {
   color: #0c9da3;

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-slate-100 page-padding flex flex-col gap-y-12 h-screen">
+  <div class="bg-slate-100 page-padding">
     <div class="column">
       <!-- TODO polices -->
       <div class="my-12 text-6xl">Offres de stage</div>
