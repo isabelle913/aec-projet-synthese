@@ -1,4 +1,5 @@
 @import "variable";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -56,10 +57,23 @@ p {
 .page-padding {
   padding: 8rem 10rem;
 }
+.page-background {
+  background-color: $color-Background_general;
+}
 .btn-modal-delete {
   background-color: $color-background_btn_delete;
-}
-.btn-modal-delete__outline {
-  border: solid 1px $color-background_btn_delete;
-  color: $color-background_btn_delete;
+
+  &:hover {
+    background-color: darken($color-background_btn_delete, 20%);
+  }
+
+  &__outline {
+    border: solid 1px $color-background_btn_delete;
+    color: $color-background_btn_delete;
+
+    &:hover {
+      border: solid 1px darken($color-background_btn_delete, 20%);
+      color: darken($color-background_btn_delete, 20%);
+    }
+  }
 }

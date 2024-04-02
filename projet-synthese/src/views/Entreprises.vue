@@ -1,8 +1,8 @@
 <template>
-  <section class="bg-slate-100 page-padding">
+  <section class="page-background page-padding">
     <div>
       <h2>Entreprises</h2>
-      <BtnBase class="mb-24 mt-20" title="Ajouter une entreprise" color="#F9CB40" :action="onAddEntreprise" />
+      <BtnBase class="mb-24 mt-20" title="Ajouter une entreprise" btn-class="btn-entreprise" :action="onAddEntreprise" />
       <div class="flex flex-wrap gap-24">
         <CardEntreprise v-for="entreprise in entreprises" :key="entreprise._id" :entreprise="entreprise" />
       </div>

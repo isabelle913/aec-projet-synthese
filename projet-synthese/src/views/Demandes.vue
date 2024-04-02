@@ -1,12 +1,10 @@
 <template>
-  <div class="bg-slate-100 page-padding flex flex-col gap-y-12 h-screen">
-    <div class="column">
-      <!-- TODO polices -->
-      <div class="my-12 text-6xl">Demandes de stage</div>
-      <!-- TODO  couleur et mettre hover plus foncé -->
-      <BtnBase title="Ajouter une demandes de stage" color="green" :action="AddRequest" />
+  <div class="page-background page-padding flex flex-col gap-y-12 h-screen">
+    <div>
+      <h2>Demandes de stage</h2>
+      <BtnBase class="mb-12 mt-20" title="Ajouter une demandes de stage" btn-class="btn-stage" :action="AddRequest" />
     </div>
-
+    <!-- TODO corriger couleur icone inactif + mettre variable -->
     <ListeBase v-if="internshipRequests.length > 0" :liste-items="internshipRequests" @update-data="updateData" is-demande />
   </div>
   <teleport to="body">
@@ -58,9 +56,4 @@ watchEffect(() => {
 });
 </script>
 
-<style scoped>
-/* TODO page-padding */
-.page-padding {
-  padding: 3rem;
-}
-</style>
+<style scoped></style>

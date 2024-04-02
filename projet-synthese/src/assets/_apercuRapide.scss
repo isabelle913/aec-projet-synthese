@@ -2,21 +2,24 @@
 
 .bg-demandes {
   background-color: $color-background_btn_demande;
-}
-.bg-demandes__darker {
-  background-color: darken($color-background_btn_demande, 10%);
+
+  &__darker {
+    background-color: darken($color-background_btn_demande, 10%);
+  }
 }
 
 .bg-offres {
   background-color: $color-background_btn_offre;
-}
-.bg-offres__darker {
-  background-color: darken($color-background_btn_offre, 10%);
+
+  &__darker {
+    background-color: darken($color-background_btn_offre, 10%);
+  }
 }
 
 .bg-candidats {
   background-color: $color-background_btn_candidat;
-}
-.bg-candidats__darker {
-  background-color: darken($color-background_btn_candidat, 10%);
+
+  &__darker {
+    background-color: darken($color-background_btn_candidat, 10%);
+  }
 }

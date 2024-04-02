@@ -1,7 +1,6 @@
 <template>
-  <section class="bg-slate-100 page-padding">
+  <section class="page-background page-padding flex flex-col gap-y-16">
     <ApercuRapide :count-internship-requests="countInternshipRequests" :count-internship-offers="countInternshipOffers" :count-candidats="howManyCandidates" />
-    <!-- TODO corriger espace -->
     <ListeBase v-if="internshipRequestsFiltered.length > 0" :liste-items="internshipRequestsFiltered" is-demande is-tableaubord />
     <ListeBase v-if="internshipOffersFiltered.length > 0" :liste-items="internshipOffersFiltered" is-tableaubord />
   </section>
@@ -85,8 +84,5 @@ watchEffect(() => {
   }
 });
 </script>
-<style scoped>
-.page-padding {
-  padding: 3rem;
-}
-</style>
+
+<style scoped></style>

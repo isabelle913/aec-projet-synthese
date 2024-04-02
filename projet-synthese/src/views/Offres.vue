@@ -1,10 +1,8 @@
 <template>
-  <div class="bg-slate-100 page-padding">
-    <div class="column">
-      <!-- TODO polices -->
-      <div class="my-12 text-6xl">Offres de stage</div>
-      <!-- TODO  couleur et mettre hover plus foncé -->
-      <BtnBase title="Ajouter un offre de stage" color="red" :action="AddOffer" />
+  <div class="page-background page-padding flex flex-col gap-y-12 h-screen">
+    <div>
+      <h2>Offres de stage</h2>
+      <BtnBase class="mb-12 mt-20" title="Ajouter un offre de stage" btn-class="btn-offrestage" :action="AddOffer" />
     </div>
 
     <ListeBase v-if="internshipOffers.length > 0" :liste-items="internshipOffers" @update-data="updateData" />
@@ -57,9 +55,4 @@ watchEffect(() => {
   }
 });
 </script>
-<style scoped>
-/* TODO page-padding */
-.page-padding {
-  padding: 3rem;
-}
-</style>
+<style scoped></style>

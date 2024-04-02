@@ -1,7 +1,7 @@
 <template>
-  <section class="bg-slate-100 page-padding">
+  <section class="page-background page-padding">
     <h2>Candidats</h2>
-    <BtnBase title="Ajouter un candidat" color="#9b5ba2" :action="onAddCandidat" />
+    <BtnBase class="mb-12 mt-20" title="Ajouter un candidat" btn-class="btn-candidats" :action="onAddCandidat" />
     <div class="flex flex-wrap gap-8">
       <CardCandidat v-for="candidat in candidates" :key="candidat._id" :candidat="candidat" />
     </div>
@@ -28,7 +28,7 @@ const candidates = ref([]);
 const isLoading = ref(true);
 
 onMounted(() => {
-  allCandidates(); 
+  allCandidates();
 });
 
 watchEffect(() => {
@@ -41,15 +41,5 @@ watchEffect(() => {
 function onAddCandidat() {
   router.push({ name: "candidat", params: { id: "new" } });
 }
-
-
 </script>
-<style scoped>
-h2 {
-  font-size: 3rem;
-}
-.page-padding {
-  padding: 3rem;
-}
-
-</style>
+<style scoped></style>
