@@ -109,7 +109,7 @@ const router = createRouter({
     },
     {
       path: "/:patchMatch(.*)*",
-      component: Authentificator,
+      component: TableauBord,
     },
   ],
 });
