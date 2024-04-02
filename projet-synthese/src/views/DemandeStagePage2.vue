@@ -99,6 +99,7 @@
           </div>
         </div>
       </div>
+
       <div class="col-span-12 md:col-span-6 max-md:p-10 bg-lime-300">
         <div class="DemandeStage__section__info__item">
           <div class="mb-16 mr-2">
@@ -162,6 +163,7 @@
             </select>
           </div>
         </div>
+
         <div class="DemandeStage__section__info__item">
           <div class="mb-16 mr-2">
             <label class="text-bg font-bold" for="secteurActivite"

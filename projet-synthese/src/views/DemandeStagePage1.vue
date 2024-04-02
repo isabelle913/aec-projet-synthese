@@ -1,6 +1,6 @@
 <template>
   <div v-if="!isQueryError">
-    <form>
+    <form @submit.prevent="onValidate">
       <!-- Entête -->
       <div class="DemandeStage__Titre">
         <p>Demande de stage</p>
@@ -29,6 +29,7 @@
           icon-color="green"
           icon-size="text-6xl"
         />
+
         <BtnBase
           v-if="isEditOrCreate && _id !== 'new'"
           icon="close"
@@ -163,6 +164,31 @@
               <p>{{ InternshipRequest.title }}</p>
             </div>
 
+            <div v-else class="DemandeStage__section__info__item">
+              <div class="mb-16 mr-2">
+                <label
+                  class="text-bg font-bold"
+                  for="internshipRequestTitreProgramme"
+                  >Programme de formation</label
+                >
+                <input
+                  class="shadow appearance-none border rounded w-full py-7 px-3 mt-5 leading-tight focus:outline-none focus:shadow-outline input"
+                  id="internshipRequestTitreProgramme"
+                  name="internshipRequestTitreProgramme"
+                  placeholder="Développement Web"
+                  type="text"
+                  v-model="InternshipRequest.title"
+                  required
+                />
+                <p
+                  v-if="isError.internshipRequestTitreProgramme"
+                  class="col-start-4 col-span-9 text-red-500 text-xs italic"
+                >
+                  Veuillez inscrire le programme de formation
+                </p>
+              </div>
+            </div>
+
             <div
               v-if="!isEditOrCreate"
               class="DemandeStage__section__info__item"
@@ -177,6 +203,31 @@
             >
               <p><strong>Compétences</strong></p>
               <p>{{ InternshipRequest.skills }}</p>
+            </div>
+
+            <div v-else class="DemandeStage__section__info__item">
+              <div class="mb-16">
+                <label
+                  class="text-bg font-bold"
+                  for="internshipRequestCompetences"
+                  >Compétences</label
+                >
+                <textarea
+                  class="text-justify shadow appearance-none border rounded w-full py-7 px-3 mt-5 leading-tight focus:outline-none focus:shadow-outline input"
+                  placeholder="HTML, CSS, JavaScript, React, vue.js, GIT, PHP, MySQL. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet quam justo. Aliquam interdum, facilisis eros, ut dapibus quam hendrerit nec."
+                  id="internshipRequestCompetences"
+                  name="internshipRequestCompetences"
+                  cols="20"
+                  rows="4"
+                  v-model="InternshipRequest.skills"
+                ></textarea>
+                <p
+                  v-if="isError.internshipRequestCompetences"
+                  class="col-start-4 col-span-9 text-red-500 text-xs italic"
+                >
+                  Veuillez inscrire votre compétence
+                </p>
+              </div>
             </div>
           </div>
           <div class="col-span-12 md:col-span-6 max-md:p-10 bg-lime-300">
@@ -194,6 +245,30 @@
               <p><strong>Ville</strong></p>
               <p>{{ InternshipRequest.candidate?.city }}</p>
             </div>
+
+            <div v-else class="DemandeStage__section__info__item">
+              <div class="mb-16 mr-2">
+                <label class="text-bg font-bold" for="internshipRequestVille"
+                  >Ville</label
+                >
+                <input
+                  class="shadow appearance-none border rounded w-full py-7 px-3 mt-5 leading-tight focus:outline-none focus:shadow-outline input"
+                  id="internshipRequestVille"
+                  name="internshipRequestVille"
+                  placeholder="Trois-Rivières"
+                  type="text"
+                  v-model="InternshipRequest.candidate.city"
+                  required
+                />
+                <p
+                  v-if="isError.internshipRequestVille"
+                  class="col-start-4 col-span-9 text-red-500 text-xs italic"
+                >
+                  Veuillez inscrire votre ville
+                </p>
+              </div>
+            </div>
+
             <div
               v-if="!isEditOrCreate"
               class="DemandeStage__section__info__item"
@@ -229,6 +304,7 @@
               <p>ladiscrétionde lentreprise</p>
             </div>
           </div>
+
           <div class="col-span-12 md:col-span-6 max-md:p-10 bg-lime-300">
             <div
               v-if="!isEditOrCreate"
@@ -237,12 +313,61 @@
               <p><strong>Date de début</strong></p>
               <p>{{ InternshipRequest.startDate }}</p>
             </div>
+
+            <div v-else class="DemandeStage__section__info__item">
+              <div class="mb-16 mr-2">
+                <label
+                  class="text-bg font-bold"
+                  for="internshipRequestDateDebut"
+                  >Date de début</label
+                >
+                <input
+                  class="shadow appearance-none border rounded w-full py-7 px-3 mt-5 leading-tight focus:outline-none focus:shadow-outline input"
+                  id="internshipRequestDateDebut"
+                  name="internshipRequestDateDebut"
+                  type="date"
+                  value="2022-05-25"
+                  v-model="InternshipRequest.startDate"
+                  required
+                />
+                <p
+                  v-if="isError.internshipRequestDateDebut"
+                  class="col-start-4 col-span-9 text-red-500 text-xs italic"
+                >
+                  Veuillez inscrire la date de début
+                </p>
+              </div>
+            </div>
+
             <div
               v-if="!isEditOrCreate"
               class="DemandeStage__section__info__item"
             >
               <p><strong>Date de fin</strong></p>
               <p>{{ InternshipRequest.endDate }}</p>
+            </div>
+
+            <div v-else class="DemandeStage__section__info__item">
+              <div class="mb-16 mr-2">
+                <label class="text-bg font-bold" for="internshipRequestDateFin"
+                  >Date de fin</label
+                >
+                <input
+                  class="shadow appearance-none border rounded w-full py-7 px-3 mt-5 leading-tight focus:outline-none focus:shadow-outline input"
+                  id="internshipRequestDateFin"
+                  name="internshipRequestDateFin"
+                  value="2022-05-25"
+                  type="date"
+                  v-model="InternshipRequest.endDate"
+                  required
+                />
+                <p
+                  v-if="isError.internshipRequestDateFin"
+                  class="col-start-4 col-span-9 text-red-500 text-xs italic"
+                >
+                  Veuillez inscrire la date de fin
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -329,9 +454,9 @@
     />
   </teleport>
 
-  <teleport to="body">
+  <!-- <teleport to="body">
     <Loader v-model="isLoading" />
-  </teleport>
+  </teleport> -->
 </template>
 
 <script setup>
@@ -381,6 +506,11 @@ const isError = reactive({
   internshipRequestFirstName: false,
   internshipRequestLastName: false,
   internshipRequestDescription: false,
+  internshipRequestTitreProgramme: false,
+  internshipRequestCompetences: false,
+  internshipRequestVille: false,
+  internshipRequestDateDebut: false,
+  internshipRequestDateFin: false,
 });
 
 const theBtnValidateTitle = computed(() => {
@@ -403,6 +533,26 @@ function onValidate(e) {
   if (InternshipRequest.value.description === "")
     isError.internshipRequestDescription = true;
   else isError.internshipRequestDescription = false;
+
+  if (InternshipRequest.value.title === "")
+    isError.internshipRequestTitreProgramme = true;
+  else isError.internshipRequestTitreProgramme = false;
+
+  if (InternshipRequest.value.skills === "")
+    isError.internshipRequestCompetences = true;
+  else isError.internshipRequestCompetences = false;
+
+  if (InternshipRequest.value.city === "")
+    isError.internshipRequestVille = true;
+  else isError.internshipRequestVille = false;
+
+  if (InternshipRequest.value.startDate === "")
+    isError.internshipRequestDateDebut = true;
+  else isError.internshipRequestDateDebut = false;
+
+  if (InternshipRequest.value.endDate === "")
+    isError.internshipRequestDateFin = true;
+  else isError.internshipRequestDateFin = false;
 
   console.log("isError", isError);
   console.log("InternshipRequest.value", InternshipRequest.value);
@@ -438,6 +588,7 @@ function onValidate(e) {
 }
 
 function onUpdate() {
+  console.log("onUpdate function called");
   router.push({ path: `/demande/${InternshipRequest.value._id}/update` });
 }
 
