@@ -13,7 +13,6 @@
           <form @submit.prevent="handleSubmit" novalidate>
             <div class="mb-6">
               <input 
-                v-model="nom"
                 type="text"
                 id="nom"
                 v-model="nomUtilisateur"
@@ -22,7 +21,6 @@
             </div>
             <div class="mb-6">
               <input
-                v-model="email"
                 type="email"
                 id="email"
                 v-model="courrielUtilisateur"
@@ -44,16 +42,16 @@
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
+import { computed, defineEmits, ref } from "vue";
 import { useRouter } from "vue-router";
 import useUtile from "../composables/utile.js";
 
-const store = useAuthStore();
 const router = useRouter();
 const { validateEmail } = useUtile();
 
 const nomUtilisateur = ref("");
 const courrielUtilisateur = ref("");
+const emit = defineEmits(['authenticated']);
 
 const isBtnSubmitDisable = computed(() => {
   if (nomUtilisateur.value !== "" && validateEmail(courrielUtilisateur.value)) return false;
@@ -65,6 +63,7 @@ const handleSubmit = () => {
     sessionStorage.setItem("nomUtilisateur", JSON.stringify(nomUtilisateur.value));
     sessionStorage.setItem("courrielUtilisateur", JSON.stringify(courrielUtilisateur.value));
     router.push({ name: "tableau-bord" });
+    emit('authenticated', true);
   }
 };
 </script>

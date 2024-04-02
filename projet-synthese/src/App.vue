@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto">
     <div v-if="!isAuthenticated">
-      <Authentificator />
+      <Authentificator @authenticated="onAuthenticated" />
     </div>
     <div v-else>
       <!-- Header -->
@@ -23,7 +23,6 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
-import { useAuthStore } from './store/AuthStore.js';
 
 import EnterpriseService from "./services/enterprises/enterprisesServices";
 import ProvinceService from "./services/provinces/provincesServices";
@@ -38,7 +37,13 @@ import MenuAction from "./components/MenuAction.vue";
 import Authentificator from "./components/Authentificator.vue";
 
 const router = useRouter();
-const isAuthenticated = useAuthStore().isAuthenticated;
+const isAuthenticated = ref(false);
+
+const onAuthenticated = (value) => {
+  console.log(value);
+  isAuthenticated.value = true;
+};
+
 
 
 
