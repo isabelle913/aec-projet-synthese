@@ -2,45 +2,38 @@
   <div>
     <div class="flex">
       <div class="authentification-img">
-        <img
-          src="../assets/images/bg-home.jpg"
-          alt="authentification projet de synthèse"
-        />
+        <img src="../assets/images/bg-home.jpg" alt="authentification projet de synthèse" />
       </div>
 
       <div class="authentification-container">
         <h1 class="text-5xl mb-4">Identification</h1>
-        <p class="text-xs mb-16">
-          Lorem ipsum magna aliqua, ut enim ad minim veniam, quis nostrud
-          exercietation ullamco laboris nisi consequat.
-        </p>
+        <p class="text-xs mb-16">Lorem ipsum magna aliqua, ut enim ad minim veniam, quis nostrud exercietation ullamco laboris nisi consequat.</p>
 
         <div class="authentification-container_form">
-          <form @submit.prevent="authenticateUser">
+          <form @submit.prevent="handleSubmit" novalidate>
             <div class="mb-6">
               <input 
                 v-model="nom"
                 type="text"
                 id="nom"
+                v-model="nomUtilisateur"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Votre nom et prénom"
-                required
-              />
+                placeholder="Votre nom et prénom *" />
             </div>
             <div class="mb-6">
               <input
                 v-model="email"
                 type="email"
                 id="email"
+                v-model="courrielUtilisateur"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Votre courriel"
-                required
-              />
+                placeholder="Votre courriel *" />
             </div>
             <button
               type="submit"
-              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
+              :disabled="isBtnSubmitDisable"
+              :class="isBtnSubmitDisable ? 'cursor-disabled' : ''"
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
               Accéder maintenant
             </button>
           </form>
@@ -51,30 +44,29 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
-import { useAuthStore } from '@/store/AuthStore.js';
-import { ref } from 'vue';
+import { computed, ref } from "vue";
+import { useRouter } from "vue-router";
+import useUtile from "../composables/utile.js";
 
 const store = useAuthStore();
 const router = useRouter();
+const { validateEmail } = useUtile();
 
-// Déclarer les valeurs nom et email comme réactives avec ref
-const nom = ref(store.nom);
-const email = ref(store.email);
+const nomUtilisateur = ref("");
+const courrielUtilisateur = ref("");
 
-// Mettre à jour les valeurs nom et email lorsque le store change
-store.$subscribe((mutation) => {
-  if (mutation.type === 'UPDATE_CREDENTIALS') {
-    nom.value = store.nom;
-    email.value = store.email;
-  }
+const isBtnSubmitDisable = computed(() => {
+  if (nomUtilisateur.value !== "" && validateEmail(courrielUtilisateur.value)) return false;
+  return true;
 });
-
-const authenticateUser = () => {
-  store.updateCredentials(true, nom.value, email.value, 'token');
-  console.log('User authenticated'); // Ajout du console.log
-  router.push({ name: 'tableau-bord' }); // Redirection vers le tableau de bord
-}
+// TODO améliorer couleur bouton lorsque disabled
+const handleSubmit = () => {
+  if (!isBtnSubmitDisable.value) {
+    sessionStorage.setItem("nomUtilisateur", JSON.stringify(nomUtilisateur.value));
+    sessionStorage.setItem("courrielUtilisateur", JSON.stringify(courrielUtilisateur.value));
+    router.push({ name: "tableau-bord" });
+  }
+};
 </script>
 
 
@@ -82,4 +74,7 @@ const authenticateUser = () => {
 
 <style lang="scss">
 @import "./../assets/main.scss";
+.cursor-disabled {
+  cursor: not-allowed;
+}
 </style>
