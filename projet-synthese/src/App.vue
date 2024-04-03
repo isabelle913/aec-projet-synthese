@@ -17,6 +17,7 @@
         </div>
       </div>
     </div>
+    <Footer />
   </div>
 </template>
 
@@ -26,6 +27,7 @@ import { onMounted, ref } from "vue";
 import Navigation from "./components/Navigation.vue";
 import MenuAction from "./components/MenuAction.vue";
 import Authentificator from "./components/Authentificator.vue";
+import Footer from "./components/Footer.vue";
 
 const isAuthenticated = ref(false);
 
