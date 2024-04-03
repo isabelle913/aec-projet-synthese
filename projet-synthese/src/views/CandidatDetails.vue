@@ -157,6 +157,8 @@ function onValidate(e) {
   if (candidat.firstName === "") isError.firstName = true;
   else isError.firstName = false;
 
+  isError.firstName = candidat.firstName === "";
+
   if (candidat.description === "") isError.description = true;
   else isError.description = false;
 
@@ -255,8 +257,8 @@ watchEffect(() => {
   }
 });
 watchEffect(() => {
-  if (Array.isArray(provincesList.value)) {
-    provinces.value = [...provincesList.value];
+  if (Array.isArray(provincesListe.value)) {
+    provinces.value = [...provincesListe.value];
     isLoadedProvinces.value = true;
   }
 });
