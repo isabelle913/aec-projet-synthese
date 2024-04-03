@@ -155,7 +155,7 @@
         </div>
 
         <div class="grid grid-cols-12 gap-5 my-8 DemandeStage__section__info">
-          <div class="col-span-12 md:col-span-6 max-md:p-10 bg-orange-300">
+          <div class="col-span-12 md:col-span-6 max-md:p-10">
             <div
               v-if="!isEditOrCreate"
               class="DemandeStage__section__info__item"
@@ -230,7 +230,7 @@
               </div>
             </div>
           </div>
-          <div class="col-span-12 md:col-span-6 max-md:p-10 bg-lime-300">
+          <div class="col-span-12 md:col-span-6 max-md:p-10">
             <div
               v-if="!isEditOrCreate"
               class="DemandeStage__section__info__item"
@@ -284,7 +284,7 @@
         <h3>Information sur le stage recherché</h3>
 
         <div class="grid grid-cols-12 gap-5 my-8 DemandeStage__section__info">
-          <div class="col-span-12 md:col-span-6 max-md:p-10 bg-orange-300">
+          <div class="col-span-12 md:col-span-6 max-md:p-10">
             <div
               v-if="!isEditOrCreate"
               class="DemandeStage__section__info__item"
@@ -305,7 +305,7 @@
             </div>
           </div>
 
-          <div class="col-span-12 md:col-span-6 max-md:p-10 bg-lime-300">
+          <div class="col-span-12 md:col-span-6 max-md:p-10">
             <div
               v-if="!isEditOrCreate"
               class="DemandeStage__section__info__item"
