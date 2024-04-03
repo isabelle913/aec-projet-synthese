@@ -9,13 +9,10 @@ export default function ActivityServices() {
     try {
       const response = await fetch("https://aec-projet-integrateur-api.fly.dev/activity-sectors/");
       const data = await response.json();
-
       activityListe.value = data;
-      console.log("Liste des secteurs d'activités:", activityListe.value);
     } catch (error) {
       console.error("Une erreur s'est produite lors de la récupération des données:", error);
     }
-
     return activityListe.value;
   };
 
@@ -24,7 +21,6 @@ export default function ActivityServices() {
       .then((response) => response.json())
       .then((data) => {
         objet.value = data;
-        // console.log('Secteurs d\'activité trouvée :', objet.value);
         return objet.value;
       })
       .catch((error) => {
@@ -70,11 +66,11 @@ export default function ActivityServices() {
         success.value = true;
         console.log("Requête PATCH réussie !");
       } else {
-        console.error("Échec de la requête PATCH:");
+        console.error("Échec de la requête PATCH.");
         success.value = false;
       }
     } catch (error) {
-      console.log(error);
+      console.log("Échec de la requête PATCH:",error);
     }
   };
 

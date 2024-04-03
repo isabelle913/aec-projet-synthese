@@ -10,7 +10,6 @@ export default function InternshipOffersService() {
       .then((response) => response.json())
       .then((data) => {
         internshipOffersListe.value = data;
-        console.log("Liste des offres de stages:", internshipOffersListe.value);
       })
       .catch((error) => {
         console.error("Une erreur s'est produite lors de la récupération des données:", error);
@@ -23,7 +22,6 @@ export default function InternshipOffersService() {
       .then((response) => response.json())
       .then((data) => {
         objet.value = data;
-        console.log("Entreprise trouvée :", objet.value);
         return objet.value;
       })
       .catch((error) => {
@@ -45,7 +43,6 @@ export default function InternshipOffersService() {
       if (response.ok) {
         success.value = true;
         console.log("Requête POST réussie !");
-        // Vous pouvez ajouter ici d'autres actions après le succès de la requête.
       } else {
         console.error("Échec de la requête POST.");
         success.value = false;
@@ -74,7 +71,7 @@ export default function InternshipOffersService() {
         success.value = false;
       }
     } catch (error) {
-      console.log(error);
+      console.log("Échec de la requête PATCH:",error);
     }
   };
 

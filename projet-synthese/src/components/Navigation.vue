@@ -2,7 +2,7 @@
   <nav>
     <ul>
       <li :class="{ active: $route.path === '/tableau-bord', withBorder: $route.path === '/tableau-bord' }" id="dashboard">
-        <router-link to="tableau-bord">
+        <router-link to="/tableau-bord">
           <div class="flex items-center">
             <IconTableauBord class="h-8 w-8 mr-8" />
             <span>Tableau de bord</span>

@@ -1,31 +1,31 @@
 <template>
   <router-link to="/">
      <img src="@/assets/images/estage-logo.png" alt="Logo Estage">
-   </router-link>
+  </router-link>
    <div class="navMenuAction">
      <div class="flex navMenuAction__item">
        <div>
          <a
-           href="#"
+           href="/OffredeStageAjout"
            class="flex items-center px-2 py-2 border-solid border-2 text-#ba2025 hover:text-white rounded-md navMenuAction_btn_offre text-base"
          >
          <IconPlus class="h-4 w-4 mr-2 fill-current text-#ba2025 hover:text-white"/>Ajouter une offre de stage</a>
        </div>
        <div>
          <a
-           href="#"
+           href="/ajoutdemandestage"
            class="flex items-center px-2 py-2 border-solid border-2 text-#cb902a hover:text-white rounded-md navMenuAction_btn_demande text-base">
          <IconPlus class="h-4 w-4 mr-2 fill-current text-#cb902a hover:text-white"/>Ajouter une demande de stage</a>
        </div>
        <div>
          <a
-           href="#"
+           href="/entreprise/new"
            class="flex items-center px-2 py-2 border-solid border-2  text-#86a8e6 hover:text-white rounded-md navMenuAction_btn_entreprise text-base">
          <IconPlus class="h-4 w-4 mr-2 fill-current text-#86a8e6 hover:text-white"/> Ajouter une entreprise</a>
        </div>
        <div>
          <a
-           href="#"
+           href="/candidat/new"
            class="flex items-center px-2 py-2 border-solid border-2 text-#7e2986 hover:text-white rounded-md navMenuAction_btn_candidat text-base">
            <IconPlus class="h-4 w-4 mr-2 fill-current text-#7e2986 hover:text-white"/> 
            Ajout un candidat

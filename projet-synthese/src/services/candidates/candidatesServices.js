@@ -10,13 +10,10 @@ export default function CandidatesService() {
     try {
       const response = await fetch("https://aec-projet-integrateur-api.fly.dev/candidates/");
       const data = await response.json();
-
       candidatesListe.value = data;
-      console.log("Liste des candidats:", candidatesListe.value);
     } catch (error) {
       console.error("Une erreur s'est produite lors de la récupération des données:", error);
     }
-
     return candidatesListe.value;
   };
 
@@ -24,9 +21,7 @@ export default function CandidatesService() {
     try {
       const response = await fetch("https://aec-projet-integrateur-api.fly.dev/candidates/count");
       const data = await response.json();
-
       candidatesListeCount.value = data;
-      console.log("Nombre de candidat:", candidatesListeCount.value);
     } catch (error) {
       console.error("Une erreur s'est produite lors de la récupération des données:", error);
     }
@@ -38,7 +33,6 @@ export default function CandidatesService() {
       .then((response) => response.json())
       .then((data) => {
         objet.value = data;
-        console.log("Candidat trouvée :", objet.value);
         return objet.value;
       })
       .catch((error) => {
@@ -60,7 +54,6 @@ export default function CandidatesService() {
       if (response.ok) {
         success.value = true;
         console.log("Requête POST réussie !");
-        // Vous pouvez ajouter ici d'autres actions après le succès de la requête.
       } else {
         console.error("Échec de la requête POST.");
         success.value = false;
@@ -85,11 +78,11 @@ export default function CandidatesService() {
         success.value = true;
         console.log("Requête PATCH réussie !");
       } else {
-        console.error("Échec de la requête PATCH:");
+        console.error("Échec de la requête PATCH.");
         success.value = false;
       }
     } catch (error) {
-      console.log(error);
+      console.log("Échec de la requête PATCH:",error);
     }
   };
 

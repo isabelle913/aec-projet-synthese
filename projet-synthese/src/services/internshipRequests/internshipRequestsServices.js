@@ -10,7 +10,6 @@ export default function InternshipRequestsServices() {
       .then((response) => response.json())
       .then((data) => {
         internshipRequestsListe.value = data;
-        console.log("Liste des demandes de stages:", internshipRequestsListe.value);
       })
       .catch((error) => {
         console.error("Une erreur s'est produite lors de la récupération des données:", error);
@@ -23,7 +22,6 @@ export default function InternshipRequestsServices() {
       .then((response) => response.json())
       .then((data) => {
         objet.value = data;
-        console.log("Entreprise trouvée :", objet.value);
         return objet.value;
       })
       .catch((error) => {
@@ -74,7 +72,7 @@ export default function InternshipRequestsServices() {
         success.value = false;
       }
     } catch (error) {
-      console.log(error);
+      console.log("Échec de la requête PATCH:",error);
     }
   };
 
