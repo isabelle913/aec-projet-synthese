@@ -22,7 +22,7 @@
 
       <h3>Informations sur l'entreprise</h3>
       <div class="grid grid-cols-12 gap-5 my-8 DemandeStage__section__info">
-        <div class="col-span-12 md:col-span-6 max-md:p-10 bg-orange-300">
+        <div class="col-span-12 md:col-span-6 max-md:p-10 ">
           <div class="DemandeStage__section__info__item">
             <div class="mb-16 mr-2">
               <label class="text-bg font-bold" for="description_entreprise">Courte présentation de l'entreprise</label>
@@ -36,7 +36,7 @@
             </div>
           </div>
         </div>
-        <div class="col-span-12 md:col-span-6 max-md:p-10 bg-orange-300">
+        <div class="col-span-12 md:col-span-6 max-md:p-10 ">
           <div class="DemandeStage__section__info__item">
             <div class="mb-16 mr-2">
               <label class="text-bg font-bold" for="phone_entreprise">Numéro de téléphone de l'entreprise :</label>
@@ -63,7 +63,7 @@
 
       <h3>Informations sur l'offre de stage</h3>
       <div class="grid grid-cols-12 gap-5 my-8 mb-20 DemandeStage__section__info">
-        <div class="col-span-12 md:col-span-6 max-md:p-10 bg-orange-300">
+        <div class="col-span-12 md:col-span-6 max-md:p-10">
           <div class="DemandeStage__section__info__item">
             <div class="mb-16 mr-2">
               <label class="text-bg font-bold" for="province">Province</label>
@@ -85,7 +85,7 @@
           </div>
         </div>
 
-        <div class="col-span-12 md:col-span-6 max-md:p-10 bg-lime-300">
+        <div class="col-span-12 md:col-span-6 max-md:p-10">
           <div class="DemandeStage__section__info__item">
             <div class="mb-16 mr-2">
               <label class="text-bg font-bold" for="internshipType">Type de l'offre</label>
@@ -123,7 +123,7 @@
       class="text-slate-400 border-solid text-2xl border-slate-400 border-2 py-4 px-4 mt-24 rounded-lg focus:outline-none focus:shadow-outline"
       @click="cancel"
     >
-    <RouterLink :to="{name: 'OffredeStage'}">Retour a la liste des offres</RouterLink>
+    <RouterLink :to="{name: 'offres'}">Retour a la liste des offres</RouterLink>
     </button>
   </div>
 </template>
@@ -138,7 +138,7 @@ import OffresService from "../services/internshipOffers/internshipOffersServices
 
 const router = useRouter();
 
-const { getInternshipOfferById  } = OffresService();
+const { getInternshipOffereById  } = OffresService();
 const title = ref("");
 const description = ref("");
 const enterpriseName = ref({});
@@ -166,7 +166,7 @@ onMounted(async () => {
   console.log(_id);
 
   try {
-    const offer = await getInternshipOfferById(_id);
+    const offer = await getInternshipOffereById(_id);
     title.value = offer.title;
     description.value = offer.description;
     enterpriseName.value = offer.enterprise.name; 

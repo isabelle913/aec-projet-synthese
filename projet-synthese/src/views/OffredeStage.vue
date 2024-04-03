@@ -1,10 +1,15 @@
 <template>
     <router-view />
-    <RouterLink class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 border border-orange-700 rounded" to="/OffredeStageAjout">Ajouter une offre de stage</RouterLink>
-  
-    <div class="shadow-md sm:rounded-lg mt-16">
-      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <div class="page-background page-padding flex flex-col gap-y-12">
+    <div>
+      <h2>Offres de stage</h2>
+      <BtnBase class="mb-12 mt-20" title="Ajouter un offre de stage" btn-class="btn-offrestage" :action="AddOffer" />
+    </div>
+    
+
+    <div class="shadow-md sm:rounded-lg mt-16 text-black-900">
+      <table class="w-full text-sm text-left rtl:text-right ">
+        <thead class="text-xs uppercase bg-gray-50">
           <tr>
             <th scope="col" class="px-6 py-3">Poste</th>
             <th scope="col" class="px-6 py-3">Type de stage</th>
@@ -14,8 +19,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="offre in internshipOffersListe" :key="offre._id" :offre="offre" class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+          <tr v-for="offre in internshipOffersListe" :key="offre._id" :offre="offre" class=" border-b dark:border-gray-700">
+            <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
               <p class="font-bold">{{ offre.title }}</p>
               <p>{{ offre.enterprise.name }}</p>
             </th>
@@ -33,6 +38,12 @@
         </tbody>
       </table>
     </div>
+
+
+  
+  </div>
+
+
     <teleport to="body">
       <ModalSuppression v-model="isOpenModalSuppression" :description="theModalSuppressionDescription" :action="onDelete" @close="isOpenModalSuppression = false" />
     </teleport>
@@ -42,7 +53,8 @@
   <script setup>
   import { ref, onMounted, watchEffect, computed, defineProps } from "vue";
   import { useRouter } from "vue-router";
-  
+  import BtnBase from "@/components/BtnBase.vue";
+  import ListeBase from "@/components/ListeBase.vue";
   import ModalSuppression from "../components/ModalSuppression.vue";
   import OffresService from "../services/internshipOffers/internshipOffersServices";
   
@@ -70,6 +82,14 @@
     }
   });
   
+
+  function AddOffer(e) {
+  e.preventDefault();
+  console.log("Ajouter un offre de stage");
+  router.push({ name: "OffredeStageAjout", params: { id:'new' } });
+}
+
+
   const offreToDelete = ref("");
   const isOpenModalSuppression = ref(false);
   
