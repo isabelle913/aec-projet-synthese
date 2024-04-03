@@ -111,7 +111,6 @@ function onAccept() {
   }, 1500);
 }
 function onView() {
-  console.log("onView", props.item._id);
   router.push({ name: "OffredeStageDetail", params: { id: props.item._id } });
 }
 

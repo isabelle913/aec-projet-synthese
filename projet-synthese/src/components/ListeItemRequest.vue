@@ -88,14 +88,12 @@ const theModalSuppressionDescription = computed(() => {
   return props.item.title + " - " + theDisplayName.value;
 });
 
-// TODO vérifier si bonne couleur
 const theBorderClass = computed(() => {
   if (props.isTableaubord) return "border-demandes";
   if (!props.item.isActive) return "border-demandes-inactives";
   else return "border-demandes";
 });
 
-// TODO implanter
 const theBgClass = computed(() => {
   if (props.isTableaubord) return "bg-demandes";
   if (!props.item.isActive) return "bg-demandes-inactives";

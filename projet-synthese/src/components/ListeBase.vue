@@ -24,8 +24,8 @@
       <div class="col-span-12 sm:col-span-3 lg:col-span-2" :class="theClassHeader">Actions</div>
     </div>
 
-    <ListeItemRequest v-if="isDemande" v-for="item in listeItems" :key="item._id" :item="item" :is-tableaubord="isTableaubord" @update-data="updateData" />
-    <ListeItemOffer v-if="!isDemande" v-for="item in theListeItems" :key="item._id" :item="item" :is-tableaubord="isTableaubord" @update-data="updateData" />
+    <ListeItemRequest v-if="isDemande" v-for="item in listeItems" :key="item._id" :item="item" :is-tableaubord="isTableaubord" />
+    <ListeItemOffer v-if="!isDemande" v-for="item in theListeItems" :key="item._id" :item="item" :is-tableaubord="isTableaubord" />
   </div>
 </template>
 
@@ -49,7 +49,6 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["updateData"]);
 const theListeItems = ref(props.listeItems);
 
 const theClassHeader = "text-gray-600 border-b-4 border-b-gray-600 h-[35px]";
@@ -57,10 +56,5 @@ const theClassHeader = "text-gray-600 border-b-4 border-b-gray-600 h-[35px]";
 const theTitle = computed(() => {
   return props.isDemande ? "demandes" : "offres";
 });
-
-function updateData() {
-  console.log("updateData from ListeBase");
-  emit("updateData");
-}
 </script>
 <style scoped></style>
