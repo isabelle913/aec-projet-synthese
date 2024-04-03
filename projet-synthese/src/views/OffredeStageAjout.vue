@@ -38,8 +38,27 @@
         </div>
   
         <h3>Informations sur l'enterprise</h3>
+
+
+        {{ id_enterprise }}<br>
+        {{ image_enterprise  }}<br>
+        {{ name_enterprise }}<br>
+        {{ adresse_enterprise  }}<br>
+        {{ postalCode_enterprise  }}<br>
+        {{ city_enterprise }}<br>
+        {{ province_enterprise  }}<br>
+        provincevalue_enterprise  : {{ provincevalue_enterprise  }}<br>
+        {{ phone_enterprise  }}<br>
+        {{ email_enterprise  }}<br>
+        {{ description_enterprise  }}<br>
+        activitySectorid_enterprise : {{ activitySectorid_enterprise  }}<br>
+        activitySectorvalue_enterprise : {{ activitySectorvalue_enterprise  }}<br>
+        {{ website_enterprise  }}<br>
+
+
+      
         <div class="grid grid-cols-12 gap-5 my-8 DemandeStage__section__info">
-          <div class="col-span-12 md:col-span-6 max-md:p-10 bg-orange-300">
+          <div class="col-span-12 md:col-span-6 max-md:p-10 ">
             <div class="DemandeStage__section__info__item">
               <div class="mb-16 mr-2">
                 <label class="text-bg font-bold" for="description_offre">Courte présentation de l'enterprise</label>
@@ -50,6 +69,8 @@
                   v-model="description_enterprise"
                   required
                 />
+              
+     
               </div>
             </div>
             <div class="DemandeStage__section__info__item">
@@ -65,7 +86,7 @@
               </div>
             </div>
           </div>
-          <div class="col-span-12 md:col-span-6 max-md:p-10 bg-orange-300">
+          <div class="col-span-12 md:col-span-6 max-md:p-10 ">
             <div class="DemandeStage__section__info__item">
               <div class="mb-16 mr-2">
                 <label class="text-bg font-bold" for="phone_enterprise">Numéro de téléphone de l'enterprise :</label>
@@ -90,6 +111,9 @@
                 />
               </div>
             </div>
+
+
+
           </div>
         </div>
   
@@ -109,7 +133,7 @@
   
         <h3>Informations sur l'offre de stage</h3>
         <div class="grid grid-cols-12 gap-5 my-8 mb-20 DemandeStage__section__info">
-          <div class="col-span-12 md:col-span-6 max-md:p-10 bg-orange-300">
+          <div class="col-span-12 md:col-span-6 max-md:p-10 ">
             <div class="DemandeStage__section__info__item">
               <div class="mb-16 mr-2">
                 <label class="text-bg font-bold" for="province">Province</label>
@@ -117,7 +141,13 @@
                   <option disabled value="">Sélectionnez une province</option>
                   <option v-for="province in provincesListe" :key="province._id" :value="province._id">{{ province.value }}</option>
                 </select>
+
               </div>
+              
+              <p>{{ id_province}}</p>
+      vdsv
+      <p>{{ value_province}}</p>
+      
             </div>
   
             <div class="DemandeStage__section__info__item">
@@ -147,7 +177,7 @@
             </div>
           </div>
   
-          <div class="col-span-12 md:col-span-6 max-md:p-10 bg-lime-300">
+          <div class="col-span-12 md:col-span-6 max-md:p-10">
             <div class="DemandeStage__section__info__item">
               <div class="mb-16 mr-2">
                 <label class="text-bg font-bold" for="internshipType">Type de l'offre</label>
@@ -224,26 +254,53 @@
   import EnterpriseProvince from "../services/provinces/provincesServices";
   import typeService from "../services/internshipTypes/internshipTypesServices";
   
-  const router = useRouter();
+      const router = useRouter();
 
-  const title = ref("");
-  const description = ref("");
-  const selectedEnterprise = ref("");
-  const description_enterprise = ref("");
-  const city_enterprise = ref("");
-  const phone_enterprise = ref("");
-  const email_enterprise = ref("");
-  const startDate = ref("");
-  const endDate = ref("");
-  const weeklyWorkHours = ref("");
-  const salary = ref("");
-  const selectedProvince = ref("");
-  const requiredSkills = ref([]);
-  const selectedType = ref("");
-  const paid = ref("");
+      const title = ref("");
+      const description = ref("");
+      const selectedEnterprise = ref("");
+
+//entreprise
+// Variables pour stocker les informations de l'entreprise
+      const id_enterprise  = ref("");
+      const image_enterprise = ref("");
+      const name_enterprise = ref("");
+      const adresse_enterprise = ref("");
+      const postalCode_enterprise = ref("");
+      const city_enterprise = ref("");
+      const province_enterprise = ref("");
+      const provincevalue_enterprise = ref("");
+      const phone_enterprise = ref("");
+      const email_enterprise = ref("");
+      const description_enterprise = ref("");
+      const activitySectorid_enterprise = ref("");
+      const activitySectorvalue_enterprise = ref("");
+      const website_enterprise = ref("");
+
+      const startDate = ref("");
+      const endDate = ref("");
+      const weeklyWorkHours = ref("");
+      const salary = ref("");
+
+      //Province
+      const selectedProvince = ref("");
+      const  id_province = ref("");
+      const value_province = ref("");
 
 
-  const { provincesListe, allProvinces } = EnterpriseProvince();
+
+
+      const requiredSkills = ref([]);
+
+      //type
+      const selectedType = ref("");
+      const  id_internshipType = ref("");
+      const value_internshipType = ref("");
+
+      const paid = ref("");
+
+
+  const { provincesListe, allProvinces, getProvinceById } = EnterpriseProvince();
   const { enterpriseListe, allEnterprises, getEntrepriseById } = EnterpriseService();
   const { internshipTypesListe, allInternshipTypes } = typeService();
   const { addInternshipOffer } = InternshipOffersService();
@@ -251,28 +308,57 @@
   const save = async () => {
     const skillsArray = requiredSkills.value.split(",").map(skill => skill.trim());
     const newOffer = {
+      
         title: title.value,
-        description: description.value,
-        enterprise: selectedEnterprise.value,
-        startDate: startDate.value,
-        endDate: endDate.value,
-        weeklyWorkHours: weeklyWorkHours.value,
-        salary: salary.value,
-        province: selectedProvince.value,
-        requiredSkills: skillsArray,
-        internshipType: selectedType.value,
-        paid: paid.value,
-        isActive: false, 
+    description: description.value,
+    enterprise: {
+      _id: id_enterprise.value,
+      image: image_enterprise.value,
+      name: name_enterprise.value,
+      address: adresse_enterprise.value,
+      postalCode: postalCode_enterprise.value,
+      city: city_enterprise.value,
+      province: {
+        _id: province_enterprise.value,
+        value: provincevalue_enterprise.value,
+      },
+      phone:  phone_enterprise.value,
+      email:  email_enterprise.value,
+      description: description_enterprise.value,
+      activitySector: {
+        _id: activitySectorid_enterprise.value,
+        value: activitySectorvalue_enterprise.value,
+      },
+      website: website_enterprise.value,
+    },
+    startDate: startDate.value,
+    endDate: endDate.value,
+    weeklyWorkHours: weeklyWorkHours.value,
+    salary: salary.value,
+    province: {
+      _id: id_province.value,
+      value: value_province.value,
+    },
+    requiredSkills: skillsArray,
+    internshipType:  {
+      _id: id_internshipType.value,
+      value: value_internshipType.value,
+    },
+    paid: paid.value,
+    isActive: false 
     };
+    
   
   try {
     await addInternshipOffer(newOffer);
     console.log("Nouvelle offre de stage ajoutée avec succès !");
     console.log(newOffer);
-    router.push({ name: 'OffredeStage' });
+    //router.push({ name: 'OffredeStage' });
   } catch (error) {
     console.error("Erreur lors de l'ajout de l'offre de stage :", error);
   }
+
+
 };
   
   onMounted(() => {
@@ -285,10 +371,33 @@
     if (!selectedEnterprise.value) return;
     try {
       const enterprise = await getEntrepriseById(selectedEnterprise.value);
-      description_enterprise.value = enterprise.description;
+      id_enterprise.value = enterprise._id;
+      image_enterprise.value = enterprise.image;
+      name_enterprise.value = enterprise.name;
+      adresse_enterprise.value = enterprise.adresse;
+      postalCode_enterprise.value = enterprise.postalCode;
       city_enterprise.value = enterprise.city;
+      province_enterprise.value = enterprise.province._id;
+      provincevalue_enterprise.value = enterprise.province.value;
       phone_enterprise.value = enterprise.phone;
       email_enterprise.value = enterprise.email;
+      description_enterprise.value = enterprise.description;
+      activitySectorid_enterprise.value = enterprise.activitySector._id;
+      activitySectorvalue_enterprise.value = enterprise.activitySector.value;
+      website_enterprise.value = enterprise.website;
+
+    } catch (error) {
+      console.error("Erreur lors de la récupération des informations de l'enterprise :", error);
+    }
+  };
+
+  const loadProvinceInfo = async () => {
+    if (!selectedProvince.value) return;
+    try {
+      const province = await getProvinceById(selectedProvince.value);
+      id_province.value = province._id;
+      value_province.value = province.value;
+
     } catch (error) {
       console.error("Erreur lors de la récupération des informations de l'enterprise :", error);
     }
@@ -296,6 +405,7 @@
   
   watch(selectedEnterprise, () => {
     loadEnterpriseInfo();
+    loadProvinceInfo();
   });
   
   const cancel = () => {
