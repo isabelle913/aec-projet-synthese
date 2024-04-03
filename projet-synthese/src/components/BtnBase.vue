@@ -1,6 +1,23 @@
 <template>
+<<<<<<< HEAD
   <button class="rounded-md flex justify-center items-center gap-2" :class="btnClass" :style="theStyle" @click="action">
     <span v-if="theIconName.isDisplay" class="material-symbols-outlined" :class="iconSize">{{ theIconName.name }}</span>
+=======
+  <!-- p-4 my-6 :style="theStyle"-->
+  <button
+    class="rounded-md flex justify-center items-center gap-2"
+    :class="btnClass"
+    :style="theStyle"
+    @click="action"
+  >
+    <!-- <span v-if="theIconName.isDisplay" class="material-symbols-outlined" :class="showIconOnly ? 'iconSize' : ''">{{ theIconName.name }}</span> -->
+    <span
+      v-if="theIconName.isDisplay"
+      class="material-symbols-outlined"
+      :class="iconSize"
+      >{{ theIconName.name }}</span
+    >
+>>>>>>> main
     <span v-if="!showIconOnly">{{ title }}</span>
   </button>
 </template>
