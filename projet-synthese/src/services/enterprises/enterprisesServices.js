@@ -13,7 +13,6 @@ export default function EnterpriseService() {
       .then((response) => response.json())
       .then((data) => {
         enterpriseListe.value = data;
-        console.log("Liste des entreprises:", enterpriseListe.value);
         return enterpriseListe.value;
       })
       .catch((error) => {
@@ -27,7 +26,6 @@ export default function EnterpriseService() {
       .then((response) => response.json())
       .then((data) => {
         objet.value = data;
-        console.log("Entreprise trouvée :", objet.value);
         return objet.value;
       })
       .catch((error) => {
@@ -73,11 +71,11 @@ export default function EnterpriseService() {
         success.value = true;
         console.log("Requête PATCH réussie !");
       } else {
-        // console.error("Échec de la requête PATCH:", error);
+        console.error("Échec de la requête PATCH.");
         success.value = false;
       }
     } catch (error) {
-      console.log(error);
+      console.log("Échec de la requête PATCH:",error);
     }
   };
 
