@@ -1,81 +1,71 @@
 @import "variable";
+
 nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+  padding: 30px 0;
+  text-align: left !important;
+  width: 300px;
 }
-.navbar__container {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  padding-left: 1rem;
-  height: 4rem;
-  width: 100%;
-  margin: 0 auto;
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
-.navbar__container__item {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  font-size: 1.6rem;
-  gap: 1.5rem;
+li {
+  margin-bottom: 20px;
+}
+a {
+  text-decoration: none;
+}
+a:hover {
+  font-weight: bold;
+}
+span {
+  font-size: 1.7rem;
 }
 
-.nav_btn_tableau {
+.withBorder {
+  border-right: 3px solid;
+}
+
+#dashboard.withBorder {
+  border-right: $color-background_btn_tableau solid;
+}
+
+#demandesStage.withBorder {
+  border-right: $color-background_btn_demande solid;
+}
+
+#offreStage.withBorder {
+  border-right: $color-background_btn_offre solid;
+}
+
+#candidats.withBorder {
+  border-right: $color-background_btn_candidat solid;
+}
+
+#entreprises.withBorder {
+  border-right: $color-background_btn_entreprise solid;
+}
+
+#dashboard span {
   color: $color-background_btn_tableau;
-  &:hover {
-    color: $color_btn_hover;
-  }
-  div {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
+  font-weight: bold;
 }
-.nav_btn_demandeStage {
-  padding-right: 1rem;
-  border-right: 3.5px solid;
+
+#demandesStage span {
   color: $color-background_btn_demande;
-  &:hover {
-    color: $color_btn_hover;
-  }
-  div {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
 }
-.nav_btn_offres {
+
+#offreStage span {
   color: $color-background_btn_offre;
-  &:hover {
-    color: $color_btn_hover;
-  }
-  div {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
 }
-.nav_btn_candidats {
+
+#candidats span {
   color: $color-background_btn_candidat;
-  &:hover {
-    color: $color_btn_hover;
-  }
-  div {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
 }
-.nav_btn_entreprises {
+
+#entreprises span {
   color: $color-background_btn_entreprise;
-  &:hover {
-    color: $color_btn_hover;
-  }
-  div {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
 }
+
+
