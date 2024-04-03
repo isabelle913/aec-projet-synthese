@@ -13,6 +13,7 @@ import Demandes from "@/views/Demandes.vue";
 import OffredeStage from "@/views/OffredeStage.vue";
 import OffredeStageAjout from "@/views/OffredeStageAjout.vue";
 import OffredeStageDetail from "@/views/OffredeStageDetail.vue";
+import OffredeStageEdit from "@/views/OffredeStageEdit.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -67,6 +68,11 @@ const router = createRouter({
       path: "/OffredeStageAjout",
       name: "OffredeStageAjout",
       component: OffredeStageAjout,
+    },
+    {
+      path: "/OffredeStage/:id",
+      name: "OffredeStageEdit",
+      component: OffredeStageEdit,
     },
     {
       path: "/OffredeStage/:id",
