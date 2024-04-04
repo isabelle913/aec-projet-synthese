@@ -39,7 +39,8 @@ watchEffect(() => {
 });
 
 function onAddCandidat() {
-  router.push({ name: "candidat", params: { id: "new" } });
+  router.push({ name: "candidat", params: { id: "ajouter" } });
 }
 </script>
-<style scoped></style>
+<style scoped>
+</style>

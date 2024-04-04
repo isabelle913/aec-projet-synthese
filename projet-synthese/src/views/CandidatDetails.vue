@@ -2,33 +2,35 @@
   <section class="bg-slate-100 page-padding">
     <form>
       <!-- Entête -->
-      <div v-if="!isEditOrCreate" class="presentation-title-border mb-20">
+      <div v-if="!isEditOrCreate" class="presentation-title-border mb-15">
         <div class="ml-4">
-          <div class="text-gray-600">Candidat</div>
-          <div class="text-gray-600 text-6xl mb-10">{{ candidat.firstName }}</div>
-          <div class="text-gray-600 bg-white py-2 px-4 inline text-2xl">{{ candidat.description }}</div>
+          <h2 class="text-gray-600 text-base">Candidat</h2>
+          <h3 class="text-gray-600 text-6xl mt-5 mb-10 font-semibold">{{ candidat.firstName }}</h3>
+          <div class="text-gray-600 bg-white py-2 px-4 inline text-3xl">{{   candidat.skills ? candidat.skills[0] : ''  }}</div> 
         </div>
       </div>
       <div v-else class="mb-20">
+        <div class="presentation-title-border mb-20">
+          <h2 class="pl-8">Ajouter un candidat</h2>
+        </div>
         <div class="grid grid-cols-12 mb-3">
-          <label class="col-span-3 text-gray-600 text-2xl mr-4" for="firstName">Nom du candidat:</label>
+          <label class="col-span-3 text-gray-600 text-2xl mr-4" for="firstName">Nom et prénom:</label>
           <input class="col-span-9 border border-gray-400 rounded py-3 px-3 text-gray-600 text-2xl leading-tight focus:border-gray-800 hover:border-gray-800" id="firstName" name="firstName" type="text" v-model="candidat.firstName" />
           <p v-if="isError.firstName" class="col-start-4 col-span-9 text-red-500 text-xs italic">Veuillez inscrire le nom du candidat</p>
         </div>
         <div class="grid grid-cols-12 mb-3">
-          <label class="col-span-3 text-gray-600 text-2xl mr-4" for="description">Titre:</label>
-          <input class="col-span-9 border border-gray-400 rounded py-3 px-3 text-gray-600 text-2xl leading-tight focus:border-gray-800 hover:border-gray-800" id="description" name="description" type="text" v-model="candidat.description" />
-          <p v-if="isError.description" class="col-start-4 col-span-9 text-red-500 text-xs italic">Veuillez inscrire le titre du candidat</p>
+          <label class="col-span-3 text-gray-600 text-2xl mr-4" for="description">Poste:</label>
+          <input class="col-span-9 border border-gray-400 rounded py-3 px-3 text-gray-600 text-2xl leading-tight focus:border-gray-800 hover:border-gray-800" id="skills" name="skills" type="text" v-model="candidat.skills" />
+          <p v-if="isError.skills" class="col-start-4 col-span-9 text-red-500 text-xs italic">Veuillez inscrire le titre du candidat</p>
         </div>
       </div>
-            <!-- boutons -->
-      <!-- TODO Valider les couleurs -->
+      <!-- boutons -->
       <div class="flex justify-center flex-wrap md:justify-end gap-5 py-8">
-        <BtnBase v-if="isEditOrCreate && _id !== 'new'" title="Annuler" icon="close" color="#f9cb40" outline :action="onGoToView" show-icon-only icon-color="red" />
-        <BtnBase v-if="isEditOrCreate && _id === 'new'" title="Annuler" icon="close" color="#f9cb40" outline :action="onReset" show-icon-only icon-color="red" />
-        <BtnBase v-if="isEditOrCreate" :title="theBtnValidateTitle" icon="save" color="#f9cb40" :action="onValidate" show-icon-only icon-color="green" />
-        <BtnBase v-if="!isEditOrCreate" title="Modifier" icon="edit" color="#f9cb40" :action="onUpdate" show-icon-only icon-color="#f9cb40" />
-        <BtnBase v-if="!isEditOrCreate" title="Supprimer" icon="delete" color="#f9cb40" :action="onOpenModalSuppression" show-icon-only icon-color="red" />
+        <BtnBase v-if="isEditOrCreate && _id !== 'ajouter'" title="Annuler" icon="close" color="#f9cb40" outline @click="onGoToView" show-icon-only icon-color="red" />
+        <BtnBase v-if="isEditOrCreate && _id === 'ajouter'" title="Annuler" icon="close" color="#f9cb40" outline @click="onReset" show-icon-only icon-color="red" />
+        <BtnBase v-if="isEditOrCreate" :title="theBtnValidateTitle" icon="save" color="#f9cb40" @click="onValidate" show-icon-only icon-color="green" />
+        <BtnBase v-if="!isEditOrCreate" title="Modifier" icon="edit" color="#f9cb40" @click="onUpdate" show-icon-only icon-color="#f9cb40" />
+        <BtnBase v-if="!isEditOrCreate" title="Supprimer" icon="delete" color="#f9cb40" @click="onOpenModalSuppression" show-icon-only icon-color="red" />
       </div>
 
       <!-- corps -->
@@ -41,37 +43,39 @@
           <textarea class="w-full border border-gray-400 rounded py-3 px-3 text-gray-600 text-2xl leading-tight focus:border-gray-800 hover:border-gray-800" id="description" name="description" v-model="candidat.description" placeholder="Inscrire une description"></textarea>
           <p v-if="isError.description" class="col-start-4 col-span-9 text-red-500 text-xs italic">Veuillez inscrire le nom du candidat</p>
         </div>
-        <div class="presentation-body-title text-2xl my-10">Informations</div>
+        <div class="presentation-body-title text-2xl my-10 font-bold">Informations personnelles</div>
 
         <!-- 2e partie -->
         <div class="grid grid-cols-12 gap-8">
-          <InputCandidat class="col-span-12 md:col-span-6" v-model="candidat.address" name="address" :is-error="isError.address" label="Adresse" :is-edit="isEditOrCreate" />
-          <InputCandidat class="col-span-12 md:col-span-6" v-model="candidat.phone" name="phone" :is-error="isError.phone" label="Téléphone" :is-edit="isEditOrCreate" />
-          <InputCandidat class="col-span-12 md:col-span-6" v-model="candidat.city" name="city" :is-error="isError.city" label="Ville" :is-edit="isEditOrCreate" />
-          <InputCandidat class="col-span-12 md:col-span-6" v-model="candidat.email" name="email" :is-error="isError.email" label="Courriel" :is-edit="isEditOrCreate" />
+          <InputCandidat class="col-span-12 md:col-span-6 font-bold" v-model="candidat.address" name="address" :is-error="isError.address" label="Adresse" :is-edit="isEditOrCreate" />
+          <InputCandidat class="col-span-12 md:col-span-6 font-bold" v-model="candidat.phone" name="phone" :is-error="isError.phone" label="Téléphone" :is-edit="isEditOrCreate" />
+          <InputCandidat class="col-span-12 md:col-span-6 font-bold" v-model="candidat.city" name="city" :is-error="isError.city" label="Ville" :is-edit="isEditOrCreate" />
+          <InputCandidat class="col-span-12 md:col-span-6 font-bold" v-model="candidat.email" name="email" :is-error="isError.email" label="Courriel" :is-edit="isEditOrCreate" />
+          <!-- Provinces -->
           <div class="col-span-12 md:col-span-6 border-l-8 border-l-gray-600 px-4">
             <div class="text-gray-600 mb-4 text-2xl">Province</div>
-            <div v-if="!isEditOrCreate" class="text-gray-400">{{ candidat.province.value }}</div>
-            <div v-else>
-              <label class="hidden" for="province">Province:</label>
-              <select class="block w-full border border-gray-400 rounded py-3 px-3 text-gray-600 leading-tight focus:border-gray-800 hover:border-gray-800" id="province" name="province" v-model="candidat.province">
-                <option v-for="province in provincesForSelect" :key="province._id" :value="province">{{ province.value }}</option>
-              </select>
-              <p v-if="isError.province" class="text-red-500 text-xs italic">Veuillez choisir une province</p>
+            <div>
+              <div v-if="!isEditOrCreate && candidat.province" class="text-gray-400">{{ candidat.province.value }}</div>
+              <div v-else>
+                <label class="hidden" for="province">Province:</label>
+                <select class="block w-full border border-gray-400 rounded py-3 px-3 text-gray-600 leading-tight focus:border-gray-800 hover:border-gray-800" id="province" name="province" v-model="candidat.province">
+                  <option v-for="province in provinces" :key="province._id" :value="province">{{ province.value }}</option>
+                </select>
+                <p v-if="isError.province" class="text-red-500 text-xs italic">Veuillez choisir une province</p>
+              </div>
             </div>
           </div>
           <InputCandidat class="col-span-12 md:col-span-6" v-model="candidat.postalCode" name="postalCode" :is-error="isError.postalCode" label="Code postal" :is-edit="isEditOrCreate" />
-          <!--<InputCandidat class="col-span-12 md:col-span-6" v-model="candidat.image" name="image" :is-error="isError.image" label="URL du logo" :is-edit="isEditOrCreate" />-->
         </div>
       </div>
 
       <div class="flex justify-center flex-wrap md:justify-end gap-5 py-8">
-        <BtnBase v-if="isEditOrCreate && _id !== 'new'" title="Annuler" icon="close" color="#f9cb40" outline :action="onGoToView" />
-        <BtnBase v-if="isEditOrCreate && _id === 'new'" title="Annuler" icon="close" color="#f9cb40" outline :action="onReset" />
+        <BtnBase v-if="isEditOrCreate && _id !== 'ajouter'" title="Annuler" icon="close" color="#f9cb40" outline :action="onGoToView" />
+        <BtnBase v-if="isEditOrCreate && _id === 'ajouter'" title="Annuler" icon="close" color="#f9cb40" outline :action="onReset" />
         <BtnBase v-if="isEditOrCreate" :title="theBtnValidateTitle" icon="save" color="#f9cb40" :action="onValidate" />
         <BtnBase v-if="!isEditOrCreate" title="Modifier" icon="edit" color="#f9cb40" :action="onUpdate" />
         <BtnBase v-if="!isEditOrCreate" title="Supprimer" icon="delete" color="#f9cb40" :action="onOpenModalSuppression" />
-        <BtnBase title="Retour à la liste des entreprises" icon="list" color="#f9cb40" :action="onGoToListe" />
+        <BtnBase title="Retour à la liste des candidats" icon="list" color="#f9cb40" :action="onGoToListe" />
       </div>
     </form>
   </section>
@@ -83,17 +87,18 @@
   </section>
   -->
 
-  <teleport to="body">
-    <ModalSuppression v-model="isOpenModalSuppression" :description="enterprise.name" :action="onDelete" @close="isOpenModalSuppression = false" />
-  </teleport>
+  <teleport to="body" v-if="candidat.value">
+  <ModalSuppression v-model="isOpenModalSuppression" :description="candidat.value.name" :action="onDelete" @close="isOpenModalSuppression = false" />
+</teleport>
 
-  <teleport to="body">
+
+    <!--<teleport to="body">
     <Loader v-model="isLoading" />
   </teleport>
-
+  -->
 </template>
 <script setup>
-import { computed, reactive, ref, onMounted, watchEffect } from "vue";
+import { computed, reactive, ref, onMounted, watchEffect, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 import useUtile from "../composables/utile.js";
@@ -110,8 +115,8 @@ const route = useRoute();
 const router = useRouter();
 
 const { validateEmail, validatePhone, validatePostalCode } = useUtile();
-const { object, getCandidateById, addCandidate, editCandidate, deleteCandidate } = CandidatesService();
-const { provincesList, allProvinces } = ProvinceService();
+const { objet, getCandidateById, addCandidates, editCandidates, deleteCandidates } = CandidatesService();
+const { provincesListe, allProvinces } = ProvinceService();
 
 const _id = route.params.id;
 const isUpdate = route.params.action === "update" ? true : false;
@@ -121,20 +126,17 @@ const candidat = ref({});
 const skills = ref({});
 const provinces = ref([]);
 
+
 const isQueryError = ref(false);
 
 const isLoadedProvinces = ref(false);
 const isLoadedCandidate = ref(false);
 
-const isLoading = computed(() => {
-  if (isLoadedProvinces.value && isLoadedCandidate.value) return false;
-  else return true;
-});
-
 const isOpenModalSuppression = ref(false);
 
 const isError = reactive({
   firstName: false,
+  skills: false,
   description: false,
   address: false,
   phone: false,
@@ -142,11 +144,10 @@ const isError = reactive({
   email: false,
   province: false,
   postalCode: false,
-  //image: false,
 });
 
 const theBtnValidateTitle = computed(() => {
-  if (_id === "new") return "Ajouter";
+  if (_id === "ajouter") return "Ajouter";
   else return "Mettre à jour";
 });
 
@@ -157,7 +158,8 @@ function onValidate(e) {
   if (candidat.firstName === "") isError.firstName = true;
   else isError.firstName = false;
 
-  isError.firstName = candidat.firstName === "";
+  if (candidat.skills === "") isError.skills = true;
+  else isError.skills = false;
 
   if (candidat.description === "") isError.description = true;
   else isError.description = false;
@@ -179,24 +181,27 @@ function onValidate(e) {
 
   if (!validatePostalCode(candidat.postalCode)) isError.postalCode = true;
 
+  console.log("isError", isError);
+  console.log("candidat.value", candidat.value);
+
   if (Object.values(isError).every((result) => !result)) {
     console.log("POST/PATCH", candidat.value);
-    if (_id === "new") {
+    if (_id === "ajouter") {
       console.log("vers le POST");
-      addCandidate(candidat.value);
+      addCandidates(candidat.value);
       candidat.value = {};
     } else {
       console.log("vers le PATCH");
-      editCandidate(candidat.value);
+      editCandidates(_id, candidat.value); 
     }
   }
   if (Object.values(isError).every((result) => !result)) {
-  generateSkillsFromTitle(candidat.description);
+  generateSkillsFromTitle(candidat.skills);
 }
 }
 
 function onUpdate() {
-  router.push({ path: `/candidates/${candidat.value._id}/update` });
+  router.push({ path: `/candidat/${candidat.value._id}/update` });
 }
 
 function onReset(e) {
@@ -206,7 +211,7 @@ function onReset(e) {
 }
 
 function onGoToListe() {
-  router.push({ name: "candidat" });
+  router.push({ name: "candidats" });
 }
 
 function onOpenModalSuppression(e) {
@@ -215,7 +220,7 @@ function onOpenModalSuppression(e) {
 }
 
 function onDelete(e) {
-  deleteCandidate(_id);
+  deleteCandidates(_id);
   isOpenModalSuppression.value = false;
 }
 
@@ -239,27 +244,27 @@ function generateSkillsFromTitle(title) {
 
 
 onMounted(() => {
-  if (_id === "new") {
+  if (_id === "ajouter") {
     isEditOrCreate.value = true;
   } else {
+    // console.log('toto', _id)
     getCandidateById(_id);
     if (isUpdate) isEditOrCreate.value = true;
   }
   allProvinces();
 });
 
-
 watchEffect(() => {
-  if (Object.keys(object.value).length !== 0) {
-    candidat.value = object.value;
-    isLoadedCandidate.value = true;
-    if (candidat.value.statusCode) isQueryError.value = true;
+  if (objet && Object.keys(objet.value).length !== 0) {
+    candidat.value = objet.value;
   }
 });
+
 watchEffect(() => {
   if (Array.isArray(provincesListe.value)) {
     provinces.value = [...provincesListe.value];
     isLoadedProvinces.value = true;
+    console.log("provinces", provinces.value);
   }
 });
 </script>
@@ -272,5 +277,11 @@ watchEffect(() => {
 }
 .presentation-body-title {
   color: #9b5ba2;
+}
+
+.presentation-title-border h2 {
+  font-weight: 500;
+  color:#707070;
+  font-size: 2rem !important;
 }
 </style>
