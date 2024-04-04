@@ -7,9 +7,9 @@
 
     <ListeBase v-if="internshipOffers.length > 0" :liste-items="internshipOffers" />
   </div>
-  <teleport to="body">
+  <!-- <teleport to="body">
     <Loader v-model="isLoading" />
-  </teleport>
+  </teleport> -->
 </template>
 
 <script setup>
@@ -27,7 +27,6 @@ const router = useRouter();
 
 const internshipOffers = ref([]);
 
-// TODO vérifier loader
 const isLoading = ref(true);
 
 function AddOffer(e) {

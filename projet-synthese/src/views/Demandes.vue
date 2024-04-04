@@ -6,10 +6,9 @@
     </div>
     <ListeBase v-if="internshipRequests.length > 0" :liste-items="internshipRequests" is-demande />
   </div>
-  <teleport to="body">
-    <!-- <Loader v-model="isLoading" /> -->
-    <!-- // TODO mettre loader -->
-  </teleport>
+  <!-- <teleport to="body">
+    <Loader v-model="isLoading" />
+  </teleport> -->
 </template>
 
 <script setup>
