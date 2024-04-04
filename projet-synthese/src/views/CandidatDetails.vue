@@ -143,7 +143,6 @@ const theBtnValidateTitle = computed(() => {
 
 function onValidate(e) {
   e.preventDefault();
-  console.log("onValidate");
 
   if (candidat.firstName === "") isError.firstName = true;
   else isError.firstName = false;
@@ -171,17 +170,11 @@ function onValidate(e) {
 
   if (!validatePostalCode(candidat.postalCode)) isError.postalCode = true;
 
-  console.log("isError", isError);
-  console.log("candidat.value", candidat.value);
-
   if (Object.values(isError).every((result) => !result)) {
-    console.log("POST/PATCH", candidat.value);
     if (_id === "ajouter") {
-      console.log("vers le POST");
       addCandidates(candidat.value);
       candidat.value = {};
     } else {
-      console.log("vers le PATCH");
       editCandidates(_id, candidat.value);
     }
   }
@@ -196,7 +189,6 @@ function onUpdate() {
 
 function onReset(e) {
   e.preventDefault();
-  console.log("onReset");
   candidat.value = {};
 }
 
@@ -235,7 +227,6 @@ onMounted(() => {
   if (_id === "ajouter") {
     isEditOrCreate.value = true;
   } else {
-    // console.log('toto', _id)
     getCandidateById(_id);
     if (isUpdate) isEditOrCreate.value = true;
   }
@@ -252,7 +243,7 @@ watchEffect(() => {
   if (Array.isArray(provincesListe.value)) {
     provinces.value = [...provincesListe.value];
     isLoadedProvinces.value = true;
-    console.log("provinces", provinces.value);
+    // console.log("provinces", provinces.value);
   }
 });
 </script>

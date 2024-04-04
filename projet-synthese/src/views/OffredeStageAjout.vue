@@ -316,8 +316,6 @@
   
   try {
     await addInternshipOffer(newOffer);
-    console.log("Nouvelle offre de stage ajoutée avec succès !");
-    console.log(newOffer);
     showSuccessMessage.value = true;
 
   } catch (error) {

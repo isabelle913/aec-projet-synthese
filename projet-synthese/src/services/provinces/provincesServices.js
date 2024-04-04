@@ -21,7 +21,7 @@ export default function ProvinceService() {
       .then((response) => response.json())
       .then((data) => {
         objet.value = data;
-        console.log("Province trouvée :", objet.value);
+        // console.log("Province trouvée :", objet.value);
         return objet.value;
       })
       .catch((error) => {

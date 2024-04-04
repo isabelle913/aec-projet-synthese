@@ -42,7 +42,7 @@ export default function InternshipOffersService() {
 
       if (response.ok) {
         success.value = true;
-        console.log("Requête POST réussie !");
+        // console.log("Requête POST réussie !");
       } else {
         console.error("Échec de la requête POST.");
         success.value = false;
@@ -65,13 +65,13 @@ export default function InternshipOffersService() {
 
       if (response.ok) {
         success.value = true;
-        console.log("Requête PATCH réussie !");
+        // console.log("Requête PATCH réussie !");
       } else {
         console.error("Échec de la requête PATCH.");
         success.value = false;
       }
     } catch (error) {
-      console.log("Échec de la requête PATCH:",error);
+      console.log("Échec de la requête PATCH:", error);
     }
   };
 
@@ -83,7 +83,7 @@ export default function InternshipOffersService() {
 
       if (response.ok) {
         success.value = true;
-        console.log("Requête DELETE réussie !");
+        // console.log("Requête DELETE réussie !");
         allInternshipOffers();
       } else {
         console.error("Échec de la requête DELETE.");

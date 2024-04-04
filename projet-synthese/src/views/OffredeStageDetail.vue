@@ -17,12 +17,12 @@
 
       <div class="mb-16 mr-2">
         <label class="text-bg font-bold" for="enterprise">Nom de l'entreprise</label>
-        <p> {{ enterpriseName }}</p>
+        <p>{{ enterpriseName }}</p>
       </div>
 
       <h3>Informations sur l'entreprise</h3>
       <div class="grid grid-cols-12 gap-5 my-8 DemandeStage__section__info">
-        <div class="col-span-12 md:col-span-6 max-md:p-10 ">
+        <div class="col-span-12 md:col-span-6 max-md:p-10">
           <div class="DemandeStage__section__info__item">
             <div class="mb-16 mr-2">
               <label class="text-bg font-bold" for="description_entreprise">Courte présentation de l'entreprise</label>
@@ -32,11 +32,11 @@
           <div class="DemandeStage__section__info__item">
             <div class="mb-16 mr-2">
               <label class="text-bg font-bold" for="city_entreprise">Ville</label>
-              <p> {{ enterpriseVille }}</p>
+              <p>{{ enterpriseVille }}</p>
             </div>
           </div>
         </div>
-        <div class="col-span-12 md:col-span-6 max-md:p-10 ">
+        <div class="col-span-12 md:col-span-6 max-md:p-10">
           <div class="DemandeStage__section__info__item">
             <div class="mb-16 mr-2">
               <label class="text-bg font-bold" for="phone_entreprise">Numéro de téléphone de l'entreprise :</label>
@@ -55,9 +55,9 @@
       <div class="DemandeStage__section__info__item">
         <div class="mb-16">
           <label class="text-bg font-bold" for="requiredSkills">Compétences requises</label>
-            <ul>
-              <li v-for="skill in requiredSkills" :key="skill">{{ skill }}</li>
-            </ul>
+          <ul>
+            <li v-for="skill in requiredSkills" :key="skill">{{ skill }}</li>
+          </ul>
         </div>
       </div>
 
@@ -89,7 +89,7 @@
           <div class="DemandeStage__section__info__item">
             <div class="mb-16 mr-2">
               <label class="text-bg font-bold" for="internshipType">Type de l'offre</label>
-              <p> {{ internshipType }}</p>
+              <p>{{ internshipType }}</p>
             </div>
           </div>
 
@@ -119,18 +119,13 @@
   </section>
 
   <div class="DemandeStage__btn">
-    <button
-      class="text-slate-400 border-solid text-2xl border-slate-400 border-2 py-4 px-4 mt-24 rounded-lg focus:outline-none focus:shadow-outline"
-      @click="cancel"
-    >
-    <RouterLink :to="{name: 'offres'}">Retour a la liste des offres</RouterLink>
+    <button class="text-slate-400 border-solid text-2xl border-slate-400 border-2 py-4 px-4 mt-24 rounded-lg focus:outline-none focus:shadow-outline" @click="cancel">
+      <RouterLink :to="{ name: 'offres' }">Retour a la liste des offres</RouterLink>
     </button>
   </div>
 </template>
 
 <script setup>
-
-
 import { ref, onMounted, watchEffect } from "vue";
 import { useRouter } from "vue-router";
 
@@ -138,7 +133,7 @@ import OffresService from "../services/internshipOffers/internshipOffersServices
 
 const router = useRouter();
 
-const { getInternshipOffereById  } = OffresService();
+const { getInternshipOffereById } = OffresService();
 const title = ref("");
 const description = ref("");
 const enterpriseName = ref({});
@@ -158,23 +153,21 @@ const startDate = ref("");
 const endDate = ref("");
 
 function formatDate(value) {
-      return new Date(value).toLocaleString();
-};
+  return new Date(value).toLocaleString();
+}
 onMounted(async () => {
-
   const _id = router.currentRoute.value.params.id;
-  console.log(_id);
 
   try {
     const offer = await getInternshipOffereById(_id);
     title.value = offer.title;
     description.value = offer.description;
-    enterpriseName.value = offer.enterprise.name; 
+    enterpriseName.value = offer.enterprise.name;
 
-    enterpriseDescription.value = offer.enterprise.description; 
-    enterpriseVille.value = offer.enterprise.city; 
-    enterprisePhone.value = offer.enterprise.phone; 
-    enterpriseEmail.value = offer.enterprise.email; 
+    enterpriseDescription.value = offer.enterprise.description;
+    enterpriseVille.value = offer.enterprise.city;
+    enterprisePhone.value = offer.enterprise.phone;
+    enterpriseEmail.value = offer.enterprise.email;
 
     province.value = offer.province.value;
     weeklyWorkHours.value = offer.weeklyWorkHours;
@@ -183,13 +176,11 @@ onMounted(async () => {
     paid.value = offer.paid;
     startDate.value = offer.startDate;
     endDate.value = offer.endDate;
-    requiredSkills.value=offer.requiredSkills
-
+    requiredSkills.value = offer.requiredSkills;
 
     // Affecter d'autres valeurs des champs de l'offre ici
   } catch (error) {
     console.error("Erreur lors de la récupération de l'offre de stage :", error);
   }
 });
-
 </script>

@@ -246,8 +246,6 @@ function onOpenModalSuppression(e) {
 }
 
 function onDelete(e) {
-  console.log("onDelete #", enterprise.value._id);
-  console.log("onDelete 2", _id);
   deleteEnterprise(_id);
   isOpenModalSuppression.value = false;
   onGoToListe();

@@ -489,8 +489,6 @@ const InternshipRequest = ref({});
 const isQueryError = ref(false);
 const isLoadedInternshipRequest = ref(false);
 
-console.log("Route ID:", _id);
-
 /* const isLoading = computed(() => {
   if (isLoadedInternshipRequest.value) return false;
   else return true;
@@ -521,7 +519,6 @@ const theBtnValidateTitle = computed(() => {
 
 function onValidate(e) {
   e.preventDefault();
-  console.log("onValidate");
 
   if (InternshipRequest.value.firstName === "")
     isError.internshipRequestFirstName = true;
@@ -555,47 +552,27 @@ function onValidate(e) {
     isError.internshipRequestDateFin = true;
   else isError.internshipRequestDateFin = false;
 
-  console.log("isError", isError);
-  console.log("InternshipRequest.value", InternshipRequest.value);
 
   if (Object.values(isError).every((result) => !result)) {
     console.log("POST/PATCH", InternshipRequest.value);
     if (_id === "new") {
-      console.log("vers le POST");
       addInternshipRequest(InternshipRequest.value);
       InternshipRequest.value = {};
     } else {
-      console.log("vers le PATCH");
       editInternshipRequest(InternshipRequest.value);
     }
   }
 
-  /* if (Object.values(isError).every((result) => !result)) {
-    console.log("Form is valid. Submitting...");
-
-    if (_id === "new") {
-      console.log("Submitting new form...");
-      addInternshipRequest(InternshipRequest.value);
-      InternshipRequest.value = {};
-    } else {
-      console.log("Submitting updated form...");
-      editInternshipRequest(InternshipRequest.value);
-    }
-  } else {
-    console.log("Form contains errors. Cannot submit.");
-  } */
 }
 
 function onUpdate(e) {
   e.preventDefault();
-  console.log("onUpdate function called");
   /*  router.push({ path: `/demande/${InternshipRequest.value._id}/update` }); */
   isEditOrCreate.value = true;
 }
 
 function onReset(e) {
   e.preventDefault();
-  console.log("onReset");
   InternshipRequest.value = {};
 }
 
@@ -616,8 +593,6 @@ function onGoToView(e) {
 }
 
 onMounted(() => {
-  console.log("Route ID:", _id);
-  console.log("Component mounted with ID:", _id);
 
   if (_id === "new") {
     isEditOrCreate.value = true;

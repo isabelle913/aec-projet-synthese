@@ -121,7 +121,6 @@ function onView() {
 }
 
 function onEdit() {
-  console.log("onEdit", props.item._id);
   router.push({ path: `demande/${props.item._id}` });
 }
 
