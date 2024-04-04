@@ -90,6 +90,7 @@ export default function EnterpriseService() {
         success.value = true;
         // console.log("Requête DELETE réussie !");
         router.push({ name: "enterprises" });
+        allEnterprises();
       } else {
         console.error("Échec de la requête DELETE.");
         success.value = false;
