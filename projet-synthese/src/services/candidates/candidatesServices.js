@@ -32,6 +32,7 @@ export default function CandidatesService() {
     return fetch(`https://aec-projet-integrateur-api.fly.dev/candidates/${_id}`)
       .then((response) => response.json())
       .then((data) => {
+        console.log('tata',data)
         objet.value = data;
         return objet.value;
       })

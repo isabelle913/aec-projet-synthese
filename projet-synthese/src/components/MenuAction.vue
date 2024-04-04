@@ -25,7 +25,7 @@
        </div>
        <div>
          <a
-           href="/candidat/new"
+           href="/candidat/ajouter"
            class="flex items-center px-2 py-2 border-solid border-2 text-#7e2986 hover:text-white rounded-md navMenuAction_btn_candidat text-base">
            <IconPlus class="h-4 w-4 mr-2 fill-current text-#7e2986 hover:text-white"/> 
            Ajout un candidat
