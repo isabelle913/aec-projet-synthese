@@ -489,6 +489,8 @@ const InternshipRequest = ref({});
 const isQueryError = ref(false);
 const isLoadedInternshipRequest = ref(false);
 
+console.log("Route ID:", _id);
+
 /* const isLoading = computed(() => {
   if (isLoadedInternshipRequest.value) return false;
   else return true;
@@ -556,7 +558,7 @@ function onValidate(e) {
   console.log("isError", isError);
   console.log("InternshipRequest.value", InternshipRequest.value);
 
-  /* if (Object.values(isError).every((result) => !result)) {
+  if (Object.values(isError).every((result) => !result)) {
     console.log("POST/PATCH", InternshipRequest.value);
     if (_id === "new") {
       console.log("vers le POST");
@@ -566,13 +568,11 @@ function onValidate(e) {
       console.log("vers le PATCH");
       editInternshipRequest(InternshipRequest.value);
     }
-  } */
+  }
 
-  // If form is valid, handle form submission
-  if (Object.values(isError).every((result) => !result)) {
+  /* if (Object.values(isError).every((result) => !result)) {
     console.log("Form is valid. Submitting...");
 
-    // Perform form submission logic here
     if (_id === "new") {
       console.log("Submitting new form...");
       addInternshipRequest(InternshipRequest.value);
@@ -583,13 +583,14 @@ function onValidate(e) {
     }
   } else {
     console.log("Form contains errors. Cannot submit.");
-  }
+  } */
 }
 
 function onUpdate(e) {
   e.preventDefault();
   console.log("onUpdate function called");
-  router.push({ path: `/demande/${InternshipRequest.value._id}/update` });
+  /*  router.push({ path: `/demande/${InternshipRequest.value._id}/update` }); */
+  isEditOrCreate.value = true;
 }
 
 function onReset(e) {
@@ -630,13 +631,13 @@ onMounted(() => {
 
 watchEffect(() => {
   if (Object.keys(objet.value).length !== 0) {
-    InternshipRequest.value = objet.value; // Assigner directement la valeur
-    // console.log("InternshipRequest", InternshipRequest.value);
+    InternshipRequest.value = objet.value;
     isLoadedInternshipRequest.value = true;
     if (InternshipRequest.value.statusCode) isQueryError.value = true;
   }
 });
 </script>
+
 <style scoped>
 /* TODO page-padding */
 .page-padding {
