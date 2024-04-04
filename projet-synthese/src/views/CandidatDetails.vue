@@ -29,7 +29,6 @@
         <BtnBase v-if="isEditOrCreate && _id !== 'ajouter'" title="Annuler" icon="close" color="#f9cb40" outline @click="onGoToView" show-icon-only icon-color="red" />
         <BtnBase v-if="isEditOrCreate && _id === 'ajouter'" title="Annuler" icon="close" color="#f9cb40" outline @click="onReset" show-icon-only icon-color="red" />
         <BtnBase v-if="isEditOrCreate" :title="theBtnValidateTitle" icon="save" color="#f9cb40" @click="onValidate" show-icon-only icon-color="green" />
-        <BtnBase v-if="!isEditOrCreate" icon="Done" :action="onWhatFor" show-icon-only icon-color="green" icon-size="text-6xl" />
         <BtnBase v-if="!isEditOrCreate" icon="edit_square" @action="onUpdate" show-icon-only icon-size="text-6xl" />
         <BtnBase v-if="!isEditOrCreate" icon="disabled_by_default" @action="onOpenModalSuppression" show-icon-only icon-color="red" icon-size="text-6xl" />
       </div>
