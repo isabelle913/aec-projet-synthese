@@ -135,11 +135,11 @@
               class="text-justify shadow appearance-none border rounded w-full py-7 px-3 mt-5 leading-tight focus:outline-none focus:shadow-outline input"
               id="internshipRequestDescription"
               placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet doloribus
-      sequi ipsa placeat possimus fugit veniam! Porro quis suscipit commodi
-      aliquid. Culpa suscipit voluptatum maxime, vero nostrum ducimus aperiam
-      reprehenderit quae, recusandae cumque voluptates vitae quaerat eum aut
-      eius est dolorum in assumenda. Praesentium laboriosam fugiat soluta
-      corporis excepturi aliquam?"
+              sequi ipsa placeat possimus fugit veniam! Porro quis suscipit commodi
+              aliquid. Culpa suscipit voluptatum maxime, vero nostrum ducimus aperiam
+              reprehenderit quae, recusandae cumque voluptates vitae quaerat eum aut
+              eius est dolorum in assumenda. Praesentium laboriosam fugiat soluta
+              corporis excepturi aliquam?"
               name="internshipRequestDescription"
               cols="25"
               rows="6"
