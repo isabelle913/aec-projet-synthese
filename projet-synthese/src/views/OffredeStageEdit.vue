@@ -2,7 +2,6 @@
   <div class="DemandeStage__Titre">
     <h1>Modifier l'offre de stage</h1>
   </div>
-
   <section class="bg-white p-10 DemandeStage__section">
     <div>
       <div v-if="showSuccessMessage" class="text-green-500 mt-4">Offre de stage Modifié avec succès !</div>
@@ -130,21 +129,24 @@
       </div>
     </div>
   </section>
-
   <div class="DemandeStage__btn">
+    <button class="text-slate-400 border-solid text-2xl border-slate-400 border-2 py-4 px-4 mt-24 rounded-lg focus:outline-none focus:shadow-outline" @click="cancel">
+      <div class="">Annuler</div>
+    </button>
     <button class="flex items-center text-white border-solid text-2xl py-4 px-4 mt-24 rounded-lg focus:outline-none focus:shadow-outline btn" @click="edit">Modifier</button>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, watch } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import OffresService from "@/services/internshipOffers/internshipOffersServices";
 import EnterpriseService from "../services/enterprises/enterprisesServices";
 import EnterpriseProvince from "../services/provinces/provincesServices";
 import typeService from "../services/internshipTypes/internshipTypesServices";
 
 const router = useRouter();
+const route = useRoute();
 const { getInternshipOffereById, editInternshipOffer } = OffresService();
 
 const id_enterprise = ref("");
@@ -187,15 +189,18 @@ const requiredSkills = ref([]);
 const { provincesListe, allProvinces, getProvinceById } = EnterpriseProvince();
 const { enterpriseListe, allEnterprises, getEntrepriseById } = EnterpriseService();
 const { internshipTypesListe, allInternshipTypes, getInternshipTypeById } = typeService();
-
+const offer = ref(null);
 function formatDate(value) {
   return new Date(value).toLocaleString();
 }
 
+const _id = route.params.id;
+
 onMounted(async () => {
-  const _id = router.currentRoute.value.params.id;
+  const _id = route.params.id;
 
   try {
+    console.log(_id);
     const offer = await getInternshipOffereById(_id);
     title.value = offer.title;
     description.value = offer.description;
@@ -222,7 +227,14 @@ onMounted(async () => {
 });
 
 const edit = async () => {
+  const startDateString = new Date(startDate.value);
+  const endDateString = new Date(endDate.value);
+  let skillsArray = [];
+  if (typeof requiredSkills.value === "string" && requiredSkills.value.trim() !== "") {
+    skillsArray = requiredSkills.value.split(",").map((skill) => skill.trim());
+  }
   const editOffer = {
+    _id: route.params.id,
     title: title.value,
     description: description.value,
     enterprise: {
@@ -245,15 +257,15 @@ const edit = async () => {
       },
       website: "WebSite@gmail.com",
     },
-    startDate: startDate.value,
-    endDate: endDate.value,
+    startDate: startDateString.toLocaleDateString(),
+    endDate: endDateString.toLocaleDateString(),
     weeklyWorkHours: parseInt(weeklyWorkHours.value),
     salary: parseInt(salary.value),
     province: {
       _id: id_province.value,
       value: value_province.value,
     },
-    requiredSkills: requiredSkills.value.join(","),
+    requiredSkills: skillsArray,
     internshipType: {
       _id: id_internshipType.value,
       value: value_internshipType.value,
@@ -267,6 +279,7 @@ const edit = async () => {
   try {
     await editInternshipOffer(editOffer);
     showSuccessMessage.value = true;
+    console.log(editOffer);
   } catch (error) {
     console.error("Erreur lors de la modification de l'offre de stage :", error);
   }
@@ -332,4 +345,7 @@ watch(selectedProvince, () => {
 watch(selectedType, () => {
   loadTypeInfo();
 });
+function cancel() {
+  router.go(-1);
+}
 </script>
