@@ -6,7 +6,7 @@
         <div class="ml-4">
           <h2 class="text-gray-600 text-base">Candidat</h2>
           <h3 class="text-gray-600 text-6xl mt-5 mb-10 font-semibold">{{ candidat.firstName }}</h3>
-          <div class="text-gray-600 bg-white py-2 px-4 inline text-3xl">{{   candidat.skills ? candidat.skills[0] : ''  }}</div> 
+          <div class="text-gray-600 bg-white py-2 px-4 inline text-3xl">{{ candidat.skills ? candidat.skills[0] : "" }}</div>
         </div>
       </div>
       <div v-else class="mb-20">
@@ -29,8 +29,8 @@
         <BtnBase v-if="isEditOrCreate && _id !== 'ajouter'" title="Annuler" icon="close" color="#f9cb40" outline @click="onGoToView" show-icon-only icon-color="red" />
         <BtnBase v-if="isEditOrCreate && _id === 'ajouter'" title="Annuler" icon="close" color="#f9cb40" outline @click="onReset" show-icon-only icon-color="red" />
         <BtnBase v-if="isEditOrCreate" :title="theBtnValidateTitle" icon="save" color="#f9cb40" @click="onValidate" show-icon-only icon-color="green" />
-        <BtnBase v-if="!isEditOrCreate" title="Modifier" icon="edit" color="#f9cb40" @click="onUpdate" show-icon-only icon-color="#f9cb40" />
-        <BtnBase v-if="!isEditOrCreate" title="Supprimer" icon="delete" color="#f9cb40" @click="onOpenModalSuppression" show-icon-only icon-color="red" />
+        <BtnBase v-if="!isEditOrCreate" icon="edit_square" @click="onUpdate" show-icon-only icon-size="text-6xl" />
+        <BtnBase v-if="!isEditOrCreate" icon="disabled_by_default" @click="onOpenModalSuppression" show-icon-only icon-color="red" icon-size="text-6xl" />
       </div>
 
       <!-- corps -->
@@ -70,29 +70,21 @@
       </div>
 
       <div class="flex justify-center flex-wrap md:justify-end gap-5 py-8">
-        <BtnBase v-if="isEditOrCreate && _id !== 'ajouter'" title="Annuler" icon="close" color="#f9cb40" outline :action="onGoToView" />
-        <BtnBase v-if="isEditOrCreate && _id === 'ajouter'" title="Annuler" icon="close" color="#f9cb40" outline :action="onReset" />
-        <BtnBase v-if="isEditOrCreate" :title="theBtnValidateTitle" icon="save" color="#f9cb40" :action="onValidate" />
-        <BtnBase v-if="!isEditOrCreate" title="Modifier" icon="edit" color="#f9cb40" :action="onUpdate" />
-        <BtnBase v-if="!isEditOrCreate" title="Supprimer" icon="delete" color="#f9cb40" :action="onOpenModalSuppression" />
-        <BtnBase title="Retour à la liste des candidats" icon="list" color="#f9cb40" :action="onGoToListe" />
+        <BtnBase v-if="isEditOrCreate && _id !== 'ajouter'" title="Annuler" icon="close" btn-class="btn-candidats__outline" outline :action="onGoToView" />
+        <BtnBase v-if="isEditOrCreate && _id === 'ajouter'" title="Annuler" icon="close" btn-class="btn-candidats__outline" outline :action="onReset" />
+        <BtnBase v-if="isEditOrCreate" :title="theBtnValidateTitle" icon="save" btn-class="btn-candidats" :action="onValidate" />
+        <BtnBase v-if="!isEditOrCreate" title="Modifier" icon="edit" btn-class="btn-candidats" :action="onUpdate" />
+        <BtnBase v-if="!isEditOrCreate" title="Supprimer" icon="delete" btn-class="btn-candidats" :action="onOpenModalSuppression" />
+        <BtnBase title="Retour à la liste des candidats" icon="list" btn-class="btn-candidats" :action="onGoToListe" />
       </div>
     </form>
   </section>
-  <!--
-  <section v-else class="h-screen bg-slate-100 page-padding">
-    <div class="h-full flex justify-center items-center">
-      <div class="text-4xl text-center">Une erreur est survenue lors de la récupération des données</div>
-    </div>
-  </section>
-  -->
 
-  <teleport to="body" v-if="candidat.value">
-  <ModalSuppression v-model="isOpenModalSuppression" :description="candidat.value.name" :action="onDelete" @close="isOpenModalSuppression = false" />
-</teleport>
+  <teleport to="body">
+    <ModalSuppression v-model="isOpenModalSuppression" :description="candidat.firstName" :action="onDelete" @close="isOpenModalSuppression = false" />
+  </teleport>
 
-
-    <!--<teleport to="body">
+  <!--<teleport to="body">
     <Loader v-model="isLoading" />
   </teleport>
   -->
@@ -122,12 +114,19 @@ const _id = route.params.id;
 const isUpdate = route.params.action === "update" ? true : false;
 const isEditOrCreate = ref(false);
 
-const candidat = ref({});
-const skills = ref({});
+const candidat = ref({
+  firstName: "",
+  skills: "",
+  description: "",
+  address: "",
+  phone: "",
+  city: "",
+  email: "",
+  province: null,
+  postalCode: "",
+});
+const skills = ref("");
 const provinces = ref([]);
-
-
-const isQueryError = ref(false);
 
 const isLoadedProvinces = ref(false);
 const isLoadedCandidate = ref(false);
@@ -153,52 +152,58 @@ const theBtnValidateTitle = computed(() => {
 
 function onValidate(e) {
   e.preventDefault();
-  console.log("onValidate");
 
-  if (candidat.firstName === "") isError.firstName = true;
-  else isError.firstName = false;
+  // Réinitialisation des erreurs
+  Object.keys(isError).forEach(key => isError[key] = false);
 
-  if (candidat.skills === "") isError.skills = true;
-  else isError.skills = false;
+  // Validation des champs
+  const requiredFields = ['firstName', 'skills', 'description', 'address', 'city', 'email', 'province', 'postalCode'];
 
-  if (candidat.description === "") isError.description = true;
-  else isError.description = false;
-
-  if (candidat.address === "") isError.address = true;
-  else isError.address = false;
-
-  if (!validatePhone(candidat.phone)) isError.phone = true;
-  else isError.phone = false;
-
-  if (candidat.city === "") isError.city = true;
-  else isError.city = false;
-
-  if (!validateEmail(candidat.email)) isError.email = true;
-  else isError.email = false;
-
-  if (!candidat.province) isError.province = true;
-  else isError.province = false;
-
-  if (!validatePostalCode(candidat.postalCode)) isError.postalCode = true;
-
-  console.log("isError", isError);
-  console.log("candidat.value", candidat.value);
-
-  if (Object.values(isError).every((result) => !result)) {
-    console.log("POST/PATCH", candidat.value);
-    if (_id === "ajouter") {
-      console.log("vers le POST");
-      addCandidates(candidat.value);
-      candidat.value = {};
+  requiredFields.forEach(field => {
+    if (!candidat.value[field]) {
+      isError[field] = true;
+    } else if (field === 'phone' && !validatePhone(candidat.value[field])) {
+      isError[field] = true;
+    } else if (field === 'email' && !validateEmail(candidat.value[field])) {
+      isError[field] = true;
+    } else if (field === 'province' && !candidat.value[field]._id) {
+      isError[field] = true;
+    } else if (field === 'postalCode' && !validatePostalCode(candidat.value[field])) {
+      isError[field] = true;
     } else {
-      console.log("vers le PATCH");
-      editCandidates(_id, candidat.value); 
+      isError[field] = false; // Réinitialiser l'erreur si le champ est valide
     }
+  });
+
+  // Si aucune erreur de validation
+  if (!Object.values(isError).some(error => error)) {
+    if (_id === "ajouter") {
+      addCandidates(candidat.value);
+    } else {
+      editCandidates(_id, candidat.value);
+    }
+    // Réinitialisation du formulaire
+    if (_id === "ajouter") {
+      candidat.value = {
+        firstName: "",
+        skills: "",
+        description: "",
+        address: "",
+        phone: "",
+        city: "",
+        email: "",
+        province: { _id: "", value: "" },
+        postalCode: "",
+      };
+    }
+    // Génération des compétences
+    generateSkillsFromTitle(candidat.value.skills);
+
+    // Redirection vers la liste des candidats
+    onGoToListe();
   }
-  if (Object.values(isError).every((result) => !result)) {
-  generateSkillsFromTitle(candidat.skills);
 }
-}
+
 
 function onUpdate() {
   router.push({ path: `/candidat/${candidat.value._id}/update` });
@@ -206,8 +211,17 @@ function onUpdate() {
 
 function onReset(e) {
   e.preventDefault();
-  console.log("onReset");
-  candidat.value = {};
+  candidat.value = {
+    firstName: "",
+    skills: "",
+    description: "",
+    address: "",
+    phone: "",
+    city: "",
+    email: "",
+    province: null,
+    postalCode: "",
+  };
 }
 
 function onGoToListe() {
@@ -222,6 +236,7 @@ function onOpenModalSuppression(e) {
 function onDelete(e) {
   deleteCandidates(_id);
   isOpenModalSuppression.value = false;
+  onGoToListe();
 }
 
 function onGoToView(e) {
@@ -232,22 +247,19 @@ function onGoToView(e) {
 
 function generateSkillsFromTitle(title) {
   // Séparer le titre en mots
-  const words = title.split(' ');
+  const words = title.split(" ");
 
   // Récupérer le premier mot (compétence)
-  const firstSkill = words.length > 0 ? words[0] : '';
+  const firstSkill = words.length > 0 ? words[0] : "";
 
   // Assigner la compétence
   skills.value = firstSkill;
 }
 
-
-
 onMounted(() => {
   if (_id === "ajouter") {
     isEditOrCreate.value = true;
   } else {
-    // console.log('toto', _id)
     getCandidateById(_id);
     if (isUpdate) isEditOrCreate.value = true;
   }
@@ -264,14 +276,12 @@ watchEffect(() => {
   if (Array.isArray(provincesListe.value)) {
     provinces.value = [...provincesListe.value];
     isLoadedProvinces.value = true;
-    console.log("provinces", provinces.value);
+    // console.log("provinces", provinces.value);
   }
 });
 </script>
+
 <style scoped>
-.page-padding {
-  padding: 3rem;
-}
 .presentation-title-border {
   border-left: solid #9b5ba2 10px;
 }
@@ -281,7 +291,7 @@ watchEffect(() => {
 
 .presentation-title-border h2 {
   font-weight: 500;
-  color:#707070;
+  color: #707070;
   font-size: 2rem !important;
 }
 </style>

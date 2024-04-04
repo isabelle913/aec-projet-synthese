@@ -78,14 +78,13 @@
   watchEffect(() => {
     if (Array.isArray(internshipOffersListe.value)) {
       offres.value = [...internshipOffersListe.value];
-      console.log(internshipOffersListe.value);
+      // console.log(internshipOffersListe.value);
     }
   });
   
 
   function AddOffer(e) {
   e.preventDefault();
-  console.log("Ajouter un offre de stage");
   router.push({ name: "OffredeStageAjout", params: { id:'new' } });
 }
 

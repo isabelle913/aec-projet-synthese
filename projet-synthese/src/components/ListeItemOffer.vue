@@ -115,7 +115,6 @@ function onView() {
 }
 
 function onEdit() {
-  console.log("onEdit", props.item._id);
   router.push({ name: "OffredeStageEdit", params: { id: props.item._id, action: "update" } });
 }
 function onOpenModalSuppression(e) {

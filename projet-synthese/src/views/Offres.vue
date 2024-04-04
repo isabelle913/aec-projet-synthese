@@ -31,8 +31,7 @@ const isLoading = ref(true);
 
 function AddOffer(e) {
   e.preventDefault();
-  console.log("Ajouter un offre de stage");
-  router.push({ name: "OffredeStageAjout", params: { id:'new' } });
+  router.push({ name: "OffredeStageAjout", params: { id: "new" } });
 }
 
 onMounted(() => {
