@@ -114,8 +114,18 @@ const _id = route.params.id;
 const isUpdate = route.params.action === "update" ? true : false;
 const isEditOrCreate = ref(false);
 
-const candidat = ref({});
-const skills = ref({});
+const candidat = ref({
+  firstName: "",
+  skills: "",
+  description: "",
+  address: "",
+  phone: "",
+  city: "",
+  email: "",
+  province: null,
+  postalCode: "",
+});
+const skills = ref("");
 const provinces = ref([]);
 
 const isLoadedProvinces = ref(false);
@@ -143,44 +153,57 @@ const theBtnValidateTitle = computed(() => {
 function onValidate(e) {
   e.preventDefault();
 
-  if (candidat.firstName === "") isError.firstName = true;
-  else isError.firstName = false;
+  // Réinitialisation des erreurs
+  Object.keys(isError).forEach(key => isError[key] = false);
 
-  if (candidat.skills === "") isError.skills = true;
-  else isError.skills = false;
+  // Validation des champs
+  const requiredFields = ['firstName', 'skills', 'description', 'address', 'city', 'email', 'province', 'postalCode'];
 
-  if (candidat.description === "") isError.description = true;
-  else isError.description = false;
+  requiredFields.forEach(field => {
+    if (!candidat.value[field]) {
+      isError[field] = true;
+    } else if (field === 'phone' && !validatePhone(candidat.value[field])) {
+      isError[field] = true;
+    } else if (field === 'email' && !validateEmail(candidat.value[field])) {
+      isError[field] = true;
+    } else if (field === 'province' && !candidat.value[field]._id) {
+      isError[field] = true;
+    } else if (field === 'postalCode' && !validatePostalCode(candidat.value[field])) {
+      isError[field] = true;
+    } else {
+      isError[field] = false; // Réinitialiser l'erreur si le champ est valide
+    }
+  });
 
-  if (candidat.address === "") isError.address = true;
-  else isError.address = false;
-
-  if (!validatePhone(candidat.phone)) isError.phone = true;
-  else isError.phone = false;
-
-  if (candidat.city === "") isError.city = true;
-  else isError.city = false;
-
-  if (!validateEmail(candidat.email)) isError.email = true;
-  else isError.email = false;
-
-  if (!candidat.province) isError.province = true;
-  else isError.province = false;
-
-  if (!validatePostalCode(candidat.postalCode)) isError.postalCode = true;
-
-  if (Object.values(isError).every((result) => !result)) {
+  // Si aucune erreur de validation
+  if (!Object.values(isError).some(error => error)) {
     if (_id === "ajouter") {
       addCandidates(candidat.value);
-      candidat.value = {};
     } else {
       editCandidates(_id, candidat.value);
     }
-  }
-  if (Object.values(isError).every((result) => !result)) {
-    generateSkillsFromTitle(candidat.skills);
+    // Réinitialisation du formulaire
+    if (_id === "ajouter") {
+      candidat.value = {
+        firstName: "",
+        skills: "",
+        description: "",
+        address: "",
+        phone: "",
+        city: "",
+        email: "",
+        province: { _id: "", value: "" },
+        postalCode: "",
+      };
+    }
+    // Génération des compétences
+    generateSkillsFromTitle(candidat.value.skills);
+
+    // Redirection vers la liste des candidats
+    onGoToListe();
   }
 }
+
 
 function onUpdate() {
   router.push({ path: `/candidat/${candidat.value._id}/update` });
@@ -188,7 +211,17 @@ function onUpdate() {
 
 function onReset(e) {
   e.preventDefault();
-  candidat.value = {};
+  candidat.value = {
+    firstName: "",
+    skills: "",
+    description: "",
+    address: "",
+    phone: "",
+    city: "",
+    email: "",
+    province: null,
+    postalCode: "",
+  };
 }
 
 function onGoToListe() {
@@ -201,9 +234,9 @@ function onOpenModalSuppression(e) {
 }
 
 function onDelete(e) {
-  e.preventDefault();
   deleteCandidates(_id);
   isOpenModalSuppression.value = false;
+  onGoToListe();
 }
 
 function onGoToView(e) {
@@ -247,6 +280,7 @@ watchEffect(() => {
   }
 });
 </script>
+
 <style scoped>
 .presentation-title-border {
   border-left: solid #9b5ba2 10px;

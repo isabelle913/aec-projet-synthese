@@ -1,9 +1,8 @@
 export const mockCandidats = [
   {
     _id: "1",
-    image: "https://assets.ezmax.ca/Logo_VD_e_Zmax_2124845685.png",
-    name: "Plume Traverse",
-    titre:"UX Designer",
+    firstName: "Plume",
+    lastName: "Traverse",
     address: "2500, boul. Daniel-Johnson, bureau 800",
     postalCode: "H7T 2P6",
     city: "Laval",
@@ -11,6 +10,9 @@ export const mockCandidats = [
       _id: "1",
       value: "Québec",
     },
+    skills: [
+      "UX Designer"
+    ],
     phone: "1-844-403-9629",
     email: "plumetraverse@gmail.com",
     description: "Les Solutions eZmax inc. se spécialise dans la conception d’applications d’affaires innovantes et optimisées.",
