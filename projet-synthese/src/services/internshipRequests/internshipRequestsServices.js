@@ -43,7 +43,6 @@ export default function InternshipRequestsServices() {
       if (response.ok) {
         success.value = true;
         // console.log("Requête POST réussie !");
-        // Vous pouvez ajouter ici d'autres actions après le succès de la requête.
       } else {
         console.error("Échec de la requête POST.");
         success.value = false;
