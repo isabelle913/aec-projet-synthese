@@ -2,7 +2,7 @@
   <div class="page-background page-padding flex flex-col gap-y-12">
     <div>
       <h2>Offres de stage</h2>
-      <BtnBase class="mb-12 mt-20" title="Ajouter un offre de stage" btn-class="btn-offrestage" :action="AddOffer" />
+      <BtnBase class="mb-12 mt-20" title="Ajouter une offre de stage" btn-class="btn-offrestage" :action="AddOffer" />
     </div>
 
     <ListeBase v-if="internshipOffers.length > 0" :liste-items="internshipOffers" />

@@ -2,14 +2,17 @@
     <div class="DemandeStage__Titre">
       <h1>Ajouter une offre de stage</h1>
     </div>
-  
+  <form>
     <section class="bg-white p-10 DemandeStage__section">
+      <div v-if="showSuccessMessage" class="text-green-500 mt-4">
+        Offre de stage ajoutée avec succès !
+      </div>
       <div>
         <div class="mb-16 mr-2">
           <label class="text-bg font-bold" for="title">Titre du poste</label>
           <input
             class="shadow appearance-none border rounded w-full py-7 px-3 mt-5 leading-tight focus:outline-none focus:shadow-outline input"
-            placeholder="Veuillez entrer le titre du poste"
+            placeholder="Ex.: Intégrateur Web"
             type="text"
             v-model="title"
             name="title"
@@ -21,7 +24,7 @@
           <label class="text-bg font-bold" for="description">Descirpion du poste</label>
           <input
             class="shadow appearance-none border rounded w-full py-7 px-3 mt-5 leading-tight focus:outline-none focus:shadow-outline input"
-            placeholder="Veuillez entrer une brève description du poste"
+            placeholder="Ex.: Besoin d'un intégrateur Front-end Junior"
             type="text"
             v-model="description" name="description"
             required
@@ -38,24 +41,6 @@
         </div>
   
         <h3>Informations sur l'enterprise</h3>
-
-
-        {{ id_enterprise }}<br>
-        {{ image_enterprise  }}<br>
-        {{ name_enterprise }}<br>
-        {{ adresse_enterprise  }}<br>
-        {{ postalCode_enterprise  }}<br>
-        {{ city_enterprise }}<br>
-        {{ province_enterprise  }}<br>
-        provincevalue_enterprise  : {{ provincevalue_enterprise  }}<br>
-        {{ phone_enterprise  }}<br>
-        {{ email_enterprise  }}<br>
-        {{ description_enterprise  }}<br>
-        activitySectorid_enterprise : {{ activitySectorid_enterprise  }}<br>
-        activitySectorvalue_enterprise : {{ activitySectorvalue_enterprise  }}<br>
-        {{ website_enterprise  }}<br>
-
-
       
         <div class="grid grid-cols-12 gap-5 my-8 DemandeStage__section__info">
           <div class="col-span-12 md:col-span-6 max-md:p-10 ">
@@ -64,7 +49,6 @@
                 <label class="text-bg font-bold" for="description_offre">Courte présentation de l'enterprise</label>
                 <input
                   class="shadow appearance-none border rounded w-full py-7 px-3 mt-5 leading-tight focus:outline-none focus:shadow-outline input"
-                  placeholder="ici une courte présentation de l'enterprise"
                   type="text"
                   v-model="description_enterprise"
                   required
@@ -78,7 +62,6 @@
                 <label class="text-bg font-bold" for="city_enterprise">Ville</label>
                 <input
                   class="shadow appearance-none border rounded w-full py-7 px-3 mt-5 leading-tight focus:outline-none focus:shadow-outline input"
-                  placeholder="ici la ville de l'enterprise"
                   type="text"
                   v-model="city_enterprise"
                   required
@@ -89,10 +72,9 @@
           <div class="col-span-12 md:col-span-6 max-md:p-10 ">
             <div class="DemandeStage__section__info__item">
               <div class="mb-16 mr-2">
-                <label class="text-bg font-bold" for="phone_enterprise">Numéro de téléphone de l'enterprise :</label>
+                <label class="text-bg font-bold" for="phone_enterprise">Numéro de téléphone de l'enterprise</label>
                 <input
                   class="shadow appearance-none border rounded w-full py-7 px-3 mt-5 leading-tight focus:outline-none focus:shadow-outline input"
-                  placeholder="ici le numéro de téléphone de l'enterprise"
                   type="text"
                   v-model="phone_enterprise"
                   required
@@ -104,19 +86,15 @@
                 <label class="text-bg font-bold" for="email_enterprise">Courriel de l'enterprise</label>
                 <input
                   class="shadow appearance-none border rounded w-full py-7 px-3 mt-5 leading-tight focus:outline-none focus:shadow-outline input"
-                  placeholder="ici le courriel de l'enterprise"
                   type="text"
                   v-model="email_enterprise"
                   required
                 />
               </div>
             </div>
-
-
-
           </div>
         </div>
-  
+        <h3>Informations sur l'offre de stage</h3>
         <div class="DemandeStage__section__info__item">
           <div class="mb-16">
             <label class="text-bg font-bold" for="requiredSkills">Compétences requises</label>
@@ -131,7 +109,7 @@
           </div>
         </div>
   
-        <h3>Informations sur l'offre de stage</h3>
+        
         <div class="grid grid-cols-12 gap-5 my-8 mb-20 DemandeStage__section__info">
           <div class="col-span-12 md:col-span-6 max-md:p-10 ">
             <div class="DemandeStage__section__info__item">
@@ -141,13 +119,7 @@
                   <option disabled value="">Sélectionnez une province</option>
                   <option v-for="province in provincesListe" :key="province._id" :value="province._id">{{ province.value }}</option>
                 </select>
-
               </div>
-              
-              <p>{{ id_province}}</p>
-      vdsv
-      <p>{{ value_province}}</p>
-      
             </div>
   
             <div class="DemandeStage__section__info__item">
@@ -155,7 +127,7 @@
                 <label class="text-bg font-bold" for="weeklyWorkHours">Heures par semaine</label>
                 <input
                   class="shadow appearance-none border rounded w-full py-7 px-3 mt-5 leading-tight focus:outline-none focus:shadow-outline input"
-                  placeholder="Heures par semaine"
+                  placeholder="Ex.: 35"
                   type="text"
                   v-model="weeklyWorkHours" name="weeklyWorkHours"
                   required
@@ -167,7 +139,7 @@
                 <label class="text-bg font-bold" for="salary">Salaire</label>
                 <input
                   class="shadow appearance-none border rounded w-full py-7 px-3 mt-5 leading-tight focus:outline-none focus:shadow-outline input"
-                  placeholder="Salaire"
+                  placeholder="Ex.: 32"
                   type="text"
                   v-model="salary"
                   name="salary"
@@ -191,14 +163,13 @@
             <div class="DemandeStage__section__info__item">
               <div class="mb-16 mr-2">
                 <label class="text-bg font-bold" for="paid">Rémunération</label>
-                <input
-                  class="shadow appearance-none border rounded w-full py-7 px-3 mt-5 leading-tight focus:outline-none focus:shadow-outline input"
-                  placeholder="Rémunération"
-                  type="text"
-                  v-model="paid"
-                  name="paid"
-                  required
-                />
+
+                <select  v-model="paid" name="paid"  class="shadow appearance-none border rounded w-full py-7 px-3 mt-5 leading-tight focus:outline-none focus:shadow-outline input">
+                  <option disabled value="">Sélectionnez une type de rémunération</option>
+                  <option value="DISCRETIONARY">DISCRETIONARY</option>
+                  <option value="PAID">PAID</option>
+                  <option value="UNPAID">UNPAID</option>
+                </select>
               </div>
             </div>
   
@@ -232,18 +203,13 @@
   
     <div class="DemandeStage__btn">
       <button
-        class="text-slate-400 border-solid text-2xl border-slate-400 border-2 py-4 px-4 mt-24 rounded-lg focus:outline-none focus:shadow-outline"
-        @click="cancel"
-      >
-        Annuler
-      </button>
-      <button
         class="flex items-center text-white border-solid text-2xl py-4 px-4 mt-24 rounded-lg focus:outline-none focus:shadow-outline btn"
         @click="save"
       >
         Ajouter
       </button>
     </div>
+  </form>
   </template>
   
   <script setup>
@@ -255,6 +221,8 @@
   import typeService from "../services/internshipTypes/internshipTypesServices";
   
       const router = useRouter();
+
+      const showSuccessMessage = ref(false);
 
       const title = ref("");
       const description = ref("");
@@ -287,9 +255,6 @@
       const  id_province = ref("");
       const value_province = ref("");
 
-
-
-
       const requiredSkills = ref([]);
 
       //type
@@ -299,21 +264,20 @@
 
       const paid = ref("");
 
-
-  const { provincesListe, allProvinces, getProvinceById } = EnterpriseProvince();
-  const { enterpriseListe, allEnterprises, getEntrepriseById } = EnterpriseService();
-  const { internshipTypesListe, allInternshipTypes } = typeService();
-  const { addInternshipOffer } = InternshipOffersService();
-  
-  const save = async () => {
-    const skillsArray = requiredSkills.value.split(",").map(skill => skill.trim());
-    const newOffer = {
+      const { provincesListe, allProvinces, getProvinceById } = EnterpriseProvince();
+      const { enterpriseListe, allEnterprises, getEntrepriseById } = EnterpriseService();
+      const { internshipTypesListe, allInternshipTypes, getInternshipTypeById } = typeService();
+      const { addInternshipOffer } = InternshipOffersService();
       
-        title: title.value,
+      const save = async () => {
+      const skillsArray = requiredSkills.value.split(",").map(skill => skill.trim());
+      const newOffer = {
+      
+    title: title.value,
     description: description.value,
     enterprise: {
       _id: id_enterprise.value,
-      image: image_enterprise.value,
+      image: "image",
       name: name_enterprise.value,
       address: adresse_enterprise.value,
       postalCode: postalCode_enterprise.value,
@@ -329,12 +293,12 @@
         _id: activitySectorid_enterprise.value,
         value: activitySectorvalue_enterprise.value,
       },
-      website: website_enterprise.value,
+      website: "WebSite@gmail.com",
     },
     startDate: startDate.value,
     endDate: endDate.value,
-    weeklyWorkHours: weeklyWorkHours.value,
-    salary: salary.value,
+    weeklyWorkHours: parseInt(weeklyWorkHours.value),
+    salary: parseInt(salary.value),
     province: {
       _id: id_province.value,
       value: value_province.value,
@@ -345,7 +309,8 @@
       value: value_internshipType.value,
     },
     paid: paid.value,
-    isActive: false 
+    
+    isActive: false,
     };
     
   
@@ -353,7 +318,8 @@
     await addInternshipOffer(newOffer);
     console.log("Nouvelle offre de stage ajoutée avec succès !");
     console.log(newOffer);
-    //router.push({ name: 'OffredeStage' });
+    showSuccessMessage.value = true;
+
   } catch (error) {
     console.error("Erreur lors de l'ajout de l'offre de stage :", error);
   }
@@ -374,7 +340,7 @@
       id_enterprise.value = enterprise._id;
       image_enterprise.value = enterprise.image;
       name_enterprise.value = enterprise.name;
-      adresse_enterprise.value = enterprise.adresse;
+      adresse_enterprise.value = enterprise.address;
       postalCode_enterprise.value = enterprise.postalCode;
       city_enterprise.value = enterprise.city;
       province_enterprise.value = enterprise.province._id;
@@ -402,14 +368,31 @@
       console.error("Erreur lors de la récupération des informations de l'enterprise :", error);
     }
   };
+
+  const loadTypeInfo = async () => {
+    if (!selectedType.value) return;
+    try {
+      const type = await getInternshipTypeById(selectedType.value);
+      id_internshipType.value = type._id;
+      value_internshipType.value = type.value;
+
+    } catch (error) {
+      console.error("Erreur lors de la récupération des informations de l'enterprise :", error);
+    }
+  };
   
   watch(selectedEnterprise, () => {
     loadEnterpriseInfo();
+  });
+  watch(selectedProvince, () => {
     loadProvinceInfo();
   });
-  
-  const cancel = () => {
-    // Réinitialisez les valeurs des champs si nécessaire
-  };
+  watch(selectedType, () => {
+    loadTypeInfo();
+  });
+
+
+  // validation : 
+
   </script>
   

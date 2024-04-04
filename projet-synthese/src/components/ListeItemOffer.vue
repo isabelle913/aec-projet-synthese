@@ -116,8 +116,7 @@ function onView() {
 
 function onEdit() {
   console.log("onEdit", props.item._id);
-  // TODO  Immane chemin pour update OFFRE STP  décommenter lorsque offre prêt
-  // router.push({ name: "OffredeStageDetail", params: { id: props.item._id, action: "update" } }); à vérifier
+  router.push({ name: "OffredeStageEdit", params: { id: props.item._id, action: "update" } });
 }
 function onOpenModalSuppression(e) {
   e.preventDefault();
