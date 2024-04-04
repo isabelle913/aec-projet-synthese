@@ -45,6 +45,18 @@ const router = createRouter({
       props: true,
     },
     {
+      path: "/demande/_:id",
+      name: "demande",
+      component: DemandeStagePage1,
+      children: [
+        {
+          path: ":action",
+          name: "demande",
+          component: DemandeStagePage1,
+        },
+      ],
+    },
+    {
       path: "/demandestagepage2",
       name: "demandestagepage2",
       component: DemandeStagePage2,
