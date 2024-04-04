@@ -1,7 +1,7 @@
 <template>
   <section class="page-background page-padding">
     <h2>Candidats</h2>
-    <BtnBase class="mb-12 mt-20" title="Ajouter un candidat" btn-class="btn-candidats" @click="onAddCandidat" />
+    <BtnBase class="mb-12 mt-20" title="Ajouter un candidat" btn-class="btn-candidats" :action="onAddCandidat" />
     <div class="flex flex-wrap gap-6">
       <CardCandidat v-for="candidat in candidates" :key="candidat._id" :candidat="candidat" />
     </div>

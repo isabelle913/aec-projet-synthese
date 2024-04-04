@@ -112,8 +112,7 @@ function onAccept() {
 }
 function onView() {
   console.log("onView", props.item._id);
-  // TODO OFFRE décommenter lorsque offre prêt
-  // router.push({ name: "offre", params: { id: props.item._id } });
+  router.push({ name: "OffredeStageDetail", params: { id: props.item._id } });
 }
 
 function onEdit() {

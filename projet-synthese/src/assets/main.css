@@ -94,12 +94,12 @@ h1 {
 }
 
 .input:focus {
-  border-color: #64b5dd;
+  border-color: #0c9da4;
   outline: none;
 }
 
 .btn {
-  background-color: #64b5dd;
+  background-color: #0c9da4;
 }
 .btn:hover {
   background-color: #86ced1;
@@ -107,90 +107,76 @@ h1 {
 
 /* $color-text-principale: #c5c5c5; //Couleur dans le paragraphe ou contenu. */
 nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+  padding: 30px 0;
+  text-align: left !important;
+  width: 300px;
 }
 
-.navbar__container {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  padding-left: 1rem;
-  height: 4rem;
-  width: 100%;
-  margin: 0 auto;
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
-.navbar__container__item {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  font-size: 1.6rem;
-  gap: 1.5rem;
+li {
+  margin-bottom: 20px;
 }
 
-.nav_btn_tableau {
-  color: #64b5dd;
-}
-.nav_btn_tableau:hover {
-  color: #fff;
-}
-.nav_btn_tableau div {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+a {
+  text-decoration: none;
 }
 
-.nav_btn_demandeStage {
-  padding-right: 1rem;
-  border-right: 3.5px solid;
+a:hover {
+  font-weight: bold;
+}
+
+span {
+  font-size: 1.7rem;
+}
+
+.withBorder {
+  border-right: 3px solid;
+}
+
+#dashboard.withBorder {
+  border-right: #0c9da4 solid;
+}
+
+#demandesStage.withBorder {
+  border-right: #d2a350 solid;
+}
+
+#offreStage.withBorder {
+  border-right: #ba2025 solid;
+}
+
+#candidats.withBorder {
+  border-right: #7f2987 solid;
+}
+
+#entreprises.withBorder {
+  border-right: #86a8e6 solid;
+}
+
+#dashboard span {
+  color: #0c9da4;
+  font-weight: bold;
+}
+
+#demandesStage span {
   color: #d2a350;
 }
-.nav_btn_demandeStage:hover {
-  color: #fff;
-}
-.nav_btn_demandeStage div {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
 
-.nav_btn_offres {
+#offreStage span {
   color: #ba2025;
 }
-.nav_btn_offres:hover {
-  color: #fff;
-}
-.nav_btn_offres div {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
 
-.nav_btn_candidats {
+#candidats span {
   color: #7f2987;
 }
-.nav_btn_candidats:hover {
-  color: #fff;
-}
-.nav_btn_candidats div {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
 
-.nav_btn_entreprises {
+#entreprises span {
   color: #86a8e6;
-}
-.nav_btn_entreprises:hover {
-  color: #fff;
-}
-.nav_btn_entreprises div {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
 }
 
 /* $color-text-principale: #c5c5c5; //Couleur dans le paragraphe ou contenu. */
@@ -275,11 +261,11 @@ nav {
   color: #363636;
 }
 .DemandeStage__section h2 {
-  color: #64b5dd;
+  color: #0c9da4;
   margin-bottom: 2rem;
 }
 .DemandeStage__section h3 {
-  color: #64b5dd;
+  color: #0c9da4;
 }
 
 .DemandeStage__section__Entete {
@@ -299,7 +285,7 @@ nav {
 .file-input::before {
   content: "Parcourir";
   display: inline-block;
-  background-color: #64b5dd;
+  background-color: #0c9da4;
   color: #fff;
   padding: 8px 12px;
   border-radius: 4px;
@@ -400,7 +386,7 @@ nav {
   background: #000;
   margin: 0 15px;
   animation: loader infinite 0.3s alternate;
-  background: #64b5dd;
+  background: #0c9da4;
 }
 
 .d2 {
@@ -427,26 +413,26 @@ nav {
 
 /* $color-text-principale: #c5c5c5; //Couleur dans le paragraphe ou contenu. */
 .presentation-body-title {
-  color: #64b5dd;
+  color: #0c9da4;
 }
 
 .presentation-title-border {
-  border-left: solid #64b5dd 10px;
+  border-left: solid #0c9da4 10px;
 }
 
 .btn-entreprise {
-  background-color: #64b5dd;
+  background-color: #0c9da4;
 }
 .btn-entreprise:hover {
-  background-color: #2785b4;
+  background-color: #054245;
 }
 .btn-entreprise__outline {
-  border: solid 1px #64b5dd;
-  color: #64b5dd;
+  border: solid 1px #0c9da4;
+  color: #0c9da4;
 }
 .btn-entreprise__outline:hover {
-  border: solid 1px #2785b4;
-  color: #2785b4;
+  border: solid 1px #054245;
+  color: #054245;
 }
 
 /* $color-text-principale: #c5c5c5; //Couleur dans le paragraphe ou contenu. */

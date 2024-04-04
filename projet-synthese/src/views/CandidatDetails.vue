@@ -164,6 +164,8 @@ function onValidate(e) {
   if (candidat.firstName === "") isError.firstName = true;
   else isError.firstName = false;
 
+  isError.firstName = candidat.firstName === "";
+
   if (candidat.description === "") isError.description = true;
   else isError.description = false;
 
