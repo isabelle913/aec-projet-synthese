@@ -94,7 +94,7 @@
       <!-- boutons bas -->
       <div class="flex justify-center flex-wrap md:justify-end gap-5 py-8">
         <!-- onView -->
-        <BtnBase v-if="isViewStep" title="Retour à la liste des entreprises" icon="list" color="#f9cb40" :action="onGoToListe" btn-class="btn-entreprise" />
+        <BtnBase v-if="isViewStep" title="Retour à la liste des entreprises" icon="list" :action="onGoToListe" btn-class="btn-entreprise" />
 
         <!-- onUpdate or new -->
         <BtnBase v-if="!isViewStep" title="Annuler" icon="close" outline btn-class="btn-entreprise__outline" :action="onGoToListe" />

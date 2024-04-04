@@ -122,8 +122,7 @@ function onView() {
 
 function onEdit() {
   console.log("onEdit", props.item._id);
-  // TODO Moussa quel url veux-tu utiliser
-  //  router.push({ name: "candidat", params: { id: props.item._id } });
+  router.push({ path: `demande/${props.item._id}` });
 }
 
 function onOpenModalSuppression(e) {
