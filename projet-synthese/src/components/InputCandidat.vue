@@ -1,7 +1,7 @@
 <template>
   <div class="border-l-8 border-l-gray-600 px-4">
-    <div class="text-gray-600 mb-4 text-2xl">{{ label }}</div>
-    <div v-if="!isEdit" class="text-gray-400">{{ theModel }}</div>
+    <div class="text-gray-600 mb-4 text-2xl font-normal">{{ label }}</div>
+    <div v-if="!isEdit" class="text-gray-400 font-normal">{{ theModel }}</div>
 
     <div v-else>
       <label for="name" class="hidden">{{ label }}</label>
