@@ -80,7 +80,6 @@
             <label class="text-bg font-bold" for="requiredSkills">Compétences requises</label>
             <textarea
               class="text-justify shadow appearance-none border rounded w-full py-7 px-3 mt-5 leading-tight focus:outline-none focus:shadow-outline input"
-              placeholder="HTML, CSS, JavaScript, React, vue.js, GIT, PHP, MySQL. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet quam justo. Aliquam interdum, facilisis eros, ut dapibus quam hendrerit nec."
               name="requiredSkills"
               cols="20"
               rows="4"
@@ -183,12 +182,6 @@
   
     <div class="DemandeStage__btn">
       <button
-        class="text-slate-400 border-solid text-2xl border-slate-400 border-2 py-4 px-4 mt-24 rounded-lg focus:outline-none focus:shadow-outline"
-        @click="cancel"
-      >
-        Annuler
-      </button>
-      <button
         class="flex items-center text-white border-solid text-2xl py-4 px-4 mt-24 rounded-lg focus:outline-none focus:shadow-outline btn"
         @click="edit"
       >
@@ -289,9 +282,9 @@ const selectedProvince = ref("");
   });
   
   const edit = async () => {
-    
+
     const editOffer = {
-      
+    
     title: title.value,
     description: description.value,
     enterprise: {
@@ -322,7 +315,7 @@ const selectedProvince = ref("");
       _id: id_province.value,
       value: value_province.value,
     },
-    requiredSkills: requiredSkills,
+    requiredSkills: requiredSkills.value.join(','),
     internshipType:  {
       _id: id_internshipType.value,
       value: value_internshipType.value,

@@ -117,8 +117,7 @@ function onView() {
 
 function onEdit() {
   console.log("onEdit", props.item._id);
-  // TODO  OFFRE décommenter lorsque offre prêt
-  // router.push({ name: "offre", params: { id: props.item._id, action: "update" } });
+ router.push({ name: "OffredeStageEdit", params: { id: props.item._id, action: "update" } });
 }
 function onOpenModalSuppression(e) {
   e.preventDefault();

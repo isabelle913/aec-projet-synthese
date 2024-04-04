@@ -2,7 +2,7 @@
     <div class="DemandeStage__Titre">
       <h1>Ajouter une offre de stage</h1>
     </div>
-  
+  <form>
     <section class="bg-white p-10 DemandeStage__section">
       <div v-if="showSuccessMessage" class="text-green-500 mt-4">
         Offre de stage ajoutée avec succès !
@@ -203,19 +203,13 @@
   
     <div class="DemandeStage__btn">
       <button
-        class="text-slate-400 border-solid text-2xl border-slate-400 border-2 py-4 px-4 mt-24 rounded-lg focus:outline-none focus:shadow-outline"
-        @click="cancel"
-      >
-        Annuler
-      </button>
-      <button
         class="flex items-center text-white border-solid text-2xl py-4 px-4 mt-24 rounded-lg focus:outline-none focus:shadow-outline btn"
         @click="save"
       >
         Ajouter
       </button>
     </div>
-
+  </form>
   </template>
   
   <script setup>
@@ -261,9 +255,6 @@
       const  id_province = ref("");
       const value_province = ref("");
 
-
-
-
       const requiredSkills = ref([]);
 
       //type
@@ -273,15 +264,14 @@
 
       const paid = ref("");
 
-
-  const { provincesListe, allProvinces, getProvinceById } = EnterpriseProvince();
-  const { enterpriseListe, allEnterprises, getEntrepriseById } = EnterpriseService();
-  const { internshipTypesListe, allInternshipTypes, getInternshipTypeById } = typeService();
-  const { addInternshipOffer } = InternshipOffersService();
-  
-  const save = async () => {
-    const skillsArray = requiredSkills.value.split(",").map(skill => skill.trim());
-    const newOffer = {
+      const { provincesListe, allProvinces, getProvinceById } = EnterpriseProvince();
+      const { enterpriseListe, allEnterprises, getEntrepriseById } = EnterpriseService();
+      const { internshipTypesListe, allInternshipTypes, getInternshipTypeById } = typeService();
+      const { addInternshipOffer } = InternshipOffersService();
+      
+      const save = async () => {
+      const skillsArray = requiredSkills.value.split(",").map(skill => skill.trim());
+      const newOffer = {
       
     title: title.value,
     description: description.value,
@@ -400,9 +390,9 @@
   watch(selectedType, () => {
     loadTypeInfo();
   });
-  const cancel = () => {
-    title.value = ""; // Réinitialisation du titre
-    description.value = ""; // Réinitialisation de la description
-  };
+
+
+  // validation : 
+
   </script>
   
