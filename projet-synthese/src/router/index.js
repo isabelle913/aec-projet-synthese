@@ -14,7 +14,7 @@ import OffredeStage from "@/views/OffredeStage.vue";
 import OffredeStageAjout from "@/views/OffredeStageAjout.vue";
 import OffredeStageDetail from "@/views/OffredeStageDetail.vue";
 import OffredeStageEdit from "@/views/OffredeStageEdit.vue";
-import CandidatAjout from "@/views/CandidatAjout.vue";
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -96,11 +96,6 @@ const router = createRouter({
       path: "/candidats",
       name: "candidats",
       component: Candidats,
-    },
-    {
-      path: "/ajouter-candidat",
-      name: "ajouter-candidat",
-      component: CandidatAjout,
     },
     {
       path: "/candidat/:id",
