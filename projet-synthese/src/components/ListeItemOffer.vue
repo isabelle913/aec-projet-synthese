@@ -2,7 +2,6 @@
   <div class="py-4 border-b-2 border-b-gray-200">
     <div class="grid grid-cols-12">
       <!-- Poste  -->
-      <!-- TODO pourquoi dédoublé?? -->
       <div v-if="isTableaubord" class="col-span-12 sm:col-span-8 lg:col-span-4 mr-4 pl-4 border-item" :class="theBorderClass">
         <div class="flex">
           <div class="p-2 mx-2 flex flex-col justify-center rounded-lg" :class="theBgClass">
@@ -39,9 +38,9 @@
       </div>
       <!-- Actions  -->
       <div class="col-span-12 my-4" :class="isTableaubord ? 'sm:col-span-4 lg:col-span-3' : 'sm:col-span-3 lg:col-span-2'">
-        <div class="h-full flex justify-between">
-          <!-- TODO iminuer bouton sur petit écran -->
-          <BtnBase v-if="isTableaubord" title="Accepter" color="#BCED09" small :action="onAccept" />
+        <div class="h-full flex justify-between gap-2">
+          <BtnBase v-if="isTableaubord" class="2xl:hidden" icon="Done" :action="onAccept" show-icon-only icon-color="green" icon-size="text-6xl" />
+          <BtnBase v-if="isTableaubord" class="hidden 2xl:block" title="Accepter" btn-class="btn-accept" small :action="onAccept" />
           <div class="flex items-center gap-5">
             <div class="cursor-pointer flex flex-col justify-center" @click="onView"><span class="material-symbols-outlined text-blue-400"> visibility </span></div>
             <div class="cursor-pointer flex flex-col justify-center" @click="onEdit"><span class="material-symbols-outlined text-amber-600"> edit </span></div>
@@ -81,8 +80,6 @@ const { objet, getActivitySectorById } = ActivityServices();
 const { deleteInternshipOffer, editInternshipOffer } = InternshipOffersService();
 const router = useRouter();
 
-const emit = defineEmits(["updateData"]);
-
 const theActivitySector = ref("n/d");
 const isOpenModalSuppression = ref(false);
 
@@ -92,13 +89,13 @@ const theModalSuppressionDescription = computed(() => {
 
 const theBorderClass = computed(() => {
   if (props.isTableaubord) return "border-offres";
-  if (!props.item.isActive) return "border-inactive";
+  if (!props.item.isActive) return "border-offres-inactive";
   else return "border-offres";
 });
 
 const theBgClass = computed(() => {
   if (props.isTableaubord) return "bg-offres";
-  if (!props.item.isActive) return "bg-inactive";
+  if (!props.item.isActive) return "bg-offres-inactives";
   else return "bg-offres";
 });
 
@@ -109,16 +106,18 @@ const theDisplayDate = computed(() => {
 function onAccept() {
   props.item.isActive = true;
   editInternshipOffer(props.item);
+  setTimeout(() => {
+    location.reload();
+  }, 1500);
 }
 function onView() {
-  console.log("onView", props.item._id);
   router.push({ name: "OffredeStageDetail", params: { id: props.item._id } });
 }
 
 function onEdit() {
   console.log("onEdit", props.item._id);
-  // TODO  OFFRE décommenter lorsque offre prêt
-  // router.push({ name: "offre", params: { id: props.item._id, action: "update" } });
+  // TODO  Immane chemin pour update OFFRE STP  décommenter lorsque offre prêt
+  // router.push({ name: "OffredeStageDetail", params: { id: props.item._id, action: "update" } }); à vérifier
 }
 function onOpenModalSuppression(e) {
   e.preventDefault();
@@ -128,7 +127,9 @@ function onOpenModalSuppression(e) {
 function onDelete() {
   deleteInternshipOffer(props.item._id);
   isOpenModalSuppression.value = false;
-  emit("updateData");
+  setTimeout(() => {
+    location.reload();
+  }, 1500);
 }
 
 onMounted(() => {

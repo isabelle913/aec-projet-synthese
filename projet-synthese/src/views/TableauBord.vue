@@ -59,7 +59,7 @@ watchEffect(() => {
     });
   }
 });
-// TODO écouter enregistrement du cours
+
 watchEffect(() => {
   if (Array.isArray(internshipOffersListe.value)) {
     internshipOffers.value = [...internshipOffersListe.value];

@@ -2,10 +2,9 @@
   <div class="py-4 border-b-2 border-b-gray-200">
     <div class="grid grid-cols-12">
       <!-- Poste / Profil -->
-      <!-- TODO pourquoi dédoublé?? -->
       <div v-if="isTableaubord" class="col-span-12 sm:col-span-8 lg:col-span-4 mr-4 pl-4 border-item" :class="theBorderClass">
         <div class="flex">
-          <div class="p-2 mx-2 flex flex-col justify-center rounded-lg bg-demandes">
+          <div class="p-2 mx-2 flex flex-col justify-center rounded-lg" :class="theBgClass">
             <span class="material-symbols-outlined text-4xl">school</span>
           </div>
           <div>
@@ -16,7 +15,7 @@
       </div>
       <div v-else class="col-span-12 sm:col-span-8 lg:col-span-4 sm:mr-4 pl-4 border-item" :class="theBorderClass">
         <div class="flex">
-          <div class="p-2 mx-2 flex flex-col justify-center rounded-lg bg-demandes">
+          <div class="p-2 mx-2 flex flex-col justify-center rounded-lg" :class="theBgClass">
             <span class="material-symbols-outlined text-4xl">school</span>
           </div>
           <div>
@@ -43,9 +42,9 @@
       </div>
       <!-- Actions -->
       <div class="col-span-12 my-4" :class="isTableaubord ? 'sm:col-span-4 lg:col-span-3' : 'sm:col-span-3 lg:col-span-2'">
-        <div class="h-full flex justify-between">
-          <!-- TODO Diminuer bouton sur petit écran -->
-          <BtnBase v-if="isTableaubord" title="Accepter" color="#BCED09" small :action="onAccept" />
+        <div class="h-full flex justify-between gap-2">
+          <BtnBase v-if="isTableaubord" class="2xl:hidden" icon="Done" :action="onAccept" show-icon-only icon-color="green" icon-size="text-6xl" />
+          <BtnBase v-if="isTableaubord" class="hidden 2xl:block" title="Accepter" btn-class="btn-accept" small :action="onAccept" />
           <div class="flex items-center gap-5">
             <div class="cursor-pointer flex flex-col justify-center" @click="onView"><span class="material-symbols-outlined text-blue-400"> visibility </span></div>
             <div class="cursor-pointer flex flex-col justify-center" @click="onEdit"><span class="material-symbols-outlined text-amber-600"> edit </span></div>
@@ -83,25 +82,22 @@ const props = defineProps({
 const { deleteInternshipRequest, editInternshipRequest } = InternshipRequestsServices();
 const router = useRouter();
 
-const emit = defineEmits(["updateData"]);
-
 const isOpenModalSuppression = ref(false);
 
 const theModalSuppressionDescription = computed(() => {
   return props.item.title + " - " + theDisplayName.value;
 });
 
-// TODO vérifier si bonne couleur
 const theBorderClass = computed(() => {
-  if (!props.item.isActive) return "border-inactive";
+  if (props.isTableaubord) return "border-demandes";
+  if (!props.item.isActive) return "border-demandes-inactives";
   else return "border-demandes";
 });
 
-// TODO implanter
 const theBgClass = computed(() => {
-  if (props.isTableaubord) return "bg-offres";
-  if (!props.item.isActive) return "bg-inactive";
-  else return "bg-offres";
+  if (props.isTableaubord) return "bg-demandes";
+  if (!props.item.isActive) return "bg-demandes-inactives";
+  else return "bg-demandes";
 });
 
 const theDisplayName = computed(() => {
@@ -115,6 +111,9 @@ const theDisplayDate = computed(() => {
 function onAccept() {
   props.item.isActive = true;
   editInternshipRequest(props.item);
+  setTimeout(() => {
+    location.reload();
+  }, 1500);
 }
 
 function onView() {
@@ -135,7 +134,9 @@ function onOpenModalSuppression(e) {
 function onDelete() {
   deleteInternshipRequest(props.item._id);
   isOpenModalSuppression.value = false;
-  emit("updateData");
+  setTimeout(() => {
+    location.reload();
+  }, 1500);
 }
 </script>
 

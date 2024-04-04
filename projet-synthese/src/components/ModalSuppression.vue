@@ -28,7 +28,6 @@ const props = defineProps({
   },
   description: {
     type: String,
-    required: true,
   },
   action: {
     type: Function,

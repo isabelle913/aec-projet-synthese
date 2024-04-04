@@ -5,11 +5,11 @@
       <BtnBase class="mb-12 mt-20" title="Ajouter un offre de stage" btn-class="btn-offrestage" :action="AddOffer" />
     </div>
 
-    <ListeBase v-if="internshipOffers.length > 0" :liste-items="internshipOffers" @update-data="updateData" />
+    <ListeBase v-if="internshipOffers.length > 0" :liste-items="internshipOffers" />
   </div>
-  <teleport to="body">
+  <!-- <teleport to="body">
     <Loader v-model="isLoading" />
-  </teleport>
+  </teleport> -->
 </template>
 
 <script setup>
@@ -27,19 +27,12 @@ const router = useRouter();
 
 const internshipOffers = ref([]);
 
-// TODO vérifier loader
 const isLoading = ref(true);
 
 function AddOffer(e) {
   e.preventDefault();
   console.log("Ajouter un offre de stage");
   router.push({ name: "OffredeStageAjout", params: { id:'new' } });
-}
-
-function updateData() {
-  setTimeout(() => {
-    location.reload();
-  }, 1500);
 }
 
 onMounted(() => {
@@ -49,7 +42,7 @@ onMounted(() => {
 watchEffect(() => {
   if (Array.isArray(internshipOffersListe.value)) {
     internshipOffers.value = [...internshipOffersListe.value];
-    console.log("Offers", internshipOffers.value);
+    // console.log("Offers", internshipOffers.value);
     isLoading.value = false;
   }
 });

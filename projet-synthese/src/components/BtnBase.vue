@@ -56,7 +56,7 @@ const props = defineProps({
 });
 
 const theStyle = computed(() => {
-  const padding = props.small ? "0px 10px" : "5px 10px";
+  const padding = props.small ? "0px 2px" : "5px 10px";
 
   if (!props.showIconOnly) {
     return { padding, minWidth: "125px", color: "white" };

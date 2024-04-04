@@ -80,6 +80,13 @@ p {
   color: #bd1010;
 }
 
+.btn-accept {
+  background-color: #54b600;
+}
+.btn-accept:hover {
+  background-color: #3c8300;
+}
+
 /* $color-text-principale: #c5c5c5; //Couleur dans le paragraphe ou contenu. */
 h1 {
   color: #111111;
@@ -309,7 +316,7 @@ span {
   border-left-color: #ba2025;
 }
 
-.border-inactive {
+.border-offres-inactive {
   border-left-color: #848280;
 }
 
@@ -317,7 +324,7 @@ span {
   background-color: #ba2025;
 }
 
-.bg-inactive {
+.bg-offres-inactives {
   background-color: #848280;
 }
 
@@ -353,12 +360,16 @@ span {
   border-left-color: #d2a350;
 }
 
-.border-inactive {
+.border-demandes-inactives {
   border-left-color: #848280;
 }
 
 .bg-demandes {
   background-color: #d2a350;
+}
+
+.bg-demandes-inactives {
+  background-color: #848280;
 }
 
 /* $color-text-principale: #c5c5c5; //Couleur dans le paragraphe ou contenu. */

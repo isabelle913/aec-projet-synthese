@@ -11,19 +11,17 @@
   padding: 0;
 }
 html {
-  // TODO vérifier
   font-size: 62.5%;
 }
 
 body {
   color: $color-text-principale;
-  font-size: 1.7rem; // TODO vérifier
+  font-size: 1.7rem;
   // line-height: 1.5;
 
   font-weight: 400;
 }
 .container {
-  // TODO vérifier
   width: 100%;
   max-width: 75rem;
   margin: 0 auto;
@@ -75,5 +73,13 @@ p {
       border: solid 1px darken($color-background_btn_delete, 20%);
       color: darken($color-background_btn_delete, 20%);
     }
+  }
+}
+
+.btn-accept {
+  background-color: $color-background_btn_accept;
+
+  &:hover {
+    background-color: darken($color-background_btn_accept, 10%);
   }
 }

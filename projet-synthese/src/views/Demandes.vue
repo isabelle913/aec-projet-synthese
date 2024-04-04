@@ -4,13 +4,11 @@
       <h2>Demandes de stage</h2>
       <BtnBase class="mb-12 mt-20" title="Ajouter une demandes de stage" btn-class="btn-stage" :action="AddRequest" />
     </div>
-    <!-- TODO corriger couleur icone inactif + mettre variable -->
-    <ListeBase v-if="internshipRequests.length > 0" :liste-items="internshipRequests" @update-data="updateData" is-demande />
+    <ListeBase v-if="internshipRequests.length > 0" :liste-items="internshipRequests" is-demande />
   </div>
-  <teleport to="body">
-    <!-- <Loader v-model="isLoading" /> -->
-    <!-- // TODO mettre loader -->
-  </teleport>
+  <!-- <teleport to="body">
+    <Loader v-model="isLoading" />
+  </teleport> -->
 </template>
 
 <script setup>
@@ -35,15 +33,7 @@ function AddRequest(e) {
   router.push({ name: "ajoutdemandestage" });
 }
 
-function updateData() {
-  setTimeout(() => {
-    console.log("updateData from demandes Liste");
-    location.reload();
-  }, 1500);
-}
-
 onMounted(() => {
-  console.log("onMounted Demandes");
   allInternshipRequests();
 });
 
