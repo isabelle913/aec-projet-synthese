@@ -154,33 +154,36 @@ function onValidate(e) {
   e.preventDefault();
 
   // Réinitialisation des erreurs
-  Object.keys(isError).forEach(key => isError[key] = false);
+  Object.keys(isError).forEach((key) => (isError[key] = false));
 
   // Validation des champs
-  const requiredFields = ['firstName', 'skills', 'description', 'address', 'city', 'email', 'province', 'postalCode'];
+  const requiredFields = ["firstName", "skills", "description", "address", "city", "email", "province", "postalCode", "phone"];
 
-  requiredFields.forEach(field => {
+  requiredFields.forEach((field) => {
     if (!candidat.value[field]) {
       isError[field] = true;
-    } else if (field === 'phone' && !validatePhone(candidat.value[field])) {
+    } else if (field === "phone" && !validatePhone(candidat.value[field])) {
       isError[field] = true;
-    } else if (field === 'email' && !validateEmail(candidat.value[field])) {
+    } else if (field === "email" && !validateEmail(candidat.value[field])) {
       isError[field] = true;
-    } else if (field === 'province' && !candidat.value[field]._id) {
+    } else if (field === "province" && !candidat.value[field]._id) {
       isError[field] = true;
-    } else if (field === 'postalCode' && !validatePostalCode(candidat.value[field])) {
+    } else if (field === "postalCode" && !validatePostalCode(candidat.value[field])) {
       isError[field] = true;
     } else {
       isError[field] = false; // Réinitialiser l'erreur si le champ est valide
     }
   });
 
+  // Ajout du last name qui n'est pas demandé dans les inputs qui respectent la maquette
+  candidat.value.lastName = candidat.value.firstName;
+
   // Si aucune erreur de validation
-  if (!Object.values(isError).some(error => error)) {
+  if (!Object.values(isError).some((error) => error)) {
     if (_id === "ajouter") {
       addCandidates(candidat.value);
     } else {
-      editCandidates(_id, candidat.value);
+      editCandidates(candidat.value);
     }
     // Réinitialisation du formulaire
     if (_id === "ajouter") {
@@ -200,10 +203,11 @@ function onValidate(e) {
     generateSkillsFromTitle(candidat.value.skills);
 
     // Redirection vers la liste des candidats
-    onGoToListe();
+    setTimeout(() => {
+      onGoToListe();
+    }, 1500);
   }
 }
-
 
 function onUpdate() {
   router.push({ path: `/candidat/${candidat.value._id}/update` });
@@ -236,7 +240,9 @@ function onOpenModalSuppression(e) {
 function onDelete(e) {
   deleteCandidates(_id);
   isOpenModalSuppression.value = false;
-  onGoToListe();
+  setTimeout(() => {
+    onGoToListe();
+  }, 1500);
 }
 
 function onGoToView(e) {
