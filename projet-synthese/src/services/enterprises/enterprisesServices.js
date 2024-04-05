@@ -80,7 +80,7 @@ export default function EnterpriseService() {
   };
 
   const deleteEnterprise = async (_id) => {
-    console.log("deleteEnterprise", _id);
+    // console.log("deleteEnterprise", _id);
     try {
       const response = await fetch(`https://aec-projet-integrateur-api.fly.dev/enterprises/${_id}`, {
         method: "DELETE",
@@ -89,7 +89,6 @@ export default function EnterpriseService() {
       if (response.ok) {
         success.value = true;
         // console.log("Requête DELETE réussie !");
-        router.push({ name: "enterprises" });
         allEnterprises();
       } else {
         console.error("Échec de la requête DELETE.");

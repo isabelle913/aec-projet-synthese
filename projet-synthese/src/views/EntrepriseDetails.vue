@@ -248,7 +248,9 @@ function onOpenModalSuppression(e) {
 function onDelete(e) {
   deleteEnterprise(_id);
   isOpenModalSuppression.value = false;
-  onGoToListe();
+  setTimeout(() => {
+    onGoToListe();
+  }, 1500);
 }
 
 function onWhatFor(e) {
