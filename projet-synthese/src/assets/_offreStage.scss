@@ -1,0 +1,9 @@
+@import "variable";
+
+.btn-offrestage {
+  background-color: $color-background_btn_offre;
+
+  &:hover {
+    background-color: darken($color-background_btn_offre, 10%);
+  }
+}

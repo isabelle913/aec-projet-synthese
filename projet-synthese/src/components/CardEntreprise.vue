@@ -1,7 +1,7 @@
 <template>
-  <div class="flex-none bg-white p-4 w-[500px] h-[250px] flex cursor-pointer" @click="onDetails(entreprise._id)">
+  <div class="flex-none bg-white p-4 w-2/5 h-[250px] flex cursor-pointer" @click="onDetails(entreprise._id)">
     <div class="w-1/2 flex grid place-content-center p-6">
-      <img :src="entreprise.image" :alt="`Logo de l'entreprise ${entreprise.name}`" />
+      <img :src="getLogo(entreprise.name)" :alt="`Logo de l'entreprise ${entreprise.name}`" />
     </div>
     <div class="w-1/2 flex flex-col justify-center p-4">
       <div class="font-bold text-xl">{{ entreprise.name }}</div>
@@ -14,8 +14,10 @@
 </template>
 <script setup>
 import { useRouter } from "vue-router";
+import useLogoBank from "@/composables/logoBank.js";
 
 const router = useRouter();
+const { getLogo } = useLogoBank();
 
 const props = defineProps({
   entreprise: {
@@ -25,7 +27,7 @@ const props = defineProps({
 });
 
 function onDetails(idString) {
-  router.push({ name: "enterprise", params: { id: idString } });
+  router.push({ name: "entreprise", params: { id: idString } });
 }
 </script>
 <style scoped>

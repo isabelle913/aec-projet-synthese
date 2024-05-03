@@ -1,5 +1,5 @@
 <template>
-  <div class="DemandeStage__Titre">
+  <div class="DemandeStage__Titre page-padding">
     <p>Demande de stage</p>
     <h1>Développeur Front-End</h1>
   </div>
@@ -66,6 +66,7 @@
             />
           </div>
         </div>
+
         <div class="DemandeStage__section__info__item">
           <div class="mb-16 mr-2">
             <label class="text-bg font-bold" for="secteurActivite"
@@ -98,6 +99,7 @@
           </div>
         </div>
       </div>
+
       <div class="col-span-12 md:col-span-6 max-md:p-10 bg-lime-300">
         <div class="DemandeStage__section__info__item">
           <div class="mb-16 mr-2">
@@ -161,6 +163,7 @@
             </select>
           </div>
         </div>
+
         <div class="DemandeStage__section__info__item">
           <div class="mb-16 mr-2">
             <label class="text-bg font-bold" for="secteurActivite"
@@ -306,3 +309,9 @@ export default {
   name: "DemandeStagePage2",
 };
 </script>
+<style scoped>
+/* TODO page-padding */
+.page-padding {
+  padding: 3rem;
+}
+</style>

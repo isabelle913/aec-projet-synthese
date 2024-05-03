@@ -1,46 +1,51 @@
 <template>
-  <section class="bg-slate-100 page-padding">
-    <h2>Entreprises</h2>
-    <BtnBase title="Ajouter une entreprise" color="#F9CB40" :action="onEnterpriseDetails" />
-    <div class="flex flex-wrap gap-5">
-      <CardEntreprise v-for="entreprise in entreprises" :key="entreprise._id" :entreprise="entreprise" />
+  <section class="page-background page-padding">
+    <div>
+      <h2>Entreprises</h2>
+      <BtnBase class="mb-24 mt-20" title="Ajouter une entreprise" btn-class="btn-entreprise" :action="onAddEntreprise" />
+      <div class="flex flex-wrap gap-24">
+        <CardEntreprise v-for="entreprise in entreprises" :key="entreprise._id" :entreprise="entreprise" />
+      </div>
     </div>
   </section>
+
+  <teleport to="body">
+    <Loader v-model="isLoading" />
+  </teleport>
 </template>
 
 <script setup>
+import { ref, onMounted, watchEffect } from "vue";
 import { useRouter } from "vue-router";
+
 import BtnBase from "../components/BtnBase.vue";
 import CardEntreprise from "../components/CardEntreprise.vue";
+import Loader from "@/components/Loader.vue";
 
-import { mockEntreprise } from "../mocks/Entreprise.js"; // TODO changer source
+import EnterpriseService from "../services/enterprises/enterprisesServices";
 
 const router = useRouter();
 
-const entreprises = mockEntreprise;
-console.log(entreprises);
+const { enterpriseListe, allEnterprises } = EnterpriseService();
+const entreprises = ref([]);
 
-function onEnterpriseDetails() {
-  router.push({ name: "enterprise", params: { id: "0" } });
+const isLoading = ref(true);
+
+onMounted(() => {
+  allEnterprises();
+});
+
+watchEffect(() => {
+  if (Array.isArray(enterpriseListe.value)) {
+    entreprises.value = [...enterpriseListe.value];
+    // console.log(entreprises.value);
+    isLoading.value = false;
+  }
+});
+
+function onAddEntreprise() {
+  router.push({ name: "entreprise", params: { id: "new" } });
 }
-
-function load() {
-  console.log("Ici on va loader les entreprises");
-  // TODO get allEntreprises
-}
-load();
-
-/* TODO suggestions:
-   mettre le padding de nos pages dans une variables
-   idem pour typographie titre
-   On pourrait utiliser des class 
-*/
 </script>
-<style scoped>
-h2 {
-  font-size: 3rem;
-}
-.page-padding {
-  padding: 3rem;
-}
-</style>
+
+<style scoped></style>

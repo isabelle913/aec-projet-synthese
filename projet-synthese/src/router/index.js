@@ -1,10 +1,20 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Authentificator from "../components/Authentificator.vue";
 import Entreprises from "@/views/Entreprises.vue";
-import EnterprisesDetails from "@/views/EnterprisesDetails.vue";
+import EntrepriseDetails from "@/views/EntrepriseDetails.vue";
+import TableauBord from "@/views/TableauBord.vue";
 import DemandeStagePage1 from "@/views/DemandeStagePage1.vue";
 import DemandeStagePage2 from "@/views/DemandeStagePage2.vue";
 import AjoutDemandeStage from "@/views/AjoutDemandeStage.vue";
+import Authentificator from "../components/Authentificator.vue";
+import Candidats from "@/views/Candidats.vue";
+import CandidatDetails from "@/views/CandidatDetails.vue";
+import Offres from "@/views/Offres.vue";
+import Demandes from "@/views/Demandes.vue";
+import OffredeStage from "@/views/OffredeStage.vue";
+import OffredeStageAjout from "@/views/OffredeStageAjout.vue";
+import OffredeStageDetail from "@/views/OffredeStageDetail.vue";
+import OffredeStageEdit from "@/views/OffredeStageEdit.vue";
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,7 +23,16 @@ const router = createRouter({
       path: "/",
       name: "Authentificator",
       component: Authentificator,
-      //component: HomeView
+    },
+    {
+      path: "/tableau-bord",
+      component: TableauBord,
+      name: "tableau-bord",
+    },
+    {
+      path: "/demandes",
+      name: "demandes",
+      component: Demandes,
     },
     {
       path: "/demandestagepage1",
@@ -22,9 +41,21 @@ const router = createRouter({
     },
     {
       path: "/demande/:_id",
-      name: "DemandeStagePage1",
+      name: "demandestagepage1",
       component: DemandeStagePage1,
       props: true,
+    },
+    {
+      path: "/demande/_:id",
+      name: "demande",
+      component: DemandeStagePage1,
+      children: [
+        {
+          path: ":action",
+          name: "demande",
+          component: DemandeStagePage1,
+        },
+      ],
     },
     {
       path: "/demandestagepage2",
@@ -35,32 +66,69 @@ const router = createRouter({
       path: "/ajoutdemandestage",
       name: "ajoutdemandestage",
       component: AjoutDemandeStage,
-      //component: HomeView
     },
     {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import("../views/AboutView.vue"),
+      path: "/offres",
+      name: "offres",
+      component: Offres,
     },
     {
-      path: "/enterprises",
-      name: "enterprises",
+      path: "/OffredeStage",
+      name: "OffredeStage",
+      component: OffredeStage,
+    },
+    {
+      path: "/OffredeStageAjout",
+      name: "OffredeStageAjout",
+      component: OffredeStageAjout,
+    },
+    {
+      path: "/OffredeStage/:id",
+      name: "OffredeStageEdit",
+      component: OffredeStageEdit,
+    },
+    {
+      path: "/OffredeStage/:id",
+      name: "OffredeStageDetail",
+      component: OffredeStageDetail,
+    },
+    {
+      path: "/candidats",
+      name: "candidats",
+      component: Candidats,
+    },
+    {
+      path: "/candidat/:id",
+      name: "candidat",
+      component: CandidatDetails,
+      children: [
+        {
+          path: ":action",
+          name: "candidat",
+          component: CandidatDetails,
+        },
+      ],
+    },
+    {
+      path: "/entreprises",
+      name: "entreprises",
       component: Entreprises,
     },
     {
-      path: "/enterprise/:id", //router.push({ path: '/enterprise/:id' })  or router.push({ name: 'enterprise', params: { id: id } })
-      name: "enterprise",
-      component: EnterprisesDetails,
+      path: "/entreprise/:id",
+      name: "entreprise",
+      component: EntrepriseDetails,
       children: [
         {
-          path: ":action", //router.push({ path: '/enterprise/:id/:action' })  or router.push({ name: 'enterprise', params: { id: id, action: 'update' } })
-          name: "enterprise",
-          component: EnterprisesDetails,
+          path: ":action",
+          name: "entreprise",
+          component: EntrepriseDetails,
         },
       ],
+    },
+    {
+      path: "/:patchMatch(.*)*",
+      component: TableauBord,
     },
   ],
 });

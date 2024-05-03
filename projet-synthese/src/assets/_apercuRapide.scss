@@ -1,0 +1,25 @@
+@import "variable";
+
+.bg-demandes {
+  background-color: $color-background_btn_demande;
+
+  &__darker {
+    background-color: darken($color-background_btn_demande, 10%);
+  }
+}
+
+.bg-offres {
+  background-color: $color-background_btn_offre;
+
+  &__darker {
+    background-color: darken($color-background_btn_offre, 10%);
+  }
+}
+
+.bg-candidats {
+  background-color: $color-background_btn_candidat;
+
+  &__darker {
+    background-color: darken($color-background_btn_candidat, 10%);
+  }
+}

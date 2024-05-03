@@ -1,26 +1,48 @@
 <template>
-  <div class="grid grid-cols-12 gap-5 my-8 container">
-    <div class="col-span-12 md:col-span-2 max-md:p-10 my-4 pb-96 bg-slate-200">
-      <Navigation />
+  <div class="container mx-auto">
+    <div v-if="!isAuthenticated">
+      <Authentificator @authenticated="onAuthenticated" />
     </div>
-    <div class="col-span-12 md:col-span-10 max-md:p-10 my-4 bg-red-300">
-      <div
-        class="col-span-12 md:col-span-8 max-md:p-10 py-5 mb-10 bg-slate-300"
-      >
+    <div v-else>
+      <!-- Header -->
+      <div class="flex justify-between items-center">
         <MenuAction />
       </div>
-      <div
-        class="col-span-12 md:col-span-8 max-md:p-10 p-16 bg-slate-300 variableSection"
-      >
-        <router-view :identification="identification" />
+      <!-- menu -->
+      <div class="flex">
+        <Navigation />
+        <div class="w-3/4">
+          <!-- Contenu de l'application -->
+          <router-view />
+        </div>
       </div>
     </div>
+    <Footer/>    
   </div>
+  
 </template>
 
 <script setup>
+import { onMounted, ref } from "vue";
+
 import Navigation from "./components/Navigation.vue";
 import MenuAction from "./components/MenuAction.vue";
+import Authentificator from "./components/Authentificator.vue";
+import Footer from "./components/Footer.vue";
+
+const isAuthenticated = ref(false);
+
+const onAuthenticated = () => {
+  isAuthenticated.value = true;
+};
+
+onMounted(() => {
+  let nomUtilisateur = sessionStorage.getItem("nomUtilisateur");
+  let courrielUtilisateur = sessionStorage.getItem("courrielUtilisateur");
+  if (nomUtilisateur && courrielUtilisateur) {
+    isAuthenticated.value = true;
+  }
+});
 </script>
 
 <style scoped></style>

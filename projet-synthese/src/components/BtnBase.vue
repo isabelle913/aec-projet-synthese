@@ -1,5 +1,8 @@
 <template>
-  <button class="my-6 p-4 rounded-lg" :style="theStyle" @click="action">{{ title }}</button>
+  <button class="rounded-md flex justify-center items-center gap-2" :class="btnClass" :style="theStyle" @click="action">
+    <span v-if="theIconName.isDisplay" class="material-symbols-outlined" :class="iconSize">{{ theIconName.name }}</span>
+    <span v-if="!showIconOnly">{{ title }}</span>
+  </button>
 </template>
 <script setup>
 import { computed } from "vue";
@@ -7,7 +10,6 @@ import { computed } from "vue";
 const props = defineProps({
   title: {
     type: String,
-    required: true,
   },
   color: {
     type: String,
@@ -19,16 +21,45 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  small: {
+    type: Boolean,
+    default: false,
+  },
+  btnClass: {
+    type: String,
+  },
+  icon: {
+    type: String,
+  },
+  showIconOnly: {
+    type: Boolean,
+    default: false,
+  },
+  iconColor: {
+    type: String,
+  },
+  iconSize: {
+    type: String,
+  },
 });
 
 const theStyle = computed(() => {
-  if (props.outline) {
-    return { border: `solid 1px #9CA3AF`, color: "#9CA3AF" };
+  const padding = props.small ? "0px 2px" : "5px 10px";
+
+  if (!props.showIconOnly && props.outline) {
+    return { padding, minWidth: "125px" };
+  } else if (!props.showIconOnly) {
+    return { padding, minWidth: "125px", color: "white" };
   } else {
-    return { backgroundColor: props.color };
+    return { color: props.iconColor };
   }
 });
 
-// TODO ajouter le hover plus foncé
+const theIconName = computed(() => {
+  return {
+    name: props.icon,
+    isDisplay: props.icon ? true : false,
+  };
+});
 </script>
 <style></style>

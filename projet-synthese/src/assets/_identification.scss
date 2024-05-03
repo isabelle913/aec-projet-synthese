@@ -1,6 +1,6 @@
 @import "variable";
 h1 {
-  color: $color-text-noire;
+  color: $color-text-noir;
 }
 .leftColumn {
   background-color: $color-background_identification;
@@ -9,8 +9,8 @@ h1 {
   width: 100%;
 }
 .input:focus {
-  border-color: $color-background_btn_tableau; /* Change this to your desired background color */
-  outline: none; /* Remove the default focus outline */
+  border-color: $color-background_btn_tableau;
+  outline: none; 
 }
 .btn {
   background-color: $color-background_btn_tableau;

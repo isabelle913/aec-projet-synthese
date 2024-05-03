@@ -1,0 +1,19 @@
+@import "variable";
+
+.btn-candidats {
+  background-color: $color-background_btn_candidat;
+
+  &:hover {
+    background-color: darken($color-background_btn_candidat, 10%);
+  }
+
+  &__outline {
+    border: solid 1px $color-background_btn_candidat;
+    color: $color-background_btn_candidat;
+
+    &:hover {
+      border: solid 1px darken($color-background_btn_candidat, 20%);
+      color: darken($color-background_btn_candidat, 20%);
+    }
+  }
+}

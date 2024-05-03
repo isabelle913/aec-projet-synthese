@@ -1,4 +1,5 @@
 @import "variable";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -16,13 +17,13 @@ html {
 body {
   color: $color-text-principale;
   font-size: 1.7rem;
-  line-height: 1.5;
+  // line-height: 1.5;
 
   font-weight: 400;
 }
 .container {
   width: 100%;
-  max-width: 120rem;
+  max-width: 75rem;
   margin: 0 auto;
 }
 header h1 {
@@ -50,4 +51,35 @@ h3 {
 }
 p {
   margin: 0;
+}
+.page-padding {
+  padding: 8rem 10rem;
+}
+.page-background {
+  background-color: $color-Background_general;
+}
+.btn-modal-delete {
+  background-color: $color-background_btn_delete;
+
+  &:hover {
+    background-color: darken($color-background_btn_delete, 20%);
+  }
+
+  &__outline {
+    border: solid 1px $color-background_btn_delete;
+    color: $color-background_btn_delete;
+
+    &:hover {
+      border: solid 1px darken($color-background_btn_delete, 20%);
+      color: darken($color-background_btn_delete, 20%);
+    }
+  }
+}
+
+.btn-accept {
+  background-color: $color-background_btn_accept;
+
+  &:hover {
+    background-color: darken($color-background_btn_accept, 10%);
+  }
 }

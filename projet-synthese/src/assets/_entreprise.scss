@@ -1,0 +1,27 @@
+@import "variable";
+
+.presentation-body-title {
+  color: $color-background_btn_tableau;
+}
+
+.presentation-title-border {
+  border-left: solid $color-background_btn_tableau 10px;
+}
+
+.btn-entreprise {
+  background-color: $color-background_btn_tableau;
+
+  &:hover {
+    background-color: darken($color-background_btn_tableau, 20%);
+  }
+
+  &__outline {
+    border: solid 1px $color-background_btn_tableau;
+    color: $color-background_btn_tableau;
+
+    &:hover {
+      border: solid 1px darken($color-background_btn_tableau, 20%);
+      color: darken($color-background_btn_tableau, 20%);
+    }
+  }
+}

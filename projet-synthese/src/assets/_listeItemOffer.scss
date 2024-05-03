@@ -1,0 +1,18 @@
+@import "variable";
+
+.border-item {
+  border-left-style: solid;
+  border-left-width: 4px;
+}
+.border-offres {
+  border-left-color: $color-background_btn_offre;
+}
+.border-offres-inactive {
+  border-left-color: $color-BorderLeft_inactif;
+}
+.bg-offres {
+  background-color: $color-background_btn_offre;
+}
+.bg-offres-inactives {
+  background-color: $color-BorderLeft_inactif;
+}
